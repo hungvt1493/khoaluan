@@ -7,8 +7,10 @@
 //
 
 #import "NewsViewController.h"
+#import "NewsContentView.h"
 
 @interface NewsViewController ()
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
 
@@ -17,21 +19,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self initUI];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = YES;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBarHidden = YES;
 }
-*/
 
+- (void)initUI {
+    int yPos = 0;
+    
+    for (int i=0; i < 10; i++) {
+        
+        NewsContentView *newsView = [[NewsContentView alloc] initWithFrame:CGRectZero];
+
+        CGRect frame = [newsView frame];
+        frame.origin.y = yPos;
+        yPos += frame.size.height;
+        [newsView setFrame:frame];
+        [self.scrollView addSubview:newsView];
+    }
+    
+    CGSize contentSize = [self.scrollView contentSize];
+    contentSize.height = yPos;
+    [self.scrollView setContentSize:contentSize];
+
+}
 @end

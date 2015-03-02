@@ -54,10 +54,8 @@
             
             CGRect tabRect = CGRectMake(x, [UIScreen mainScreen].bounds.size.height - SW_HEIGHT_TABBAR, normalImage.size.width, normalImage.size.height);
             
-            SWTabbarItem *cellTab;
-
-            cellTab = [[SWTabbarItem alloc] initWithFrame:tabRect nomarlImage:normalImage selectedImage:hoverImage title:[titleArray objectAtIndex:i] offset:0];
-            
+            SWTabbarItem *cellTab = [[SWTabbarItem alloc] initWithFrame:tabRect nomarlImage:normalImage selectedImage:hoverImage title:[titleArray objectAtIndex:i] offset:0];
+            cellTab.backgroundColor = ground;
             cellTab.tabIndex = i;
             [self.view addSubview:cellTab];
             x+= [UIScreen mainScreen].bounds.size.width / [normalImages count];

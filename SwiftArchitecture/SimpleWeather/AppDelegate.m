@@ -48,7 +48,7 @@
     NSArray *imagesNormal = @[hnue_news,news,home,noti,more];
     NSArray *imagesSelected = @[hnue_news_act,news_act,home_act,noti_act,more_act];
     NSArray *title = @[@"HNUE News",@"Tin mới",@"Cá nhân",@"Thông báo",@"Thêm"];
-    UIColor *backgroundColor = [UIColor colorWithHex:White_Color alpha:1];
+    UIColor *backgroundColor = [UIColor colorWithHex:Nav_Bg_Color alpha:1];
     
     self.tabbarController = [[SWTabbarController alloc] initWithNomarlImages:imagesNormal selectImages:imagesSelected backGround:backgroundColor title:title];
     self.tabbarController.viewControllers = @[hnueNewsNavi,newsNavi,myPageNavi,notiNavi,moreNavi];

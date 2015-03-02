@@ -59,13 +59,13 @@
     if (selected) {
         tabNomarl.hidden = YES;
         tabSelected.hidden = NO;
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithHex:Nav_Bg_Color alpha:1];
         titleLabel.textColor = [UIColor colorWithHex:Blue_Color alpha:1.0];
     }
     else {
         tabNomarl.hidden = NO;
         tabSelected.hidden = YES;
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithHex:Nav_Bg_Color alpha:1];
         titleLabel.textColor = [UIColor colorWithHex:Gray_Color alpha:1.0];
 
     }

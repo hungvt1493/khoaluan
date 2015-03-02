@@ -143,7 +143,7 @@
     [formatter setLocale:[NSLocale currentLocale]];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterMediumStyle];
-    dateTimeString = [SWUtil convertDate:date toStringFormat:Date_Format];
+//    dateTimeString = [SWUtil convertDate:date toStringFormat:Date_Format];
     
     return dateTimeString;
 }
