@@ -3,15 +3,15 @@
 //  SwiftArchitecture
 //
 //  Created by Mac on 1/20/15.
-//  Copyright (c) 2015 Nguyen Thu Ly. All rights reserved.
+//  Copyright (c) 2015 HungVT. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "SWLoginViewController.h"
-#import "SWDressTimeViewController.h"
-#import "SWWardrobeViewController.h"
-#import "SWListLogViewController.h"
-#import "SWSettingViewController.h"
+#import "SWNavigationViewController.h"
+#import "NotificationsViewController.h"
+#import "NewsViewController.h"
+#import "MyPageViewController.h"
+#import "MoreViewController.h"
 
 @implementation AppDelegate
 
@@ -19,20 +19,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    
-    UIImage *ios7Bg = [UIImage resizableImage:[UIImage imageNamed:@"nav_ios7"]];
-    UIImage *iosBg = [UIImage resizableImage:[UIImage imageNamed:@"navbar_bg"]];
-    UIImage *navBg = (SYSTEM_VERSION >= 7)?ios7Bg:iosBg;
-    UIFont *font = [UIFont fontHelveticaNeue_Medium:18];
-    
-    SWLoginViewController *controller = [[SWLoginViewController alloc] init];
-    SWNavigationViewController *rootNavigation = [[SWNavigationViewController alloc]initWithRootViewController:controller
-                                                                                                    background:navBg
-                                                                                                          font:font
-                                                                                                     textColor:[UIColor colorWithHex:Green_Color alpha:1.0]
-                                                                                                   shadowColor:[UIColor colorWithHex:Green_Color alpha:1.0]];
-    
-    self.window.rootViewController = rootNavigation;
+    [self initTabbar];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -43,26 +30,28 @@
     UIImage *navbgImage = [UIImage resizableImage:[UIImage imageNamed:navBgName]];
     
     //Init Classes
-    SWDressTimeViewController *dressTimeVC = [[SWDressTimeViewController alloc] init];
-    SWWardrobeViewController *wardrobeVC = [[SWWardrobeViewController alloc] init];
-    SWListLogViewController *logVC = [[SWListLogViewController alloc] init];
-    SWSettingViewController *settingVC = [[SWSettingViewController alloc] init];
+    NewsViewController *hnueNewsVC = [[NewsViewController alloc] init];
+    NewsViewController *newsVC = [[NewsViewController alloc] init];
+    MyPageViewController *myPageVC = [[MyPageViewController alloc] init];
+    NotificationsViewController *notiVC = [[NotificationsViewController alloc] init];
+    MoreViewController *moreVC = [[MoreViewController alloc] init];
     
     //Init Navigations
     
-    SWNavigationViewController *dressTimeNavi = [[SWNavigationViewController alloc] initWithRootViewController:dressTimeVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Green_Color alpha:1.0] shadowColor:[UIColor clearColor]];
-    SWNavigationViewController *wardrobeNavi = [[SWNavigationViewController alloc] initWithRootViewController:wardrobeVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Green_Color alpha:1.0] shadowColor:[UIColor clearColor]];
-    SWNavigationViewController *logNavi = [[SWNavigationViewController alloc] initWithRootViewController:logVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Green_Color alpha:1.0] shadowColor:[UIColor clearColor]];
-    SWNavigationViewController *settingNavi = [[SWNavigationViewController alloc] initWithRootViewController:settingVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Green_Color alpha:1.0] shadowColor:[UIColor clearColor]];
+    SWNavigationViewController *hnueNewsNavi = [[SWNavigationViewController alloc] initWithRootViewController:hnueNewsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
+    SWNavigationViewController *newsNavi = [[SWNavigationViewController alloc] initWithRootViewController:newsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
+    SWNavigationViewController *myPageNavi = [[SWNavigationViewController alloc] initWithRootViewController:myPageVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
+    SWNavigationViewController *notiNavi = [[SWNavigationViewController alloc] initWithRootViewController:notiVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
+    SWNavigationViewController *moreNavi = [[SWNavigationViewController alloc] initWithRootViewController:moreVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
     
     //Init tabbar
-    NSArray *imagesNormal = @[Dress_Time_Off,Wardrobe_Off,Log_Off, Setting_Off];
-    NSArray *imagesSelected = @[Dress_Time_On,Wardrobe_On,Log_On, Setting_On];
-    NSArray *title = @[Dress_Time_Title, Wardrobe_Title, Log_Title, Setting_Title];
+    NSArray *imagesNormal = @[hnue_news,news,home,noti,more];
+    NSArray *imagesSelected = @[hnue_news_act,news_act,home_act,noti_act,more_act];
+    NSArray *title = @[@"HNUE News",@"Tin mới",@"Cá nhân",@"Thông báo",@"Thêm"];
     UIColor *backgroundColor = [UIColor colorWithHex:White_Color alpha:1];
     
     self.tabbarController = [[SWTabbarController alloc] initWithNomarlImages:imagesNormal selectImages:imagesSelected backGround:backgroundColor title:title];
-    self.tabbarController.viewControllers = @[dressTimeNavi,wardrobeNavi,logNavi,settingNavi];
+    self.tabbarController.viewControllers = @[hnueNewsNavi,newsNavi,myPageNavi,notiNavi,moreNavi];
     [self.tabbarController hoverAtIndex:0];
     self.window.rootViewController = nil;
     self.window.rootViewController = self.tabbarController;
@@ -72,22 +61,22 @@
     [self.tabbarController hideTabbar:hide];
 }
 
-- (void)logoutFunction{
-    UIImage *ios7Bg = [UIImage resizableImage:[UIImage imageNamed:@"nav_ios7"]];
-    UIImage *iosBg = [UIImage resizableImage:[UIImage imageNamed:@"navbar_bg"]];
-    UIImage *navBg = (SYSTEM_VERSION >= 7)?ios7Bg:iosBg;
-    UIFont *font = [UIFont fontHelveticaNeue_Medium:18];
-    UIWindow *window = self.window;
-    [window setRootViewController:nil];
-    
-    SWLoginViewController *controller = [[SWLoginViewController alloc] init];
-    SWNavigationViewController *rootNavigation = [[SWNavigationViewController alloc]initWithRootViewController:controller
-                                                                                                    background:navBg
-                                                                                                          font:font
-                                                                                                     textColor:[UIColor colorWithHex:Green_Color alpha:1.0]
-                                                                                                   shadowColor:[UIColor colorWithHex:Green_Color alpha:1.0]];
-    self.window.rootViewController = rootNavigation;
-}
+//- (void)logoutFunction{
+//    UIImage *ios7Bg = [UIImage resizableImage:[UIImage imageNamed:@"nav_ios7"]];
+//    UIImage *iosBg = [UIImage resizableImage:[UIImage imageNamed:@"navbar_bg"]];
+//    UIImage *navBg = (SYSTEM_VERSION >= 7)?ios7Bg:iosBg;
+//    UIFont *font = [UIFont fontHelveticaNeue_Medium:18];
+//    UIWindow *window = self.window;
+//    [window setRootViewController:nil];
+//    
+//    SWLoginViewController *controller = [[SWLoginViewController alloc] init];
+//    SWNavigationViewController *rootNavigation = [[SWNavigationViewController alloc]initWithRootViewController:controller
+//                                                                                                    background:navBg
+//                                                                                                          font:font
+//                                                                                                     textColor:[UIColor colorWithHex:Green_Color alpha:1.0]
+//                                                                                                   shadowColor:[UIColor colorWithHex:Green_Color alpha:1.0]];
+//    self.window.rootViewController = rootNavigation;
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

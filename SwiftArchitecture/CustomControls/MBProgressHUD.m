@@ -3,7 +3,7 @@
 //  SimpleWeather
 //
 //  Created by Mac on 2/27/15.
-//  Copyright (c) 2015 Nguyen Thu Ly. All rights reserved.
+//  Copyright (c) 2015 HungVT. All rights reserved.
 //
 
 #import "MBProgressHUD.h"

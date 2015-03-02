@@ -3,7 +3,7 @@
 //  SwiftArchitecture
 //
 //  Created by Mac on 1/20/15.
-//  Copyright (c) 2015 Nguyen Thu Ly. All rights reserved
+//  Copyright (c) 2015 HungVT. All rights reserved
 //
 
 #ifndef SwiftArchitecture_SWGlobal_h
@@ -81,15 +81,20 @@ typedef enum {
 #define Time_Format @"HH:mm"
 
 /*IMAGE*/
-#define Back_Button @"back_green.png"
-#define Dress_Time_On @"t_shirt_on.png"
-#define Dress_Time_Off @"t_shirt_off.png"
-#define Wardrobe_On @"wardrobe_on.png"
-#define Wardrobe_Off @"wardrobe_off.png"
-#define Log_On @"bookmark_on.png"
-#define Log_Off @"bookmark_off.png"
-#define Setting_On @"settings_filled.png"
-#define Setting_Off @"settings_off.png"
+//#define Back_Button @"News-hnue-blue"
+#define hnue_news_act @"News-hnue-blue"
+#define hnue_news @"News-hnue-grey"
+#define news_act @"News-blue"
+#define news @"News-grey"
+#define home_act @"HomeFilled-blue"
+#define home @"HomeFilled-grey"
+#define noti_act @"Globe-blue"
+#define noti @"Globe-grey"
+#define noti_act @"Globe-blue"
+#define noti @"Globe-grey"
+#define more_act @"More-blue"
+#define more @"More-grey"
+
 #define Search @"search.png"
 #define Add @"plus.png"
 #define Check_Mark @"checkmark.png"
@@ -101,12 +106,12 @@ typedef enum {
 #define Red_Weather @"_red.png"
 
 /*COLOR*/
-#define Gray_Color @"939393"
+#define Gray_Color @"7f8c8d"
 #define Button_bg @"EAEAEA"
 #define Button_bg_Selected @"40CCBB"
 #define White_Color @"FFFFFF"
 #define Black_Color @"000000"
-#define Green_Color @"40CCBB"
+#define Blue_Color @"2980b9"
 #define Red_Color @"F65D63"
 
 /*ARRAY*/

@@ -3,7 +3,7 @@
 //  SwiftArchitecture
 //
 //  Created by Mac on 1/20/15.
-//  Copyright (c) 2015 Nguyen Thu Ly. All rights reserved.
+//  Copyright (c) 2015 HungVT. All rights reserved.
 //
 
 #import "SWTabbarItem.h"
@@ -32,12 +32,13 @@
 //        tabNomarl.image = nomarlImage;
 //        tabSelected.image = hoverImage;
         
-        int x = 25;
+        int x = (SCREEN_WIDTH_PORTRAIT/5 - frame.size.width)/2;
+        
         tabNomarl = [[UIImageView alloc] initWithFrame:CGRectMake(x, 4 + offset, frame.size.width, frame.size.height)];
         tabSelected = [[UIImageView alloc] initWithFrame:CGRectMake(x, 4 + offset, frame.size.width, frame.size.height)];
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,  25, SCREEN_WIDTH_PORTRAIT/4, 30)];
-        self.frame = CGRectMake(frame.origin.x, frame.origin.y, 100, 49);
-        titleLabel.font = [UIFont systemFontOfSize:12];
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,  25, SCREEN_WIDTH_PORTRAIT/5, 30)];
+        self.frame = CGRectMake(frame.origin.x, frame.origin.y, SCREEN_WIDTH_PORTRAIT/5, 49);
+        titleLabel.font = [UIFont systemFontOfSize:10];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         
         tabNomarl.image = nomarlImage;
@@ -58,8 +59,8 @@
     if (selected) {
         tabNomarl.hidden = YES;
         tabSelected.hidden = NO;
-        self.backgroundColor = [UIColor colorWithHex:Green_Color alpha:1.0];
-        titleLabel.textColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor whiteColor];
+        titleLabel.textColor = [UIColor colorWithHex:Blue_Color alpha:1.0];
     }
     else {
         tabNomarl.hidden = NO;
