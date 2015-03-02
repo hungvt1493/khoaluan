@@ -12,22 +12,34 @@
 	<dict>
 		<key>25D027B9B00B675A9E71BBEA08AA5EDFF63E2B5F</key>
 		<string>https://github.com/nguyenthuly/luachontrangphuc</string>
+		<key>A31382421FBD586D9227E053BDE0653BDADD62D3</key>
+		<string>https://github.com/hungvt1493/khoaluan.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>SwiftArchitecture/SimpleWeather.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>25D027B9B00B675A9E71BBEA08AA5EDFF63E2B5F</key>
+		<string>../../../Luachontrangphuc</string>
+		<key>A31382421FBD586D9227E053BDE0653BDADD62D3</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/nguyenthuly/luachontrangphuc</string>
+	<string>https://github.com/hungvt1493/khoaluan.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>25D027B9B00B675A9E71BBEA08AA5EDFF63E2B5F</string>
+	<string>A31382421FBD586D9227E053BDE0653BDADD62D3</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A31382421FBD586D9227E053BDE0653BDADD62D3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Khoa%20Luan%20-%20Hung</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
