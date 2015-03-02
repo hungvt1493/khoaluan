@@ -1,0 +1,91 @@
+//
+//  NSDictionary+Additions.m
+//  winner21
+//
+//  Created by Hieu Bui on 3/11/13.
+//  Copyright (c) 2013 PIPU. All rights reserved.
+//
+
+#import "NSDictionary+Additions.h"
+
+@implementation NSDictionary (Additions)
+
+- (BOOL)boolForKey:(NSString *)key
+{
+    id obj = [self objectForKey:key];
+    if (obj) {
+        return [[self objectForKey:key] boolValue];
+    }
+    return NO;
+}
+
+- (NSString *)stringForKey:(NSString *)key
+{
+    id s = [self objectForKey:key];
+	if (s == [NSNull null] || ![s isKindOfClass:[NSString class]]) {
+		return nil;
+	}
+	return s;
+}
+
+- (NSNumber *)numberForKey:(NSString *)key
+{
+    id s = [self objectForKey:key];
+	if (s == [NSNull null] || ![s isKindOfClass:[NSNumber class]]) {
+		return nil;
+	}
+	return s;
+}
+
+- (NSInteger)integerForKey:(NSString *)key
+{
+    id obj = [self objectForKey:key];
+    if (obj) {
+        if ([obj respondsToSelector:@selector(integerValue)]) {
+            return [obj integerValue];
+        }
+    }
+    return 0;
+}
+
+- (float)floatForKey:(NSString *)key
+{
+    id obj = [self objectForKey:key];
+    if (obj) {
+        if ([obj respondsToSelector:@selector(floatValue)]) {
+            return [obj floatValue];
+        }
+    }
+    return 0;
+    
+}
+
+- (double)doubleForKey:(NSString *)key
+{
+    id obj = [self objectForKey:key];
+    if (obj) {
+        if ([obj respondsToSelector:@selector(doubleValue)]) {
+            return [obj doubleValue];
+        }
+    }
+    return 0;
+}
+
+- (NSArray *)arrayForKey:(NSString *)key
+{
+    id obj = [self objectForKey:key];
+    if (obj) {
+        if ([obj isKindOfClass:[NSArray class]] ||
+            [obj isKindOfClass:[NSMutableArray class]]) {
+            return obj;
+        }
+    }
+    return nil;
+}
+- (id)myObjectForKey:(id)aKey
+{
+    id rez = [self objectForKey:aKey];
+    
+    return ([rez isKindOfClass:[NSNull class]] ? nil : rez);
+}
+@end

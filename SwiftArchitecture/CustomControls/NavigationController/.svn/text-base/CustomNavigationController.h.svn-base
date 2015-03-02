@@ -1,0 +1,25 @@
+//
+//  CustomNavigationController.h
+//  UINavigation
+//
+//  Created by luanpham on 5/10/13.
+//  Copyright (c) 2013 luanpham. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface CustomNavigationController : UINavigationController
+{
+
+
+}
+- (id)initWithRootViewController:(UIViewController *)rootViewController background:(UIImage *)background font:(UIFont *)font;
+
+- (id)initWithRootViewController:(UIViewController *)rootViewController background:(UIImage *)background font:(UIFont *)font textColor:(UIColor *) textColor shadowColor:(UIColor *)shadowColor;
+
+- (void)changeStyle:(UIImage *)background font:(UIFont*) font textColor:(UIColor *)textColor shadowColor :(UIColor *)shadowColor;
+
+-(void) setGrayBar;
+-(void) setBlackBar;
+
+@end

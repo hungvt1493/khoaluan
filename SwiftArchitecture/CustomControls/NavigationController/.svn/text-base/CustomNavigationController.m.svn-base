@@ -1,0 +1,147 @@
+//
+//  CustomNavigationController.m
+//  UINavigation
+//
+//  Created by luanpham on 5/10/13.
+//  Copyright (c) 2013 luanpham. All rights reserved.
+//
+
+#import "CustomNavigationController.h"
+#import "ColorUtil.h"
+
+@interface CustomNavigationController ()
+
+@end
+
+@implementation CustomNavigationController
+
+- (id)initWithRootViewController:(UIViewController *)rootViewController background:(UIImage *)background font:(UIFont *)font{
+
+    if (self = [super initWithRootViewController:rootViewController]) {
+            
+        if([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)] ) {
+            
+            NSShadow *shadow = [NSShadow new];
+            [shadow setShadowColor: [UIColor clearColor]];
+            [shadow setShadowOffset: CGSizeMake(1, -1.0f)];
+            
+            //iOS 5 new UINavigationBar custom background
+            [self.navigationBar setBackgroundImage:background forBarMetrics: UIBarMetricsDefault];
+            [self.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+            self.navigationBar.translucent = NO;
+            //iOS 5 Setting title font.
+            NSDictionary *settings;
+            if (SYSTEM_VERSION <7) {
+                
+                settings = @{
+                             UITextAttributeFont                 :  font,
+                             UITextAttributeTextColor            :  [ColorUtil colorWithHex:@"ffffff" alpha:1],
+                             UITextAttributeTextShadowColor      :  [UIColor clearColor],
+                             UITextAttributeTextShadowOffset     :  [NSValue valueWithUIOffset:UIOffsetMake(1,-1)],
+                             };
+            }
+            else{
+                
+                settings = @{
+                             NSFontAttributeName                 :  font,
+                             NSForegroundColorAttributeName      :  [ColorUtil colorWithHex:@"ffffff" alpha:1],
+                             NSShadowAttributeName               :  shadow,
+                             };
+            }
+            
+            [[UINavigationBar appearance] setTitleTextAttributes:settings];
+            [self.navigationBar setTitleVerticalPositionAdjustment:2.0f forBarMetrics:UIBarMetricsDefault];
+            [self.navigationBar setBarStyle:UIBarStyleDefault];
+          
+        }
+    }
+    return self;
+}
+
+
+- (id)initWithRootViewController:(UIViewController *)rootViewController background:(UIImage *)background font:(UIFont *)font textColor:(UIColor *) textColor shadowColor:(UIColor *)shadowColor
+{
+    
+    if (self = [super initWithRootViewController:rootViewController]) {
+        
+        if([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)] ) {
+            
+            [self.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+            //iOS 5 new UINavigationBar custom background
+            [self.navigationBar setBackgroundImage:background forBarMetrics: UIBarMetricsDefault];
+            
+            NSShadow *shadow = [NSShadow new];
+            [shadow setShadowColor: shadowColor];
+            [shadow setShadowOffset: CGSizeMake(1, -1.0f)];
+            //iOS 5 Setting title font.
+            NSDictionary *settings;
+            if (SYSTEM_VERSION <7) {
+                
+                settings = @{
+                             UITextAttributeFont                 :  font,
+                             UITextAttributeTextColor            :  [ColorUtil colorWithHex:@"5e5e5e" alpha:1],
+                             UITextAttributeTextShadowColor      :  [UIColor clearColor],
+                             UITextAttributeTextShadowOffset     :  [NSValue valueWithUIOffset:UIOffsetMake(1,-1)],
+                             };
+            }
+            else{
+                
+                settings = @{
+                             NSFontAttributeName                 :  font,
+                             NSForegroundColorAttributeName      :  textColor,
+                             NSShadowAttributeName               :  shadow,
+                             };
+            }
+            
+            [[UINavigationBar appearance] setTitleTextAttributes:settings];
+            [self.navigationBar setTitleVerticalPositionAdjustment:2.0f forBarMetrics:UIBarMetricsDefault];
+        }
+    }
+    return self;
+}
+
+- (void)changeStyle:(UIImage *)background font:(UIFont*) font textColor:(UIColor *)textColor shadowColor :(UIColor *)shadowColor
+{
+    
+        [self.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+        //iOS 5 new UINavigationBar custom background
+        [self.navigationBar setBackgroundImage:background forBarMetrics: UIBarMetricsDefault];
+    
+        NSShadow *shadow = [NSShadow new];
+        [shadow setShadowColor: shadowColor];
+        [shadow setShadowOffset: CGSizeMake(1, -1.0f)];
+        //iOS 5 Setting title font.
+    
+        NSDictionary *settings;
+        if (SYSTEM_VERSION <7) {
+        
+            settings = @{
+                     UITextAttributeFont                 :  font,
+                     UITextAttributeTextColor            :  [ColorUtil colorWithHex:@"5e5e5e" alpha:1],
+                     UITextAttributeTextShadowColor      :  [UIColor clearColor],
+                     UITextAttributeTextShadowOffset     :  [NSValue valueWithUIOffset:UIOffsetMake(1,-1)],
+                     };
+        }
+        else{
+        
+            settings = @{
+                     NSFontAttributeName                 :  font,
+                     NSForegroundColorAttributeName      :  textColor,
+                     NSShadowAttributeName               :  shadow,
+                     };
+        }
+        [self.navigationBar setTitleTextAttributes:settings];
+        
+        [self.navigationBar setTitleVerticalPositionAdjustment:2.0f forBarMetrics:UIBarMetricsDefault];
+}
+
+-(void) setGrayBar
+{
+    [self changeStyle:[UIImage imageNamed: @"manager-team-dash-header.png"] font:[UIFont boldSystemFontOfSize:15] textColor:[UIColor blackColor] shadowColor:[UIColor clearColor]];
+}
+-(void) setBlackBar
+{
+    [self changeStyle:[UIImage imageNamed: @"nav_bar.png"] font:[UIFont boldSystemFontOfSize:15] textColor:[ColorUtil colorWithHex:@"868686" alpha:1.0] shadowColor:[UIColor blackColor]];
+}
+
+@end

@@ -1,0 +1,19 @@
+//
+//  UIButton+Ext.m
+//  newwindsoft
+//
+//  Created by Vu Hoang Minh on 5/28/13.
+//  Copyright (c) 2013 newwindsoft . All rights reserved.
+//
+
+#import "UIButton+Ext.h"
+
+@implementation UIButton (Ext)
+-(void)setButtonWithFrame:(CGRect)buttonFrame normalImageName:(NSString *)normalImageName highlightImageName:(NSString *)highlightImageName target:(id)target action:(SEL)action
+{
+    self.frame = buttonFrame;
+    [self setBackgroundImage:[UIImage imageNamed:normalImageName] forState:UIControlStateNormal];
+    [self setBackgroundImage:[UIImage imageNamed:highlightImageName] forState:UIControlStateHighlighted];
+    [self addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+}
+@end

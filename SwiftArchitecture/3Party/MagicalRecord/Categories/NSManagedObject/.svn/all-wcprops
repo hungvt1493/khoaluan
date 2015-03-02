@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/GreenApp/!svn/ver/6/04-Source/iOS/GreenApp/3Party/MagicalRecord/Categories/NSManagedObject
+END
+NSManagedObject+MagicalFinders.h
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/GreenApp/!svn/ver/6/04-Source/iOS/GreenApp/3Party/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalFinders.h
+END
+NSManagedObject+MagicalRecord.h
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/GreenApp/!svn/ver/6/04-Source/iOS/GreenApp/3Party/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalRecord.h
+END
+NSManagedObject+MagicalDataImport.m
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/GreenApp/!svn/ver/6/04-Source/iOS/GreenApp/3Party/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalDataImport.m
+END
+NSManagedObject+MagicalRequests.h
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/GreenApp/!svn/ver/6/04-Source/iOS/GreenApp/3Party/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalRequests.h
+END
+NSManagedObject+MagicalAggregation.h
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/GreenApp/!svn/ver/6/04-Source/iOS/GreenApp/3Party/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalAggregation.h
+END
+NSManagedObject+MagicalFinders.m
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/repos/GreenApp/!svn/ver/6/04-Source/iOS/GreenApp/3Party/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalFinders.m
+END
+NSManagedObject+MagicalRecord.m
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/repos/GreenApp/!svn/ver/6/04-Source/iOS/GreenApp/3Party/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalRecord.m
+END
+NSManagedObject+MagicalRequests.m
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/repos/GreenApp/!svn/ver/6/04-Source/iOS/GreenApp/3Party/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalRequests.m
+END
+NSManagedObject+MagicalAggregation.m
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/repos/GreenApp/!svn/ver/6/04-Source/iOS/GreenApp/3Party/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalAggregation.m
+END
+NSManagedObject+MagicalDataImport.h
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/repos/GreenApp/!svn/ver/6/04-Source/iOS/GreenApp/3Party/MagicalRecord/Categories/NSManagedObject/NSManagedObject+MagicalDataImport.h
+END

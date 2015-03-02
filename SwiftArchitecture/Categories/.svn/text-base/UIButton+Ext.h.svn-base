@@ -1,0 +1,13 @@
+//
+//  UIButton+Ext.h
+//  newwindsoft
+//
+//  Created by Vu Hoang Minh on 5/28/13.
+//  Copyright (c) 2013 newwindsoft . All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+@interface UIButton (Ext)
+-(void)setButtonWithFrame:(CGRect)buttonFrame normalImageName:(NSString *)normalImageName highlightImageName:(NSString *)highlightImageName target:(id)target action:(SEL)action;
+@end
