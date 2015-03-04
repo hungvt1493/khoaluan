@@ -10,7 +10,7 @@
 #import "MyPageHeaderView.h"
 #import "NewsContentView.h"
 
-@interface MyPageViewController ()
+@interface MyPageViewController () <MyPageHeaderViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
@@ -37,7 +37,7 @@
         
         if (i == 0) {
             MyPageHeaderView *header = [[MyPageHeaderView alloc] initWithFrame:CGRectZero];
-            
+            header.delegate = self;
             CGRect frame = [header frame];
             frame.origin.y = yPos;
             yPos += frame.size.height;
@@ -45,6 +45,10 @@
             [self.scrollView addSubview:header];
         } else {
             NewsContentView *newsView = [[NewsContentView alloc] initWithFrame:CGRectZero];
+            
+            if (i==2 || i == 5) {
+                [newsView haveImage:NO];
+            }
             
             CGRect frame = [newsView frame];
             frame.origin.y = yPos;
@@ -60,4 +64,8 @@
     
 }
 
+#pragma mark -MyPageHeaderDelegate
+- (void)pushToViewControllerUseDelegete:(UIViewController *)viewController {
+    [self.navigationController pushViewController:viewController animated:YES];
+}
 @end

@@ -31,8 +31,10 @@ typedef enum {
 }TypeCategory;
 
 /*TITLE*/
-#define Noti_Title @"Thông báo"
+#define Back_Bar_Title @"Trở về"
 
+#define Noti_Title @"Thông báo"
+#define Friend_Title @"Bạn bè"
 /*TEXT*/
 
 
@@ -51,6 +53,7 @@ typedef enum {
 #define noti @"Globe-grey"
 #define more_act @"More-blue"
 #define more @"More-grey"
+#define back_bar_button @"Back"
 
 #define avatar @"User"
 /*COLOR*/

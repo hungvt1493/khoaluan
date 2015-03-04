@@ -21,4 +21,14 @@
 - (void)setRightButtonWithImage:(NSString*)imageButtonName
                highlightedImage:(NSString*)highlightedImageButtonName
                          target:(id)target action:(SEL)action;
+
+- (void)setBackButtonWithImage:(NSString*)imageButtonName
+                         title:(NSString*)title
+              highlightedImage:(NSString*)highlightedImageButtonName
+                        target:(id)target action:(SEL)action;
+
+- (void)setRightButtonWithImage:(NSString*)imageButtonName
+                          title:(NSString*)title
+               highlightedImage:(NSString*)highlightedImageButtonName
+                         target:(id)target action:(SEL)action;
 @end

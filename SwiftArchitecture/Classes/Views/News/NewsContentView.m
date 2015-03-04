@@ -31,6 +31,9 @@
 }
 
 - (void)initUI {
+    _bgView.layer.cornerRadius = 3;
+    _bgView.clipsToBounds = YES;
+    
     _btnLike.layer.borderWidth = 0;
     _btnLike.layer.cornerRadius = 5;
     
@@ -41,6 +44,15 @@
     _btnShowMore.layer.cornerRadius = 5;
     _btnShowMore.layer.borderWidth = 1;
     _btnShowMore.layer.borderColor = [UIColor blackColor].CGColor;
+}
+
+- (void)haveImage:(BOOL)flag {
+    if (!flag) {
+        _scrollView.hidden = YES;
+        //_bgView.frame = CGRectMake(_bgView.frame.origin.x, _bgView.frame.origin.y, _bgView.frame.size.width, _bgView.frame.size.height);
+        _contentView.frame = CGRectMake(0, _scrollView.frame.origin.y, _contentView.frame.size.width, _contentView.frame.size.height);
+        self.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - _scrollView.frame.size.height);
+    }
 }
 
 @end

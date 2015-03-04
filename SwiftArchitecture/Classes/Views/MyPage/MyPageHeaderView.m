@@ -7,6 +7,7 @@
 //
 
 #import "MyPageHeaderView.h"
+#import "FriendsViewController.h"
 
 @implementation MyPageHeaderView
 
@@ -39,7 +40,7 @@
     
     _imgAvatar.layer.cornerRadius = _imgAvatar.bounds.size.width / 2.0;
     _imgAvatar.layer.borderWidth = 1;
-    _imgAvatar.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    _imgAvatar.layer.borderColor = [UIColor lightGrayColor].CGColor;
     _imgAvatar.clipsToBounds = YES;
     
     _avatarBgView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -47,4 +48,10 @@
     _avatarBgView.layer.cornerRadius = _avatarBgView.bounds.size.width / 2.0;
 }
 
+- (IBAction)btnFriendTapped:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pushToViewControllerUseDelegete:)]) {
+        FriendsViewController *friendVC = [[FriendsViewController alloc] init];
+        [self.delegate pushToViewControllerUseDelegete:friendVC];
+    }
+}
 @end

@@ -9,15 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @interface NewsContentView : UIView
+@property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
-@property (weak, nonatomic) IBOutlet UIImageView *imgType;
-@property (weak, nonatomic) IBOutlet UILabel *lblType;
 @property (weak, nonatomic) IBOutlet UILabel *lblTime;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *tvContent;
 @property (weak, nonatomic) IBOutlet UIButton *btnLike;
 @property (weak, nonatomic) IBOutlet UIButton *btnMessage;
 @property (weak, nonatomic) IBOutlet UIButton *btnShowMore;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
+- (void)haveImage:(BOOL)flag;
 @end

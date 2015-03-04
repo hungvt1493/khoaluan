@@ -46,7 +46,7 @@
     [tmpButton setBackgroundImage:[UIImage imageNamed:highlightedImageButtonName] forState:UIControlStateHighlighted];
     [tmpButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     tmpButton.frame = CGRectMake(0, 0, temBack.size.width, temBack.size.height);
-    
+    [tmpButton setTitleColor:[UIColor colorWithHex:Blue_Color alpha:1] forState:UIControlStateNormal];
     [tmpButton setShowsTouchWhenHighlighted:YES];
     
     if ([[[UIDevice currentDevice] systemVersion] integerValue] >= 7) {
@@ -73,7 +73,7 @@
     [tmpButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     tmpButton.frame = CGRectMake(0, 0, temEdit.size.width, temEdit.size.height);
     [tmpButton setShowsTouchWhenHighlighted:YES];
-    
+    [tmpButton setTitleColor:[UIColor colorWithHex:Blue_Color alpha:1] forState:UIControlStateNormal];
     if ([[[UIDevice currentDevice] systemVersion] integerValue] >= 7) {
         UIBarButtonItem *spacingAdjust = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         [spacingAdjust setWidth:-10];
@@ -83,6 +83,63 @@
     else {
         
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:tmpButton]];
-    }}
+    }
+}
+
+//Back button with title
+- (void)setBackButtonWithImage:(NSString*)imageButtonName
+                         title:(NSString*)title
+              highlightedImage:(NSString*)highlightedImageButtonName
+                        target:(id)target action:(SEL)action {
+    
+    UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //tmpButton.frame.size.width = temBack.size.width + tmpButton.frame.size.width;
+    [tmpButton setImage:[UIImage imageNamed:imageButtonName] forState:UIControlStateNormal];
+    [tmpButton setTitle:title forState:UIControlStateNormal];
+    [tmpButton setBackgroundImage:[UIImage imageNamed:highlightedImageButtonName] forState:UIControlStateHighlighted];
+    [tmpButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    [tmpButton sizeToFit];
+    [tmpButton setShowsTouchWhenHighlighted:YES];
+    [tmpButton setTitleColor:[UIColor colorWithHex:Blue_Color alpha:1] forState:UIControlStateNormal];
+    if ([[[UIDevice currentDevice] systemVersion] integerValue] >= 7) {
+        
+        UIBarButtonItem *spacingAdjust = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        [spacingAdjust setWidth:-10];
+        
+        [self.navigationItem setLeftBarButtonItems:@[spacingAdjust,[[UIBarButtonItem alloc] initWithCustomView:tmpButton]]];
+    }
+    else {
+        
+        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:tmpButton]];
+    }
+}
+
+//Right button with title
+- (void)setRightButtonWithImage:(NSString*)imageButtonName
+                          title:(NSString*)title
+               highlightedImage:(NSString*)highlightedImageButtonName
+                         target:(id)target action:(SEL)action {
+    
+    UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //tmpButton.frame.size.width = temBack.size.width + tmpButton.frame.size.width;
+    [tmpButton setImage:[UIImage imageNamed:imageButtonName] forState:UIControlStateNormal];
+    [tmpButton setTitle:title forState:UIControlStateNormal];
+    [tmpButton setBackgroundImage:[UIImage imageNamed:highlightedImageButtonName] forState:UIControlStateHighlighted];
+    [tmpButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    [tmpButton sizeToFit];
+    [tmpButton setShowsTouchWhenHighlighted:YES];
+    [tmpButton setTitleColor:[UIColor colorWithHex:Blue_Color alpha:1] forState:UIControlStateNormal];
+    if ([[[UIDevice currentDevice] systemVersion] integerValue] >= 7) {
+        
+        UIBarButtonItem *spacingAdjust = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+        [spacingAdjust setWidth:-10];
+        
+        [self.navigationItem setRightBarButtonItems:@[[[UIBarButtonItem alloc] initWithCustomView:tmpButton],spacingAdjust]];
+    }
+    else {
+        
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:tmpButton]];
+    }
+}
 
 @end

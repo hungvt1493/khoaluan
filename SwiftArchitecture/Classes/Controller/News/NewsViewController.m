@@ -41,11 +41,16 @@
     for (int i=0; i < 10; i++) {
         
         NewsContentView *newsView = [[NewsContentView alloc] initWithFrame:CGRectZero];
-
+        
+        if (i == 0 || i == 1) {
+            [newsView haveImage:NO];
+        }
+        
         CGRect frame = [newsView frame];
         frame.origin.y = yPos;
         yPos += frame.size.height;
         [newsView setFrame:frame];
+        
         [self.scrollView addSubview:newsView];
     }
     
