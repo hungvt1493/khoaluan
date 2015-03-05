@@ -1,0 +1,37 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+
+#define MR_SHORTHAND
+#import "SWNavigationViewController.h"
+#import "CoreData+MagicalRecord.h"
+#import "MagicalRecord.h"
+#import "SWGlobal.h"
+#import "SWMacro.h"
+#import "SWUtil.h"
+
+/*
+*   Import Categories
+*/
+#import "UIColor+Ext.h"
+#import "UIImage+Ext.h"
+#import "UIFont+Ext.h"
+#import "UIButton+Ext.h"
+#import "UILabel+Ext.h"
+#import "UIImageView+Ext.h"
+#import "NSString+FontAwesome.h"
+#import "UIButton+Bootstrap.h"
+
+#endif

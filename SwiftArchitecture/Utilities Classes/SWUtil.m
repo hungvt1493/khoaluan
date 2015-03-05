@@ -65,7 +65,7 @@
 }
 
 + (UIViewController*)newUniversalViewControllerWithClassName:(NSString*)className {
-   
+    
     if ([className length] > 0) {
         // Nib name from className
         Class c = NSClassFromString(className);
@@ -76,13 +76,13 @@
             nibName = [NSString stringWithFormat:@"%@-iPad", className];
         }
         else if (IS_IPHONE_5) {
-        
+            
             nibName = [NSString stringWithFormat:@"%@-568h", className];
         }
         else {
             
             nibName = [NSString stringWithFormat:@"%@", className];
-
+            
         }
         
         if([[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"] != nil) {
@@ -143,7 +143,7 @@
     [formatter setLocale:[NSLocale currentLocale]];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterMediumStyle];
-//    dateTimeString = [SWUtil convertDate:date toStringFormat:Date_Format];
+    //    dateTimeString = [SWUtil convertDate:date toStringFormat:Date_Format];
     
     return dateTimeString;
 }

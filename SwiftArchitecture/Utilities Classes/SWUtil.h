@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "MBProgressHUD.h"
-
-@class AppDelegate;
+#import "AppDelegate.h"
+//@class AppDelegate;
 #import "GCDispatch.h"
 
 

@@ -171,7 +171,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:a]
 
 #define _removeObjectFromDictionary(dict, key) if ([dict objectForKey:key]) [dict removeObjectForKey:key]
 
-#define kAppDelegate ((AppDelegate *)([[UIApplication sharedApplication].delegate]))
+#define kAppDelegate ((SWAppDelegate *)([[UIApplication sharedApplication].delegate]))
 #define APP_FRAME [[UIScreen mainScreen]applicationFrame]
 
 #define Convert_Ratio(x) (IS_IPHONE_5)?x*3.25:x
