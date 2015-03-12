@@ -14,13 +14,15 @@
 
 @end
 
-@implementation NewsViewController
+@implementation NewsViewController {
+    NSArray *newsArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self initUI];
+    [self initData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -35,16 +37,36 @@
     self.navigationController.navigationBarHidden = YES;
 }
 
+- (void)initData {
+    [[SWUtil sharedUtil] showLoadingView];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNews];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        newsArr = (NSArray*)responseObject;
+        [self initUI];
+        NSLog(@"NEWS JSON: %@", responseObject);
+    
+        [[SWUtil sharedUtil] hideLoadingView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
+}
+
 - (void)initUI {
     int yPos = 0;
     
-    for (int i=0; i < 10; i++) {
+    for (int i=0; i < newsArr.count; i++) {
+        
+        NSDictionary *dict = [newsArr objectAtIndex:i];
         
         NewsContentView *newsView = [[NewsContentView alloc] initWithFrame:CGRectZero];
         
-        if (i == 0 || i == 1) {
-            [newsView haveImage:NO];
-        }
+        [newsView setData:dict];
         
         CGRect frame = [newsView frame];
         frame.origin.y = yPos;

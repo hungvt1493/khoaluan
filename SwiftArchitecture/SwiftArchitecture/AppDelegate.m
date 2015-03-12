@@ -1,6 +1,6 @@
 //
 //  SWAppDelegate.m
-//  SwiftArchitecture
+//  KhoaLuan2015
 //
 //  Created by Mac on 1/20/15.
 //  Copyright (c) 2015 HungVT. All rights reserved.
@@ -19,7 +19,20 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    [self initTabbar];
+    
+    UIImage *ios7Bg = [UIImage resizableImage:[UIImage imageNamed:@"nav_ios7"]];
+    UIImage *iosBg = [UIImage resizableImage:[UIImage imageNamed:@"navbar_bg"]];
+    UIImage *navBg = (SYSTEM_VERSION >= 7)?ios7Bg:iosBg;
+    UIFont *font = [UIFont fontHelveticaNeue_Medium:18];
+    
+    SWLoginViewController *controller = [[SWLoginViewController alloc] init];
+    SWNavigationViewController *rootNavigation = [[SWNavigationViewController alloc]initWithRootViewController:controller
+                                                                                                    background:navBg
+                                                                                                          font:font
+                                                                                                     textColor:[UIColor colorWithHex:Blue_Color alpha:1.0]
+                                                                                                   shadowColor:[UIColor colorWithHex:Blue_Color alpha:1.0]];
+    
+    self.window.rootViewController = rootNavigation;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -61,22 +74,22 @@
     [self.tabbarController hideTabbar:hide];
 }
 
-//- (void)logoutFunction{
-//    UIImage *ios7Bg = [UIImage resizableImage:[UIImage imageNamed:@"nav_ios7"]];
-//    UIImage *iosBg = [UIImage resizableImage:[UIImage imageNamed:@"navbar_bg"]];
-//    UIImage *navBg = (SYSTEM_VERSION >= 7)?ios7Bg:iosBg;
-//    UIFont *font = [UIFont fontHelveticaNeue_Medium:18];
-//    UIWindow *window = self.window;
-//    [window setRootViewController:nil];
-//
-//    SWLoginViewController *controller = [[SWLoginViewController alloc] init];
-//    SWNavigationViewController *rootNavigation = [[SWNavigationViewController alloc]initWithRootViewController:controller
-//                                                                                                    background:navBg
-//                                                                                                          font:font
-//                                                                                                     textColor:[UIColor colorWithHex:Green_Color alpha:1.0]
-//                                                                                                   shadowColor:[UIColor colorWithHex:Green_Color alpha:1.0]];
-//    self.window.rootViewController = rootNavigation;
-//}
+- (void)logoutFunction{
+    UIImage *ios7Bg = [UIImage resizableImage:[UIImage imageNamed:@"nav_ios7"]];
+    UIImage *iosBg = [UIImage resizableImage:[UIImage imageNamed:@"navbar_bg"]];
+    UIImage *navBg = (SYSTEM_VERSION >= 7)?ios7Bg:iosBg;
+    UIFont *font = [UIFont fontHelveticaNeue_Medium:18];
+    UIWindow *window = self.window;
+    [window setRootViewController:nil];
+
+    SWLoginViewController *controller = [[SWLoginViewController alloc] init];
+    SWNavigationViewController *rootNavigation = [[SWNavigationViewController alloc]initWithRootViewController:controller
+                                                                                                    background:navBg
+                                                                                                          font:font
+                                                                                                     textColor:[UIColor colorWithHex:Blue_Color alpha:1.0]
+                                                                                                   shadowColor:[UIColor colorWithHex:Blue_Color alpha:1.0]];
+    self.window.rootViewController = rootNavigation;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

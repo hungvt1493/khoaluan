@@ -1,6 +1,6 @@
 //
 //  SWAppDelegate.h
-//  SwiftArchitecture
+//  KhoaLuan2015
 //
 //  Created by Hung Vuong on 6/19/14.
 //  Copyright (c) 2014 Hung Vuong. All rights reserved.
@@ -11,6 +11,7 @@
 #import "SWMultiSelectContactViewController.h"
 #import "SWAwesomeTableViewController.h"
 #import "SWTabbarController.h"
+#import "SWLoginViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

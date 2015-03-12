@@ -30,6 +30,9 @@
 + (UIViewController*)newUniversalViewControllerWithClassName:(NSString*)className;
 + (void)showConfirmAlert:(NSString *)title message:(NSString *)message cancelButton:(NSString*)cancel otherButton:(NSString *)other tag: (NSInteger )tag delegate:(id)delegate;
 
++ (void)showConfirmAlert:(NSString *)title message:(NSString *)message delegate:(id)delegate;
++ (void)showConfirmAlertWithMessage:(NSString *)message delegate:(id)delegate;
++ (void)showConfirmAlertWithMessage:(NSString *)message tag:(NSInteger)tag delegate:(id)delegate;
 /**
  *  Convert from NSDate to NSString
  */
@@ -42,10 +45,12 @@
 /**
  * Convert from date to int
  */
-+ (NSNumber *)convertDateToNumber:(NSDate *)date;
++ (NSNumber *)convertDateToNumber:(NSDate *)dateValue;
 /**
  *
  */
++ (NSDate *)convertNumberToDate:(int)date;
+
 + (NSString*)convert:(long long)dateValue toDateStringWithFormat:(NSString*)format;
 /**
  *Get string data from server, used for table view

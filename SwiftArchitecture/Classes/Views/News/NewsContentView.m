@@ -55,4 +55,78 @@
     }
 }
 
+- (IBAction)btnReadMoreTapped:(id)sender {
+}
+
+- (void)setData:(NSDictionary*)dict {
+    int numberOfImage = [[dict objectForKey:@"number_of_image"] intValue];
+    
+    if (numberOfImage == 0) {
+        [self haveImage:NO];
+    }
+    
+    NSString *likesNumber = [NSString stringWithFormat:@" %@",[dict objectForKey:@"likes"]];
+    [_btnLike setTitle:likesNumber forState:UIControlStateNormal];
+    
+    int time = [[dict objectForKey:@"time"] intValue];
+    NSDate *date = [SWUtil convertNumberToDate:time];
+    
+    NSString *ago = [date timeAgo];
+    _lblTime.text = ago;
+    NSLog(@"Output is: \"%@\" - %@", ago, date);
+    
+    NSString *content = [dict objectForKey:@"content"];
+    _lblContent.text = content;
+    
+    NSString *imgPath = [dict objectForKey:@"avatar"];
+    NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgPath];
+    [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
+                         placeholderImage:[UIImage imageNamed:@"default-avatar"]
+                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                    if (image) {
+                                        
+                                    } else {
+                                        
+                                    }
+                                }];
+}
+
+/*
+- (void)wrappedString:(NSString*)str {
+    CGRect rect=CGRectMake(51, 16, 257, 0);
+    _lblContent.text = str;
+    CGSize size=[str sizeWithFont:self.lblContent.font constrainedToSize:CGSizeMake(257, 3000) lineBreakMode:self.lblContent.lineBreakMode];
+    int lines=(size.height/self.lblContent.font.pointSize);
+    self.lblContent.numberOfLines=lines;
+    rect.size=size;
+    if(lines>2)
+    {
+        if(lines==3 &&[str length]>66)
+        {
+            str=[str substringToIndex:66];
+            str=[str stringByAppendingString:@"...Read More"];
+            size=[str sizeWithFont:self.lblContent.font constrainedToSize:CGSizeMake(257, 67) lineBreakMode:self.lblContent.lineBreakMode];
+            
+            int lines=(size.height/self.lblContent.font.pointSize);
+            self.lblContent.numberOfLines=lines;
+            
+            rect.size=CGSizeMake(257, 67);
+        }
+        else if(lines>3)
+        {
+            str=[str stringByAppendingString:@"...Read More"];
+            size=[str sizeWithFont:self.lblContent.font constrainedToSize:CGSizeMake(257, 67) lineBreakMode:self.lblContent.lineBreakMode];
+            
+            int lines=(size.height/self.lblContent.font.pointSize);
+            self.lblContent.numberOfLines=lines;
+            
+            rect.size=CGSizeMake(257, 67);
+        }
+        
+        //self.lblQuestion.lineBreakMode=NSLineBreakByTruncatingHead;
+    }
+    _lblContent.text = str;
+    NSLog(@"TEXT: %@", _lblContent.text);
+}
+ */
 @end

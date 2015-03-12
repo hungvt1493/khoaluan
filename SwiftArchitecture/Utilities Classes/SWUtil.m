@@ -104,6 +104,23 @@
     [alrt show];
 }
 
++ (void)showConfirmAlert:(NSString *)title message:(NSString *)message delegate:(id)delegate {
+    
+    UIAlertView *alrt = [[UIAlertView alloc] initWithTitle:title message:message delegate:delegate cancelButtonTitle:@"Đóng" otherButtonTitles: nil];
+    [alrt show];
+}
+
++ (void)showConfirmAlertWithMessage:(NSString *)message tag:(NSInteger)tag delegate:(id)delegate {
+    UIAlertView *alrt = [[UIAlertView alloc] initWithTitle:nil message:message delegate:delegate cancelButtonTitle:@"Đóng" otherButtonTitles:nil, nil];
+    alrt.tag = tag;
+    [alrt show];
+}
+
++ (void)showConfirmAlertWithMessage:(NSString *)message delegate:(id)delegate {
+    
+    [self showConfirmAlertWithMessage:message tag:0 delegate:delegate];
+}
+
 + (NSString*)convertDate:(NSDate*)date toStringFormat:(NSString*)format
 {
     NSString *_dateString;
@@ -124,6 +141,11 @@
 + (NSNumber *)convertDateToNumber:(NSDate *)date {
     long long milliseconds = (long long)([date timeIntervalSince1970]*1000.0);
     return [NSNumber numberWithLongLong:milliseconds];
+}
+
++ (NSDate *)convertNumberToDate:(int)dateValue {
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:dateValue];
+    return date;
 }
 
 + (NSString*)convert:(long long)dateValue toDateStringWithFormat:(NSString*)format {

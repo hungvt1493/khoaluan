@@ -33,5 +33,9 @@
 #import "UIImageView+Ext.h"
 #import "NSString+FontAwesome.h"
 #import "UIButton+Bootstrap.h"
+#import "NSDate+TimeAgo.h"
+#import "UIImageView+WebCache.h"
 
+//AFNetworking
+#import "AFHTTPRequestOperationManager.h"
 #endif
