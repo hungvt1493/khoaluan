@@ -8,30 +8,24 @@
 
 #import "MyPageHeaderView.h"
 #import "FriendsViewController.h"
+#import "KLPostNewsViewController.h"
 
 @implementation MyPageHeaderView
 
-- (id)initWithFrame:(CGRect)frame
-{
-    NSArray *array = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil];
-    if (array == nil || [array count] == 0)
-        return nil;
-    frame = [[array objectAtIndex:0] frame];
+- (void)awakeFromNib {
+    // Initialization code
+    [self initUI];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
     
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        [self addSubview:[array objectAtIndex:0]];
-        
-        //UITapGestureRecognizer *tapGestureViewController = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOptionGrid)];
-        //[self addGestureRecognizer:tapGestureViewController];
-        
-        [self initUI];
-    }
-    return self;
+    // Configure the view for the selected state
 }
 
 - (void)initUI {
+    self.backgroundColor = [UIColor colorWithHex:@"E3E3E3" alpha:1];
+    
     _btnSetting.layer.borderWidth = 0;
     _btnSetting.layer.cornerRadius = _btnSetting.bounds.size.width / 2.0;
     
@@ -52,6 +46,13 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(pushToViewControllerUseDelegete:)]) {
         FriendsViewController *friendVC = [[FriendsViewController alloc] init];
         [self.delegate pushToViewControllerUseDelegete:friendVC];
+    }
+}
+
+- (IBAction)btnPostNewsTapped:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pushToViewControllerUseDelegete:)]) {
+        KLPostNewsViewController *postNewsVC = [[KLPostNewsViewController alloc] init];
+        [self.delegate pushToViewControllerUseDelegete:postNewsVC];
     }
 }
 @end

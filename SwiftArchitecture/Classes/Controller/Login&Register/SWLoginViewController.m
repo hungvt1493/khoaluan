@@ -3,7 +3,7 @@
 //  KhoaLuan2015
 //
 //  Created by Mac on 1/20/15.
-//  Copyright (c) 2015 Nguyen Thu Ly. All rights reserved.
+//  Copyright (c) 2015 Hung VT. All rights reserved.
 //
 
 #import "SWLoginViewController.h"
@@ -105,13 +105,12 @@
         NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uLogin];
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        
         NSDictionary *parameters = @{@"username": self.emailTextField.text,
                                      @"password": self.passWordTextField.text};
-        
+
         [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [[SWUtil appDelegate] initTabbar];
-            NSLog(@"LOGIN JSON: %@", responseObject);
-            
             if(_isAutoLoginChecked ==NO)
             {
                 KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:kKeyChain accessGroup:nil];
@@ -131,6 +130,12 @@
                 }
             }
             
+            [[SWUtil appDelegate] initTabbar];
+
+            NSDictionary *userDict = (NSDictionary*)responseObject;;
+            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:@"user_id"] forKey:kUSER_ID];
+            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:@"is_admin"] forKey:kIsAdmin];
+            NSLog(@"LOGIN JSON: %@", responseObject);
             [[SWUtil sharedUtil] hideLoadingView];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);

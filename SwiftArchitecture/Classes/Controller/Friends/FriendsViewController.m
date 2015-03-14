@@ -23,6 +23,13 @@
     self.title = Friend_Title;
     _tbFriend.delegate = self;
     _tbFriend.dataSource = self;
+    
+    [[SWUtil appDelegate] hideTabbar:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[SWUtil appDelegate] hideTabbar:NO];
 }
 
 - (void)backBarButtonTapped {

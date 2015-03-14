@@ -35,6 +35,7 @@
 #import "UIButton+Bootstrap.h"
 #import "NSDate+TimeAgo.h"
 #import "UIImageView+WebCache.h"
+#import "PullToRefreshView.h"
 
 //AFNetworking
 #import "AFHTTPRequestOperationManager.h"

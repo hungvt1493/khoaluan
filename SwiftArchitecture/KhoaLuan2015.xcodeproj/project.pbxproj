@@ -119,6 +119,11 @@
 		04422EC71AA8854F008E4015 /* Login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04422EB91AA8854F008E4015 /* Login@2x.png */; };
 		04422EC81AA8854F008E4015 /* uncheck-login.png in Resources */ = {isa = PBXBuildFile; fileRef = 04422EBA1AA8854F008E4015 /* uncheck-login.png */; };
 		04422ECA1AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 04422EC91AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png */; };
+		048DA09B1AB2E53A0003E585 /* KLPostNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048DA0991AB2E53A0003E585 /* KLPostNewsViewController.m */; };
+		048DA09C1AB2E53A0003E585 /* KLPostNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048DA09A1AB2E53A0003E585 /* KLPostNewsViewController.xib */; };
+		04BF6C471AB1499F00F0F42D /* DMLazyScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BF6C461AB1499F00F0F42D /* DMLazyScrollView.m */; };
+		04BF6C4B1AB168D600F0F42D /* KLNewsContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BF6C491AB168D600F0F42D /* KLNewsContentTableViewCell.m */; };
+		04BF6C4C1AB168D600F0F42D /* KLNewsContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BF6C4A1AB168D600F0F42D /* KLNewsContentTableViewCell.xib */; };
 		04C38C0A1AB06C8800F9F54B /* MKNumberBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C38C091AB06C8800F9F54B /* MKNumberBadgeView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		04C38C1E1AB06FB000F9F54B /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C38C0C1AB06FB000F9F54B /* AFHTTPRequestOperation.m */; };
 		04C38C1F1AB06FB000F9F54B /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C38C0E1AB06FB000F9F54B /* AFHTTPRequestOperationManager.m */; };
@@ -171,6 +176,9 @@
 		04DC2BBC1AB0421C00565689 /* README.textile in Resources */ = {isa = PBXBuildFile; fileRef = 04DC2B9A1AB0421C00565689 /* README.textile */; };
 		04DC2BBD1AB0421C00565689 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC2B9E1AB0421C00565689 /* UIScrollView+SVInfiniteScrolling.m */; };
 		04DC2BBE1AB0421C00565689 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC2BA01AB0421C00565689 /* UIScrollView+SVPullToRefresh.m */; };
+		04F0F27F1AB1E9280087F8BB /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0F27E1AB1E9280087F8BB /* PullToRefreshView.m */; };
+		04F0F2821AB207890087F8BB /* Bandage.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F0F2801AB207890087F8BB /* Bandage.png */; };
+		04F0F2831AB207890087F8BB /* Bandage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F0F2811AB207890087F8BB /* Bandage@2x.png */; };
 		915C4B3A1952A58200A592AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915C4B391952A58200A592AD /* Foundation.framework */; };
 		915C4B3C1952A58200A592AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915C4B3B1952A58200A592AD /* CoreGraphics.framework */; };
 		915C4B3E1952A58200A592AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915C4B3D1952A58200A592AD /* UIKit.framework */; };
@@ -389,6 +397,14 @@
 		04422EB91AA8854F008E4015 /* Login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login@2x.png"; sourceTree = "<group>"; };
 		04422EBA1AA8854F008E4015 /* uncheck-login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uncheck-login.png"; sourceTree = "<group>"; };
 		04422EC91AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LOGO DHSP HANOI-2 copy.png"; path = "2x/LOGO DHSP HANOI-2 copy.png"; sourceTree = "<group>"; };
+		048DA0981AB2E53A0003E585 /* KLPostNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLPostNewsViewController.h; sourceTree = "<group>"; };
+		048DA0991AB2E53A0003E585 /* KLPostNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLPostNewsViewController.m; sourceTree = "<group>"; };
+		048DA09A1AB2E53A0003E585 /* KLPostNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLPostNewsViewController.xib; sourceTree = "<group>"; };
+		04BF6C451AB1499F00F0F42D /* DMLazyScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLazyScrollView.h; sourceTree = "<group>"; };
+		04BF6C461AB1499F00F0F42D /* DMLazyScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLazyScrollView.m; sourceTree = "<group>"; };
+		04BF6C481AB168D600F0F42D /* KLNewsContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLNewsContentTableViewCell.h; sourceTree = "<group>"; };
+		04BF6C491AB168D600F0F42D /* KLNewsContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLNewsContentTableViewCell.m; sourceTree = "<group>"; };
+		04BF6C4A1AB168D600F0F42D /* KLNewsContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLNewsContentTableViewCell.xib; sourceTree = "<group>"; };
 		04C38C081AB06C8800F9F54B /* MKNumberBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKNumberBadgeView.h; sourceTree = "<group>"; };
 		04C38C091AB06C8800F9F54B /* MKNumberBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKNumberBadgeView.m; sourceTree = "<group>"; };
 		04C38C0B1AB06FB000F9F54B /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -479,6 +495,12 @@
 		04DC2B9E1AB0421C00565689 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		04DC2B9F1AB0421C00565689 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		04DC2BA01AB0421C00565689 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		04F0F27D1AB1E9280087F8BB /* PullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshView.h; sourceTree = "<group>"; };
+		04F0F27E1AB1E9280087F8BB /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
+		04F0F2801AB207890087F8BB /* Bandage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bandage.png; sourceTree = "<group>"; };
+		04F0F2811AB207890087F8BB /* Bandage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bandage@2x.png"; sourceTree = "<group>"; };
+		04F7BA2E1AB47AE600D15548 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		04F7BA2F1AB47AE600D15548 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		915C4B361952A58200A592AD /* KhoaLuan2015.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KhoaLuan2015.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		915C4B391952A58200A592AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		915C4B3B1952A58200A592AD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -697,6 +719,9 @@
 				0428465F1AA848D70003CA26 /* NewsViewController.h */,
 				042846601AA848D70003CA26 /* NewsViewController.m */,
 				042846611AA848D70003CA26 /* NewsViewController.xib */,
+				048DA0981AB2E53A0003E585 /* KLPostNewsViewController.h */,
+				048DA0991AB2E53A0003E585 /* KLPostNewsViewController.m */,
+				048DA09A1AB2E53A0003E585 /* KLPostNewsViewController.xib */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -747,6 +772,9 @@
 				042846701AA848D70003CA26 /* NewsContentView.h */,
 				042846711AA848D70003CA26 /* NewsContentView.m */,
 				042846721AA848D70003CA26 /* NewsContentView.xib */,
+				04BF6C481AB168D600F0F42D /* KLNewsContentTableViewCell.h */,
+				04BF6C491AB168D600F0F42D /* KLNewsContentTableViewCell.m */,
+				04BF6C4A1AB168D600F0F42D /* KLNewsContentTableViewCell.xib */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -754,6 +782,8 @@
 		042846841AA848F30003CA26 /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				04F0F2801AB207890087F8BB /* Bandage.png */,
+				04F0F2811AB207890087F8BB /* Bandage@2x.png */,
 				04C38C2B1AB076E300F9F54B /* Question.png */,
 				04C38C2C1AB076E300F9F54B /* Question@2x.png */,
 				04422EAD1AA8854F008E4015 /* AddUser.png */,
@@ -959,6 +989,15 @@
 			path = "Login&Register";
 			sourceTree = "<group>";
 		};
+		04BF6C441AB1499F00F0F42D /* DMLazyScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				04BF6C451AB1499F00F0F42D /* DMLazyScrollView.h */,
+				04BF6C461AB1499F00F0F42D /* DMLazyScrollView.m */,
+			);
+			path = DMLazyScrollView;
+			sourceTree = "<group>";
+		};
 		04C38C071AB06C8800F9F54B /* MKNumberBadgeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1071,6 +1110,15 @@
 				04DC2BA01AB0421C00565689 /* UIScrollView+SVPullToRefresh.m */,
 			);
 			path = SVPullToRefresh;
+			sourceTree = "<group>";
+		};
+		04F0F27C1AB1E9280087F8BB /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				04F0F27D1AB1E9280087F8BB /* PullToRefreshView.h */,
+				04F0F27E1AB1E9280087F8BB /* PullToRefreshView.m */,
+			);
+			path = PullToRefresh;
 			sourceTree = "<group>";
 		};
 		915C4B2D1952A58200A592AD = {
@@ -1198,6 +1246,8 @@
 		915C4B7F1952B18F00A592AD /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
+				04F0F27C1AB1E9280087F8BB /* PullToRefresh */,
+				04BF6C441AB1499F00F0F42D /* DMLazyScrollView */,
 				04C38C311AB0A04300F9F54B /* NSDate-TimeAgo-master */,
 				04C38C271AB0733000F9F54B /* KeyChain */,
 				042846EA1AA849260003CA26 /* AwesomeButton */,
@@ -1519,6 +1569,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				vi,
 			);
 			mainGroup = 915C4B2D1952A58200A592AD;
 			productRefGroup = 915C4B371952A58200A592AD /* Products */;
@@ -1536,6 +1587,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04BF6C4C1AB168D600F0F42D /* KLNewsContentTableViewCell.xib in Resources */,
 				04422ECA1AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png in Resources */,
 				04C38C3C1AB0A04300F9F54B /* NSDate+TimeAgo.podspec in Resources */,
 				042846B51AA848F30003CA26 /* Back.png in Resources */,
@@ -1587,6 +1639,7 @@
 				042846C91AA848F30003CA26 /* Like@2x.png in Resources */,
 				042847261AA849260003CA26 /* icon_selected@2x.png in Resources */,
 				04422EBC1AA8854F008E4015 /* AddUser@2x.png in Resources */,
+				04F0F2821AB207890087F8BB /* Bandage.png in Resources */,
 				04DC2BBB1AB0421C00565689 /* LICENSE.txt in Resources */,
 				04422EAC1AA8853A008E4015 /* SWRegisterViewController.xib in Resources */,
 				0428472A1AA849260003CA26 /* SWMultiSelectContactViewController-568h.xib in Resources */,
@@ -1605,6 +1658,7 @@
 				042846C81AA848F30003CA26 /* Like.png in Resources */,
 				04DC2BB91AB0421C00565689 /* SNPicker.storyboard in Resources */,
 				042846E11AA848F30003CA26 /* SpeechBubble.png in Resources */,
+				04F0F2831AB207890087F8BB /* Bandage@2x.png in Resources */,
 				04DC2BBC1AB0421C00565689 /* README.textile in Resources */,
 				042846C61AA848F30003CA26 /* InfoFilled.png in Resources */,
 				04422EBB1AA8854F008E4015 /* AddUser.png in Resources */,
@@ -1633,6 +1687,7 @@
 				04DC2BB21AB0421C00565689 /* check@2x.png in Resources */,
 				042846B91AA848F30003CA26 /* Camera@2x.png in Resources */,
 				042846BF1AA848F30003CA26 /* Globe-grey@2x.png in Resources */,
+				048DA09C1AB2E53A0003E585 /* KLPostNewsViewController.xib in Resources */,
 				042846D61AA848F30003CA26 /* News-hnue-blue.png in Resources */,
 				0428467B1AA848D70003CA26 /* NewsViewController.xib in Resources */,
 				04422EC11AA8854F008E4015 /* edit_green@2x.png in Resources */,
@@ -1684,6 +1739,7 @@
 				04DC2BA21AB0421C00565689 /* NSData+ImageContentType.m in Sources */,
 				04DC2BB61AB0421C00565689 /* SNAssetsVC.m in Sources */,
 				04DC2BB51AB0421C00565689 /* SNAlbumTVC.m in Sources */,
+				04F0F27F1AB1E9280087F8BB /* PullToRefreshView.m in Sources */,
 				04C38C3E1AB0A04300F9F54B /* README.md in Sources */,
 				04DC2BAF1AB0421C00565689 /* UIImageView+WebCache.m in Sources */,
 				91646C90196F9F0400C3BBBE /* UIImage+Ext.m in Sources */,
@@ -1694,6 +1750,7 @@
 				9193C36919617E4B00ADD198 /* NSNumber+MagicalDataImport.m in Sources */,
 				915C4B4A1952A58200A592AD /* AppDelegate.m in Sources */,
 				91B4C5DE1955249C008F0686 /* NSDate+Helpers.m in Sources */,
+				04BF6C471AB1499F00F0F42D /* DMLazyScrollView.m in Sources */,
 				04C38C1E1AB06FB000F9F54B /* AFHTTPRequestOperation.m in Sources */,
 				0428471D1AA849260003CA26 /* UIButton+Bootstrap.m in Sources */,
 				04DC2BB01AB0421C00565689 /* UIView+WebCacheOperation.m in Sources */,
@@ -1753,6 +1810,7 @@
 				04DC2BBD1AB0421C00565689 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				042847311AA849260003CA26 /* SWNavigationViewController.m in Sources */,
 				91646C8D196F9CC300C3BBBE /* UIFont+Ext.m in Sources */,
+				04BF6C4B1AB168D600F0F42D /* KLNewsContentTableViewCell.m in Sources */,
 				04DC2BA91AB0421C00565689 /* SDWebImagePrefetcher.m in Sources */,
 				04C38C0A1AB06C8800F9F54B /* MKNumberBadgeView.m in Sources */,
 				0428471E1AA849260003CA26 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
@@ -1776,6 +1834,7 @@
 				04C38C3B1AB0A04300F9F54B /* NSDate+TimeAgo.m in Sources */,
 				915C4B461952A58200A592AD /* main.m in Sources */,
 				9193C36319617E4B00ADD198 /* GCDispatch.m in Sources */,
+				048DA09B1AB2E53A0003E585 /* KLPostNewsViewController.m in Sources */,
 				9193C37A19617E4B00ADD198 /* MagicalRecord+ErrorHandling.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1803,6 +1862,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				915C4B431952A58200A592AD /* en */,
+				04F7BA2E1AB47AE600D15548 /* vi */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1811,6 +1871,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				915C4B5C1952A58200A592AD /* en */,
+				04F7BA2F1AB47AE600D15548 /* vi */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

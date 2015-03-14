@@ -21,7 +21,14 @@
 
 #define uLogin @"users/api_login"
 #define uReg @"users/api_register"
-#define nGetNews @"news/api_getNews"
+#define nGetNews @"news/api_getNewsWithOffset"
+#define nGetNewsWithUserId @"news/api_getNewsByUserIdWithOffset"
+#define nLikeNews @"news/api_insertLike"
+#define nDeleteLikeNews @"news/api_deleteLike"
+#define nPostNews @"news/api_insertNews"
+
+
+
 /*TYPE ENUM*/
 typedef enum {
     color = 0,
@@ -39,6 +46,10 @@ typedef enum {
     addClotherDetail
 }TypeCategory;
 
+#define DATE_FORMAT @"dd/MM/yyyy"
+
+#define PULL_DOWN_DATE                                       @"MM/dd , HH:mm"
+
 /*TITLE*/
 #define Back_Bar_Title @"Trở về"
 
@@ -48,6 +59,11 @@ typedef enum {
 #define Register_Title @"Đăng ký"
 #define Complete_Button @"Hoàn thành"
 #define InforUser_Title @"Thông tin của bạn"
+#define Update_Status_Title @"Cập nhật trạng thái"
+#define Create_Event_Title @"Tạo sự kiện"
+#define The_Last_Cell_Have_No_Data_Title @"Không có bài viết"
+#define The_Last_Cell_Have_Data_Title @"Đang tải"
+#define Post_News_Title @"Đăng"
 /*TEXT*/
 #define Avatar_Message @"Không thể chọn ảnh!"
 #define Name_Message @"Bạn chưa nhập tên!"
@@ -55,7 +71,8 @@ typedef enum {
 #define Email_Require_Message @"Email là bắt buộc"
 #define Password_Message @"Mật khẩu cần ít nhất 6 kí tự"
 #define Re_Password_Message @"Mật khẩu và Nhắc lại mật khẩu cần giống nhau"
-
+#define Post_Event_No_Title_Error @"Bạn chưa nhập tên sự kiện"
+#define Post_Event_No_Time_Error @"Bạn chưa thời gian cho sự kiện"
 /*IMAGE*/
 
 #define hnue_news_act @"News-hnue-blue"
@@ -85,8 +102,10 @@ typedef enum {
 #define Black_Color @"000000"
 #define Blue_Color @"2980b9"
 #define Red_Color @"F65D63"
-
+#define Like_Button_color @"21D726"
 /*ARRAY*/
 
-
+//Key
+#define kUSER_ID @"user_id"
+#define kIsAdmin @"is_admin"
 #endif

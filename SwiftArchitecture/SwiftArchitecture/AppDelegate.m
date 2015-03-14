@@ -65,9 +65,10 @@
     
     self.tabbarController = [[SWTabbarController alloc] initWithNomarlImages:imagesNormal selectImages:imagesSelected backGround:backgroundColor title:title];
     self.tabbarController.viewControllers = @[hnueNewsNavi,newsNavi,myPageNavi,notiNavi,moreNavi];
-    [self.tabbarController hoverAtIndex:0];
+
     self.window.rootViewController = nil;
     self.window.rootViewController = self.tabbarController;
+    [self.tabbarController hoverAtIndex:0];
 }
 
 - (void)hideTabbar:(BOOL)hide{

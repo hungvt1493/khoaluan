@@ -3,14 +3,12 @@
 //  KhoaLuan2015
 //
 //  Created by Mac on 1/20/15.
-//  Copyright (c) 2015 Nguyen Thu Ly. All rights reserved.
+//  Copyright (c) 2015 Hung VT. All rights reserved.
 //
 
 #import "SWRegisterViewController.h"
 #import "KLRegisterTableViewCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
-#define DATE_FORMAT @"dd/MM/yyyy"
 
 #define CONTENT_VIEW_Y 20
 #define Register_Arr @[@"Ảnh đại diện",@"Email\n(Tên đăng nhập)",@"Tên",@"Giới tính",@"Ngày sinh",@"Mã sinh viên",@"Khoa",@"Mật khẩu",@"Nhắc lại mật khẩu"]
@@ -153,7 +151,6 @@
     [self.registerTableView beginUpdates];
     [self.registerTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [self.registerTableView endUpdates];
-    
 }
 
 - (IBAction)registerButtonTapped:(id)sender {
@@ -180,8 +177,6 @@
                                  @"student_id" : NULL_IF_NIL(studentId),
                                  @"avatar" : NULL_IF_NIL(avatarImage)};
 
-    
-    
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
         
@@ -335,6 +330,35 @@
     if (!cell) {
         [tableView registerNib:[UINib nibWithNibName:@"KLRegisterTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        
+        if (indexPath.row == Gender) {
+
+            cell.tfInput.enabled = NO;
+            cell.tfInput.hidden = YES;
+            maleButton = [UIButton buttonWithType:UIButtonTypeSystem];
+            [maleButton addTarget:self
+                           action:@selector(maleButtonTapped:)
+                 forControlEvents:UIControlEventTouchUpInside];
+            [maleButton setTitle:@"Nam" forState:UIControlStateNormal];
+            maleButton.layer.masksToBounds = YES;
+            maleButton.layer.cornerRadius = 5.0;
+            [self setButton:maleButton andBackground:@"EAEAEA" andTitleColor:@"000000"];
+            maleButton.frame = CGRectMake(120.0, 6, 80, 30.0);
+            [cell addSubview:maleButton];
+            
+            femaleButton = [UIButton buttonWithType:UIButtonTypeSystem];
+            [femaleButton addTarget:self
+                             action:@selector(femaleButtonTapped:)
+                   forControlEvents:UIControlEventTouchUpInside];
+            [femaleButton setTitle:@"Nữ" forState:UIControlStateNormal];
+            femaleButton.layer.masksToBounds = YES;
+            femaleButton.layer.cornerRadius = 5.0;
+            [self setButton:femaleButton andBackground:@"EAEAEA" andTitleColor:@"000000"];
+            femaleButton.frame = CGRectMake(210.0, 6, 80, 30.0);
+            [cell addSubview:femaleButton];
+            
+            [self maleButtonTapped:nil];
+        }
     }
     
     switch (indexPath.row) {
@@ -357,36 +381,6 @@
         case Name:
         {
             cell.tfInput.text = name;
-        }
-            break;
-
-        case Gender:
-        {
-            cell.tfInput.enabled = NO;
-            cell.tfInput.hidden = YES;
-            maleButton = [UIButton buttonWithType:UIButtonTypeSystem];
-            [maleButton addTarget:self
-                           action:@selector(maleButtonTapped:)
-             forControlEvents:UIControlEventTouchUpInside];
-            [maleButton setTitle:@"Nam" forState:UIControlStateNormal];
-            maleButton.layer.masksToBounds = YES;
-            maleButton.layer.cornerRadius = 5.0;
-            [self setButton:maleButton andBackground:@"EAEAEA" andTitleColor:@"000000"];
-            maleButton.frame = CGRectMake(120.0, 6, 80, 30.0);
-            [cell addSubview:maleButton];
-            
-            femaleButton = [UIButton buttonWithType:UIButtonTypeSystem];
-            [femaleButton addTarget:self
-                           action:@selector(femaleButtonTapped:)
-                 forControlEvents:UIControlEventTouchUpInside];
-            [femaleButton setTitle:@"Nữ" forState:UIControlStateNormal];
-            femaleButton.layer.masksToBounds = YES;
-            femaleButton.layer.cornerRadius = 5.0;
-            [self setButton:femaleButton andBackground:@"EAEAEA" andTitleColor:@"000000"];
-            femaleButton.frame = CGRectMake(210.0, 6, 80, 30.0);
-            [cell addSubview:femaleButton];
-            
-            [self maleButtonTapped:nil];
         }
             break;
         case Birthday:

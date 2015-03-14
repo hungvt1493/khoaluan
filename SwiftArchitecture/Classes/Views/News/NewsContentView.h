@@ -14,16 +14,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
 @property (weak, nonatomic) IBOutlet UILabel *lblTime;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UITextView *tvContent;
 @property (weak, nonatomic) IBOutlet UIButton *btnLike;
 @property (weak, nonatomic) IBOutlet UIButton *btnMessage;
 @property (weak, nonatomic) IBOutlet UIButton *btnShowMore;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet UIButton *btnReadMore;
 @property (weak, nonatomic) IBOutlet UILabel *lblContent;
 
 - (void)setData:(NSDictionary*)dict;
 
 - (void)haveImage:(BOOL)flag;
-- (IBAction)btnReadMoreTapped:(id)sender;
 @end

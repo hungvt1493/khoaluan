@@ -13,7 +13,7 @@
 - (void)pushToViewControllerUseDelegete:(UIViewController *)viewController;
 @end
 
-@interface MyPageHeaderView : UIView
+@interface MyPageHeaderView : UITableViewCell
 @property (nonatomic, weak) id <MyPageHeaderViewDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgBackground;
@@ -26,4 +26,5 @@
 @property (weak, nonatomic) IBOutlet UIView *avatarContentBgView;
 
 - (IBAction)btnFriendTapped:(id)sender;
+- (IBAction)btnPostNewsTapped:(id)sender;
 @end
