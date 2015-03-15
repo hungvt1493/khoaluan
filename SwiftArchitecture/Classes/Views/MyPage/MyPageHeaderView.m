@@ -40,6 +40,20 @@
     _avatarBgView.layer.borderColor = [UIColor whiteColor].CGColor;
     _avatarBgView.layer.borderWidth = 1;
     _avatarBgView.layer.cornerRadius = _avatarBgView.bounds.size.width / 2.0;
+    
+    NSString *imgPath = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAvatar];
+    if (imgPath.length > 0) {
+        NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgPath];
+        [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
+                          placeholderImage:[UIImage imageNamed:@"default-avatar"]
+                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                     if (image) {
+                                         
+                                     } else {
+                                         
+                                     }
+                                 }];
+    }
 }
 
 - (IBAction)btnFriendTapped:(id)sender {
@@ -52,6 +66,8 @@
 - (IBAction)btnPostNewsTapped:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(pushToViewControllerUseDelegete:)]) {
         KLPostNewsViewController *postNewsVC = [[KLPostNewsViewController alloc] init];
+        [postNewsVC setType:status];
+        postNewsVC.pageType = add;
         [self.delegate pushToViewControllerUseDelegete:postNewsVC];
     }
 }

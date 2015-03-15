@@ -10,6 +10,7 @@
 
 @implementation KLNewsContentTableViewCell {
     BOOL _isSelected;
+    NSDictionary *_cellData;
 }
 
 - (void)awakeFromNib {
@@ -53,6 +54,7 @@
 }
 
 - (void)setData:(NSDictionary*)dict {
+    _cellData = dict;
     self.backgroundColor = [UIColor colorWithHex:@"E3E3E3" alpha:1];
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUSER_ID];
@@ -63,22 +65,13 @@
         _btnShowTool.hidden = YES;
     }
     
-    _newsId = [dict objectForKey:@"news_id"];
+    _newsId = [[dict objectForKey:@"news_id"] integerValue];
     
     int numberOfImage = [[dict objectForKey:@"number_of_image"] intValue];
     
     if (numberOfImage == 0) {
         [self haveImage:NO];
     }
-    
-    NSString *likesNumber = [NSString stringWithFormat:@" %@",[dict objectForKey:@"likes"]];
-    self.numberOfLikeInNews = [[dict objectForKey:@"likes"] integerValue];
-    [_btnLike setTitle:likesNumber forState:UIControlStateNormal];
-    [_btnLike sizeToFit];
-    CGRect btnLikeFrame = _btnLike.frame;
-    btnLikeFrame.size.width += 12;
-    btnLikeFrame.size.height = 30;
-    _btnLike.frame = btnLikeFrame;
     
     NSString *commentsNumber = [NSString stringWithFormat:@" %@",[dict objectForKey:@"comments"]];
     self.numberOfLikeInNews = [[dict objectForKey:@"comments"] integerValue];
@@ -111,11 +104,16 @@
     size.height = height;
     
     CGRect lblContentFrame = _lblContent.frame;
+    lblContentFrame.origin.y = -7;
     lblContentFrame.size.height = height;
     _lblContent.frame = lblContentFrame;
     
     CGRect newsFrame = _newsContentView.frame;
-    newsFrame.origin.y += 8;
+    if (numberOfImage == 0) {
+        newsFrame.origin.y = 71;
+    } else {
+        newsFrame.origin.y = 233;
+    }
     newsFrame.size.height = height + 42;
     _newsContentView.frame = newsFrame;
         
@@ -132,15 +130,28 @@
                              }];
     
     NSArray *userLikeArr = [dict objectForKey:@"user_like"];
-
-    for (int i =0; i < userLikeArr.count; i++) {
-        NSDictionary *uDict = [userLikeArr objectAtIndex:i];
-        NSString *idStr = [uDict objectForKey:@"user_like_id"];
-        if ([idStr isEqualToString:userId]) {
-            [self didLike:YES];
-            _isSelected = YES;
+    self.numberOfLikeInNews = userLikeArr.count;
+    if (userLikeArr.count == 0) {
+        [self didLike:NO];
+        _isSelected = NO;
+    } else {
+        for (int i =0; i < userLikeArr.count; i++) {
+            NSDictionary *uDict = [userLikeArr objectAtIndex:i];
+            NSString *idStr = [uDict objectForKey:@"user_like_id"];
+            if ([idStr isEqualToString:userId]) {
+                [self didLike:YES];
+                _isSelected = YES;
+            }
         }
     }
+    
+    NSString *likesNumber = [NSString stringWithFormat:@" %d", (int)self.numberOfLikeInNews];
+    [_btnLike setTitle:likesNumber forState:UIControlStateNormal];
+    [_btnLike sizeToFit];
+    CGRect btnLikeFrame = _btnLike.frame;
+    btnLikeFrame.size.width += 12;
+    btnLikeFrame.size.height = 30;
+    _btnLike.frame = btnLikeFrame;
 }
 
 - (IBAction)btnLikeTapped:(id)sender {
@@ -158,37 +169,40 @@
         //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         
         NSDictionary *parameters = @{@"user_id": userId,
-                                     @"news_id": self.newsId};
+                                     @"news_id": [NSNumber numberWithInteger:_newsId]};
         
         [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"like sucess - user: %@ - like news_id: %@", userId, self.newsId);
+            NSLog(@"like sucess - user: %@ - like news_id: %d", userId, (int)_newsId);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"like faild - user: %@ - like news_id: %@", userId, self.newsId);
+            NSLog(@"Error: %@", error);
+            NSLog(@"like faild - user: %@ - like news_id: %d", userId, (int)_newsId);
         }];
-        
+        NSString *likesNumber = [NSString stringWithFormat:@" %d",(int)self.numberOfLikeInNews];
+        [_btnLike setTitle:likesNumber forState:UIControlStateNormal];
     } else {
-        self.numberOfLikeInNews--;
+        if (self.numberOfLikeInNews > 0) {
+            self.numberOfLikeInNews--;
+            NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nDeleteLikeNews];
+            NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUSER_ID];
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+            
+            NSDictionary *parameters = @{@"user_id": userId,
+                                         @"news_id": [NSNumber numberWithInteger:_newsId]};
+            
+            [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"delete like sucess - user: %@ - like news_id: %d", userId, (int)_newsId);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                NSLog(@"delete like faild - user: %@ - like news_id: %d", userId, (int)_newsId);
+            }];
+            NSString *likesNumber = [NSString stringWithFormat:@" %d",(int)self.numberOfLikeInNews];
+            [_btnLike setTitle:likesNumber forState:UIControlStateNormal];
+        }
         
-        NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nDeleteLikeNews];
-        NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUSER_ID];
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        
-        NSDictionary *parameters = @{@"user_id": userId,
-                                     @"news_id": self.newsId};
-        
-        [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"delete like sucess - user: %@ - like news_id: %@", userId, self.newsId);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"delete like faild - user: %@ - like news_id: %@", userId, self.newsId);
-        }];
     }
-    NSString *likesNumber = [NSString stringWithFormat:@" %d",(int)self.numberOfLikeInNews];
-    [_btnLike setTitle:likesNumber forState:UIControlStateNormal];
-    
-    
 }
 
 - (void)didLike:(BOOL)flag {
@@ -226,9 +240,35 @@
 }
 
 - (IBAction)btnEditTapped:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didChooseEditCellAtIndexPath:withData:)]) {
+        [self.delegate didChooseEditCellAtIndexPath:_indexPath withData:_cellData];
+    }
 }
 
 - (IBAction)btnDeleteTapped:(id)sender {
+    [[SWUtil sharedUtil] showLoadingView];
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nDeleteNews];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSDictionary *parameters = @{@"news_id"  :  [NSNumber numberWithInteger:_newsId]};
+    
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSDictionary *dict = (NSDictionary*)responseObject;
+        [[SWUtil sharedUtil] hideLoadingView];
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didDeleteCellAtIndexPath:)]) {
+            [self.delegate didDeleteCellAtIndexPath:_indexPath];
+            NSLog(@"Delete cell at index %d success - news_id: %d", (int)_indexPath.row, (int)_newsId);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        NSLog(@"Delete cell at index %d faild - news_id: %d", (int)_indexPath.row, (int)_newsId);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
 }
 
 - (IBAction)btnShowToolViewTapped:(id)sender {

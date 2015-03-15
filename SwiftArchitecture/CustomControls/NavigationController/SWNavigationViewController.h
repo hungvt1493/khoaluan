@@ -19,6 +19,12 @@
                        textColor:(UIColor *)textColor
                      shadowColor:(UIColor *)shadowColor;
 
+- (id)initWithRootViewControllerAndGTScroll:(UIViewController *)rootViewController
+                                 background:(UIImage *)background
+                                       font:(UIFont *)font
+                                  textColor:(UIColor *)textColor
+                                shadowColor:(UIColor *)shadowColor;
+
 //Use this method to change |background image|,|font|.. for UINavigationBar
 - (void)changeStyle:(UIImage *)background
                font:(UIFont*) font

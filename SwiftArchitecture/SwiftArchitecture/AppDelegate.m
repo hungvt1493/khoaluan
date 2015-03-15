@@ -39,7 +39,7 @@
 
 - (void)initTabbar {
     
-    NSString *navBgName = (SYSTEM_VERSION >= 7) ? @"nav_ios7" : @"navbar_bg";
+    NSString *navBgName = @"";//(SYSTEM_VERSION >= 7) ? @"nav_ios7" : @"navbar_bg";
     UIImage *navbgImage = [UIImage resizableImage:[UIImage imageNamed:navBgName]];
     
     //Init Classes
@@ -51,8 +51,11 @@
     
     //Init Navigations
     
-    SWNavigationViewController *hnueNewsNavi = [[SWNavigationViewController alloc] initWithRootViewController:hnueNewsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
-    SWNavigationViewController *newsNavi = [[SWNavigationViewController alloc] initWithRootViewController:newsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
+    //SWNavigationViewController *hnueNewsNavi = [[SWNavigationViewController alloc] initWithRootViewController:hnueNewsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
+    
+    SWNavigationViewController *hnueNewsNavi = [[SWNavigationViewController alloc] initWithRootViewControllerAndGTScroll:hnueNewsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
+    SWNavigationViewController *newsNavi = [[SWNavigationViewController alloc] initWithRootViewControllerAndGTScroll:newsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
+    //SWNavigationViewController *newsNavi = [[SWNavigationViewController alloc] initWithRootViewController:newsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
     SWNavigationViewController *myPageNavi = [[SWNavigationViewController alloc] initWithRootViewController:myPageVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
     SWNavigationViewController *notiNavi = [[SWNavigationViewController alloc] initWithRootViewController:notiVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
     SWNavigationViewController *moreNavi = [[SWNavigationViewController alloc] initWithRootViewController:moreVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
@@ -69,6 +72,7 @@
     self.window.rootViewController = nil;
     self.window.rootViewController = self.tabbarController;
     [self.tabbarController hoverAtIndex:0];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
 }
 
 - (void)hideTabbar:(BOOL)hide{

@@ -36,6 +36,7 @@
 #import "NSDate+TimeAgo.h"
 #import "UIImageView+WebCache.h"
 #import "PullToRefreshView.h"
+#import "GTScrollNavigationBar.h"
 
 //AFNetworking
 #import "AFHTTPRequestOperationManager.h"

@@ -139,7 +139,7 @@
 }
 
 + (NSNumber *)convertDateToNumber:(NSDate *)date {
-    long long milliseconds = (long long)([date timeIntervalSince1970]*1000.0);
+    long long milliseconds = (long long)([date timeIntervalSince1970]);
     return [NSNumber numberWithLongLong:milliseconds];
 }
 
@@ -148,11 +148,11 @@
     return date;
 }
 
-+ (NSString*)convert:(long long)dateValue toDateStringWithFormat:(NSString*)format {
++ (NSString*)convert:(int)dateValue toDateStringWithFormat:(NSString*)format {
     NSDateFormatter *objDateformat = [[NSDateFormatter alloc] init];
     [objDateformat setDateFormat:format];
     [objDateformat setTimeZone:[NSTimeZone systemTimeZone]];
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:dateValue/1000.0];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:dateValue];
     NSString *stringFromDate = [objDateformat stringFromDate:date];
     
     return stringFromDate;

@@ -63,6 +63,7 @@
     }
     
     [self disableLoginbutton];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
 }
 
 - (void)initUI{
@@ -132,7 +133,13 @@
             
             [[SWUtil appDelegate] initTabbar];
 
-            NSDictionary *userDict = (NSDictionary*)responseObject;;
+            NSDictionary *userDict = (NSDictionary*)responseObject;
+            
+            NSString *avatarUrl = EMPTY_IF_NULL_OR_NIL([userDict objectForKey:@"avatar"]);
+            if (avatarUrl.length > 0) {
+                [[NSUserDefaults standardUserDefaults] setObject:avatarUrl forKey:kUserAvatar];
+            }
+            
             [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:@"user_id"] forKey:kUSER_ID];
             [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:@"is_admin"] forKey:kIsAdmin];
             NSLog(@"LOGIN JSON: %@", responseObject);

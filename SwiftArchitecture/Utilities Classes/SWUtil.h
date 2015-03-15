@@ -51,7 +51,7 @@
  */
 + (NSDate *)convertNumberToDate:(int)date;
 
-+ (NSString*)convert:(long long)dateValue toDateStringWithFormat:(NSString*)format;
++ (NSString*)convert:(int)dateValue toDateStringWithFormat:(NSString*)format;
 /**
  *Get string data from server, used for table view
  */

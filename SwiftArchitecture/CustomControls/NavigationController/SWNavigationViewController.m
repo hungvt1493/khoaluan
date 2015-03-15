@@ -7,6 +7,7 @@
 //
 
 #import "SWNavigationViewController.h"
+#import "GTScrollNavigationBar.h"
 
 @interface SWNavigationViewController ()
 
@@ -49,6 +50,13 @@
             //iOS 5 new UINavigationBar custom background
             [self.navigationBar setBackgroundImage:background forBarMetrics: UIBarMetricsDefault];
             
+            if (SYSTEM_VERSION >= 8) {
+                [[UINavigationBar appearance] setTranslucent:NO];
+                [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHex:Blue_Color alpha:1]];
+            } else {
+                [self.navigationController.navigationBar setTranslucent:NO];
+                self.navigationBar.barTintColor = [UIColor colorWithHex:Blue_Color alpha:1];
+            }
             
             NSShadow *shadow = [NSShadow new];
             [shadow setShadowColor: [UIColor clearColor]];
@@ -81,6 +89,60 @@
     return self;
 }
 
+- (id)initWithRootViewControllerAndGTScroll:(UIViewController *)rootViewController
+                                 background:(UIImage *)background
+                                       font:(UIFont *)font
+                                  textColor:(UIColor *)textColor
+                                shadowColor:(UIColor *)shadowColor {
+    self = [[UINavigationController alloc] initWithNavigationBarClass:[GTScrollNavigationBar class] toolbarClass:nil];
+    [self setViewControllers:@[rootViewController] animated:NO];
+    
+    if (SYSTEM_VERSION >= 8) {
+        [[UINavigationBar appearance] setTranslucent:NO];
+        [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHex:Blue_Color alpha:1]];
+    } else {
+        [self.navigationController.navigationBar setTranslucent:NO];
+        self.navigationBar.barTintColor = [UIColor colorWithHex:Blue_Color alpha:1];
+    }
+    
+    if([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)] ) {
+        
+        [self.navigationBar setBarStyle:UIBarStyleBlackOpaque];
+        //iOS 5 new UINavigationBar custom background
+        [self.navigationBar setBackgroundImage:background forBarMetrics: UIBarMetricsDefault];
+        
+        
+        NSShadow *shadow = [NSShadow new];
+        [shadow setShadowColor: [UIColor clearColor]];
+        [shadow setShadowOffset: CGSizeMake(1, -1.0f)];
+        NSDictionary *settings;
+        if (SYSTEM_VERSION <7) {
+
+            settings = @{
+                         UITextAttributeFont                 :  font,
+                         UITextAttributeTextColor            :  textColor,
+                         UITextAttributeTextShadowColor      :  [UIColor clearColor],
+                         UITextAttributeTextShadowOffset     :  [NSValue valueWithUIOffset:UIOffsetMake(1,-1)],
+                         };
+        }
+        else{
+
+            settings = @{
+                         NSFontAttributeName                 :  font,
+                         NSForegroundColorAttributeName      :  textColor,
+                         NSShadowAttributeName               :  shadow,
+                         };
+        }
+        
+        [[UINavigationBar appearance] setTitleTextAttributes:settings];
+        [self.navigationBar setTitleVerticalPositionAdjustment:2.0f forBarMetrics:UIBarMetricsDefault];
+        [self.navigationBar setBarStyle:UIBarStyleDefault];
+        
+    }
+    
+    return self;
+}
+
 - (void)changeStyle:(UIImage *)background
                font:(UIFont*) font
           textColor:(UIColor *)textColor
@@ -89,6 +151,7 @@
     [self.navigationBar setBarStyle:UIBarStyleBlackOpaque];
     //iOS 5 new UINavigationBar custom background
     [self.navigationBar setBackgroundImage:background forBarMetrics: UIBarMetricsDefault];
+    
     
     NSShadow *shadow = [NSShadow new];
     [shadow setShadowColor: [UIColor clearColor]];
@@ -104,7 +167,7 @@
                      };
     }
     else{
-        
+
         settings = @{
                      NSFontAttributeName                 :  font,
                      NSForegroundColorAttributeName      :  textColor,

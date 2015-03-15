@@ -19,6 +19,8 @@
 
 #define URL_IMG_BASE @"http://localhost/restserver/"
 
+#define kUserAvatar @"user_avatar"
+
 #define uLogin @"users/api_login"
 #define uReg @"users/api_register"
 #define nGetNews @"news/api_getNewsWithOffset"
@@ -26,8 +28,13 @@
 #define nLikeNews @"news/api_insertLike"
 #define nDeleteLikeNews @"news/api_deleteLike"
 #define nPostNews @"news/api_insertNews"
+#define nDeleteNews @"news/api_deleteNews"
+#define nEditNews @"news/api_updateNews"
 
-
+//Key
+#define kUSER_ID @"user_id"
+#define kIsAdmin @"is_admin"
+#define kNewsId @"news_id"
 
 /*TYPE ENUM*/
 typedef enum {
@@ -47,7 +54,7 @@ typedef enum {
 }TypeCategory;
 
 #define DATE_FORMAT @"dd/MM/yyyy"
-
+#define FULL_DATE_FORMAT @"dd/MM/yyyy HH:mm"
 #define PULL_DOWN_DATE                                       @"MM/dd , HH:mm"
 
 /*TITLE*/
@@ -64,6 +71,9 @@ typedef enum {
 #define The_Last_Cell_Have_No_Data_Title @"Không có bài viết"
 #define The_Last_Cell_Have_Data_Title @"Đang tải"
 #define Post_News_Title @"Đăng"
+#define Edit_News_Title @"Sửa"
+#define Post_News_Success_Title @"Đăng thành công"
+#define Edit_News_Success_Title @"Sửa thành công"
 /*TEXT*/
 #define Avatar_Message @"Không thể chọn ảnh!"
 #define Name_Message @"Bạn chưa nhập tên!"
@@ -72,7 +82,11 @@ typedef enum {
 #define Password_Message @"Mật khẩu cần ít nhất 6 kí tự"
 #define Re_Password_Message @"Mật khẩu và Nhắc lại mật khẩu cần giống nhau"
 #define Post_Event_No_Title_Error @"Bạn chưa nhập tên sự kiện"
-#define Post_Event_No_Time_Error @"Bạn chưa thời gian cho sự kiện"
+#define Post_Event_No_Time_Error @"Bạn chưa chọn thời gian cho sự kiện"
+#define Post_Status_No_Content_Error @"Bạn chưa nhập trạng thái"
+#define Post_Status_Are_You_Sure_Warning_Title @"Bạn chưa đăng trạng thái"
+#define Post_Status_Are_You_Sure_Warning_Message @"Bạn có chắc không?"
+#define Date_Warning_Title @"Ngày diễn ra sự kiện không được trước thời điểm hiện tại"
 /*IMAGE*/
 
 #define hnue_news_act @"News-hnue-blue"
@@ -105,7 +119,6 @@ typedef enum {
 #define Like_Button_color @"21D726"
 /*ARRAY*/
 
-//Key
-#define kUSER_ID @"user_id"
-#define kIsAdmin @"is_admin"
+#define kDidPostNews @"kDidPostNews"
+#define kDidPostMyPage @"kDidPostMyPage"
 #endif
