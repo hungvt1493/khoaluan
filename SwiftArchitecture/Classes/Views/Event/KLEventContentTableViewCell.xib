@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="4ld-Nt-a7e" customClass="KLNewsContentTableViewCell">
+        <view contentMode="scaleToFill" id="4ld-Nt-a7e" customClass="KLEventContentTableViewCell">
             <rect key="frame" x="0.0" y="3" width="320" height="356"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -22,6 +22,7 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tên" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eH4-91-dlg">
                             <rect key="frame" x="61" y="8" width="169" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
@@ -51,8 +52,8 @@
                             <rect key="frame" x="0.0" y="225" width="304" height="124"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5cV-po-0Ma">
-                                    <rect key="frame" x="5" y="0.0" width="293" height="77"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5cV-po-0Ma">
+                                    <rect key="frame" x="5" y="54" width="293" height="23"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -99,6 +100,20 @@
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sMf-9A-Iy4">
+                                    <rect key="frame" x="5" y="0.0" width="299" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RaM-SX-B2L">
+                                    <rect key="frame" x="5" y="25" width="299" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -109,7 +124,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="btnShowToolViewTapped:" destination="4ld-Nt-a7e" eventType="touchUpInside" id="gAy-Wp-4v3"/>
+                                <action selector="btnShowToolViewTapped:" destination="4ld-Nt-a7e" eventType="touchUpInside" id="lmi-6y-LE4"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" id="vyg-aV-NOq">
@@ -161,9 +176,11 @@
                 <outlet property="btnLike" destination="hX6-sN-4ik" id="oOt-cI-eVS"/>
                 <outlet property="btnMessage" destination="Tez-qy-huW" id="Yur-6H-yz6"/>
                 <outlet property="btnShowMore" destination="thS-zc-4NW" id="6ou-6A-Zy9"/>
-                <outlet property="btnShowTool" destination="GCT-91-hdX" id="gmm-av-dYj"/>
+                <outlet property="btnShowTool" destination="GCT-91-hdX" id="Yaq-uQ-bu7"/>
                 <outlet property="imgAvatar" destination="8ns-3N-5ou" id="KVL-gB-pAp"/>
                 <outlet property="lblContent" destination="5cV-po-0Ma" id="e7I-t1-gka"/>
+                <outlet property="lblEventTime" destination="RaM-SX-B2L" id="4Qg-pA-xl0"/>
+                <outlet property="lblEventTitle" destination="sMf-9A-Iy4" id="bp7-yK-bzL"/>
                 <outlet property="lblName" destination="eH4-91-dlg" id="Ihj-gI-72w"/>
                 <outlet property="lblTime" destination="Hmy-fs-ZGb" id="emJ-oO-zG8"/>
                 <outlet property="newsContentView" destination="bZB-hb-W0e" id="MII-cJ-mvq"/>

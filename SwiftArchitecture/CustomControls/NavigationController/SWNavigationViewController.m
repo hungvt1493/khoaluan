@@ -53,9 +53,14 @@
             if (SYSTEM_VERSION >= 8) {
                 [[UINavigationBar appearance] setTranslucent:NO];
                 [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHex:Blue_Color alpha:1]];
+                [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+                [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
             } else {
                 [self.navigationController.navigationBar setTranslucent:NO];
                 self.navigationBar.barTintColor = [UIColor colorWithHex:Blue_Color alpha:1];
+                self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+                [self.navigationController.navigationBar
+                 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
             }
             
             NSShadow *shadow = [NSShadow new];
@@ -66,7 +71,7 @@
                 
                 settings = @{
                              UITextAttributeFont                 :  font,
-                             UITextAttributeTextColor            :  textColor,
+                             UITextAttributeTextColor            :  [UIColor whiteColor],
                              UITextAttributeTextShadowColor      :  [UIColor clearColor],
                              UITextAttributeTextShadowOffset     :  [NSValue valueWithUIOffset:UIOffsetMake(1,-1)],
                              };
@@ -85,6 +90,10 @@
             [self.navigationBar setBarStyle:UIBarStyleDefault];
         
         }
+        
+        [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], UITextAttributeTextColor,nil] forState:UIControlStateNormal];
+        //set back button arrow color
+        [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     }
     return self;
 }
@@ -100,9 +109,14 @@
     if (SYSTEM_VERSION >= 8) {
         [[UINavigationBar appearance] setTranslucent:NO];
         [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHex:Blue_Color alpha:1]];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     } else {
         [self.navigationController.navigationBar setTranslucent:NO];
         self.navigationBar.barTintColor = [UIColor colorWithHex:Blue_Color alpha:1];
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+        [self.navigationController.navigationBar
+         setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     }
     
     if([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)] ) {
@@ -137,6 +151,10 @@
         [[UINavigationBar appearance] setTitleTextAttributes:settings];
         [self.navigationBar setTitleVerticalPositionAdjustment:2.0f forBarMetrics:UIBarMetricsDefault];
         [self.navigationBar setBarStyle:UIBarStyleDefault];
+        
+        [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], UITextAttributeTextColor,nil] forState:UIControlStateNormal];
+        //set back button arrow color
+        [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
         
     }
     

@@ -29,7 +29,6 @@
     // Do any additional setup after loading the view from its nib.
     
     _viewChoosePostType.hidden = YES;
-    self.title = Update_Status_Title;
     self.datePickerView.hidden = YES;
     [_tvContent becomeFirstResponder];
     [self setBackButtonWithImage:back_bar_button title:Back_Bar_Title highlightedImage:nil target:self action:@selector(backBarButtonTapped)];
@@ -38,6 +37,14 @@
         [self setRightButtonWithImage:nil title:Post_News_Title highlightedImage:nil target:self action:@selector(btnPostNewsTapped)];
     } else if (_pageType == edit) {
         [self setRightButtonWithImage:nil title:Edit_News_Title highlightedImage:nil target:self action:@selector(btnEditNewsTapped)];
+    }
+    
+    if (_postType == status) {
+        self.title = Update_Status_Title;
+        self.lblPostType.text = @"Trạng thái";
+    } else {
+        self.title = Create_Event_Title;
+        self.lblPostType.text = @"Sự kiện";
     }
     
     [[SWUtil appDelegate] hideTabbar:YES];
@@ -49,6 +56,17 @@
     _tvContent.text = _contentStr;
     _lblTime.text = _timeStr;
     _tfEventTitle.text = _eventTitleStr;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[SWUtil appDelegate] hideTabbar:NO];
 }
 
 - (void)backBarButtonTapped {
@@ -92,7 +110,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUSER_ID];
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{@"content"             : NULL_IF_NIL(_tvContent.text),
                                  @"user_id"             : userId,
                                  @"number_of_image"     : [NSNumber numberWithInteger:0],
@@ -143,7 +161,7 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUSER_ID];
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{kNewsId                : [NSNumber numberWithInteger:_newsId],
                                  @"content"             : NULL_IF_NIL(_tvContent.text),
                                  @"user_id"             : userId,
@@ -174,17 +192,6 @@
 - (void)postSuccessAction {
     [self.navigationController popViewControllerAnimated:YES];
     [[SWUtil sharedUtil] hideLoadingView];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    self.navigationController.navigationBarHidden = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [[SWUtil appDelegate] hideTabbar:NO];
 }
 
 - (IBAction)btnChooseDateTapped:(id)sender {

@@ -41,9 +41,9 @@
     _avatarBgView.layer.borderWidth = 1;
     _avatarBgView.layer.cornerRadius = _avatarBgView.bounds.size.width / 2.0;
     
-    NSString *imgPath = [[NSUserDefaults standardUserDefaults] objectForKey:kUserAvatar];
-    if (imgPath.length > 0) {
-        NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgPath];
+    NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];
+    if (imgAvatarPath.length > 0) {
+        NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgAvatarPath];
         [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
                           placeholderImage:[UIImage imageNamed:@"default-avatar"]
                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -54,6 +54,54 @@
                                      }
                                  }];
     }
+    
+    NSString *imgTimelinePath = [[NSUserDefaults standardUserDefaults] objectForKey:kTimelineImage];
+    if (imgTimelinePath.length > 0) {
+        NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgTimelinePath];
+        [self.imgBackground sd_setImageWithURL:[NSURL URLWithString:imageLink]
+                          placeholderImage:[UIImage imageNamed:@"images.jpg"]
+                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                     if (image) {
+                                         
+                                     } else {
+                                         
+                                     }
+                                 }];
+    }
+    
+    NSString *nameStr = [[NSUserDefaults standardUserDefaults] objectForKey:kName];
+    _lblName.text = nameStr;
+    [_lblName sizeToFit];
+    
+    CGRect lblNameFrame = _lblName.frame;
+    lblNameFrame.origin.x = (SCREEN_WIDTH_PORTRAIT - lblNameFrame.size.width)/2;
+    _lblName.frame = lblNameFrame;
+    
+    CGRect imgGenderFrame = _imgGender.frame;
+    imgGenderFrame.origin.x = lblNameFrame.origin.x + lblNameFrame.size.width + 5;
+    _imgGender.frame = imgGenderFrame;
+    _imgGender.hidden = NO;
+    [self bringSubviewToFront:_imgGender];
+    
+    int gender = [[[NSUserDefaults standardUserDefaults] objectForKey:kGender] intValue];
+    if (gender == 0) {
+        _imgGender.image = [UIImage imageNamed:female];
+    } else {
+        _imgGender.image = [UIImage imageNamed:male];
+    }
+    
+    int birthdayInt = [[[NSUserDefaults standardUserDefaults] objectForKey:kBirthDay] intValue];
+    
+    NSDate* birthday = [SWUtil convertNumberToDate:birthdayInt];
+    
+    NSDate* now = [NSDate date];
+    NSDateComponents* ageComponents = [[NSCalendar currentCalendar]
+                                       components:NSYearCalendarUnit
+                                       fromDate:birthday
+                                       toDate:now
+                                       options:0];
+    NSInteger age = [ageComponents year];
+    _lblAge.text = [NSString stringWithFormat:@"%d", (int)age];
 }
 
 - (IBAction)btnFriendTapped:(id)sender {

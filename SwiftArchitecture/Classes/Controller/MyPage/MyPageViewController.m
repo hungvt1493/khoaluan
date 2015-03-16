@@ -78,14 +78,15 @@
 
 - (void)initData {
     [[SWUtil sharedUtil] showLoadingView];
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUSER_ID];
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNewsWithUserId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSDictionary *parameters = @{@"offset": [NSNumber numberWithInt:_oldOffset],
                                  @"user_id": userId,
-                                 @"limit": [NSNumber numberWithInt:_limit]};
+                                 @"limit": [NSNumber numberWithInt:_limit],
+                                 @"type": [NSNumber numberWithInt:0]};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSArray class]]) {
@@ -208,7 +209,6 @@
         NSDictionary *dict = [_fullNewsArr objectAtIndex:indexPath.row-1];
         NSString *content = [dict objectForKey:@"content"];
         int numberOfImage = [[dict objectForKey:@"number_of_image"] intValue];
-        NSLog(@"TITLE: %@ - H: %d", content, (int)[self calculateHeightOfCellByString:content andNumberOfImage:numberOfImage]);
         return [self calculateHeightOfCellByString:content andNumberOfImage:numberOfImage];
     } else {
         return 44;
@@ -227,9 +227,9 @@
     height = size.height < 30 ? 30 : 77;
     
     if (numberOfImage == 0) {
-        height += 119;
+        height += 118;
     } else {
-        height += 279;
+        height += 278;
     }
     
     return height;
@@ -242,10 +242,10 @@
     [_myPageTableView reloadData];
 }
 
-- (void)didChooseEditCellAtIndexPath:(NSIndexPath *)indexPath withData:(NSDictionary *)dict {
+- (void)didChooseEditCellAtIndexPath:(NSIndexPath *)indexPath withData:(NSDictionary *)dict withType:(PostType)type{
     KLPostNewsViewController *postNewsVC = [[KLPostNewsViewController alloc] init];
     postNewsVC.pageType = edit;
-    PostType postType = [[dict objectForKey:@"type"] intValue];
+    PostType postType = type;
     postNewsVC.postType = postType;
     postNewsVC.newsId = [[dict objectForKey:kNewsId] integerValue];
     

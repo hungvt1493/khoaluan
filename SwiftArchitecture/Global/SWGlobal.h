@@ -19,8 +19,6 @@
 
 #define URL_IMG_BASE @"http://localhost/restserver/"
 
-#define kUserAvatar @"user_avatar"
-
 #define uLogin @"users/api_login"
 #define uReg @"users/api_register"
 #define nGetNews @"news/api_getNewsWithOffset"
@@ -32,7 +30,16 @@
 #define nEditNews @"news/api_updateNews"
 
 //Key
-#define kUSER_ID @"user_id"
+#define kUserId @"user_id"
+#define kName @"name"
+#define kUserName @"username"
+#define kBirthDay @"birthday"
+#define kStudentId @"student_id"
+#define kFaculty @"faculty"
+#define kEmail @"email"
+#define kGender @"gender"
+#define kAvatar @"avatar"
+#define kTimelineImage @"timeline_image"
 #define kIsAdmin @"is_admin"
 #define kNewsId @"news_id"
 
@@ -52,6 +59,16 @@ typedef enum {
     addClother = 0,
     addClotherDetail
 }TypeCategory;
+
+typedef enum {
+    status = 0,
+    event
+}PostType;
+
+typedef enum {
+    add = 0,
+    edit
+}PageType;
 
 #define DATE_FORMAT @"dd/MM/yyyy"
 #define FULL_DATE_FORMAT @"dd/MM/yyyy HH:mm"
@@ -106,6 +123,8 @@ typedef enum {
 #define avatar @"User"
 #define checked @"checked-login"
 #define unchecked @"uncheck-login"
+#define male @"Male"
+#define female @"Female"
 
 /*COLOR*/
 #define White_Color @"FFFFFF"

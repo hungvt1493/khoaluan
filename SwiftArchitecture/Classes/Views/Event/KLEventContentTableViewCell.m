@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Hung Vuong. All rights reserved.
 //
 
-#import "KLNewsContentTableViewCell.h"
+#import "KLEventContentTableViewCell.h"
 
-@implementation KLNewsContentTableViewCell {
+@implementation KLEventContentTableViewCell {
     BOOL _isSelected;
     NSDictionary *_cellData;
 }
@@ -97,6 +97,23 @@
     _lblTime.text = ago;
     //NSLog(@"Output is: \"%@\" - %@", ago, date);
     
+    NSString *eventTitle = [dict objectForKey:@"news_event_title"];
+    _lblEventTitle.text = eventTitle;
+    [_lblEventTitle sizeToFit];
+    
+    CGRect lblEventTitleFrame = _lblEventTitle.frame;
+    
+    if ([dict objectForKey:@"event_time"] != [NSNull null]) {
+        int eventTime = [[dict objectForKey:@"event_time"] intValue];
+        NSString *eventTimeStr = [SWUtil convert:eventTime toDateStringWithFormat:FULL_DATE_FORMAT];
+        _lblEventTime.text = eventTimeStr;
+        [_lblEventTime sizeToFit];
+    }
+    
+    CGRect lblEventTimeFrame = _lblEventTime.frame;
+    lblEventTimeFrame.origin.y = lblEventTitleFrame.origin.y + lblEventTitleFrame.size.height;
+    _lblEventTime.frame = lblEventTimeFrame;
+    
     NSString *content = [dict objectForKey:@"content"];
     _lblContent.text = content;
     CGFloat height;
@@ -109,7 +126,7 @@
     size.height = height;
     
     CGRect lblContentFrame = _lblContent.frame;
-    lblContentFrame.origin.y = -7;
+    lblContentFrame.origin.y = lblEventTimeFrame.origin.y + lblEventTimeFrame.size.height;
     lblContentFrame.size.height = height;
     _lblContent.frame = lblContentFrame;
     
@@ -119,7 +136,7 @@
     } else {
         newsFrame.origin.y = 233;
     }
-    newsFrame.size.height = height + 42;
+    newsFrame.size.height = height + 41 + lblEventTitleFrame.size.height + lblEventTimeFrame.size.height;
     _newsContentView.frame = newsFrame;
         
     NSString *imgPath = [dict objectForKey:@"avatar"];

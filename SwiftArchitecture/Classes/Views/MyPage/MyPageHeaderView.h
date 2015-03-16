@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnWriteNewPost;
 @property (weak, nonatomic) IBOutlet UIView *avatarBgView;
 @property (weak, nonatomic) IBOutlet UIView *avatarContentBgView;
+@property (weak, nonatomic) IBOutlet UIImageView *imgGender;
 
 - (IBAction)btnFriendTapped:(id)sender;
 - (IBAction)btnPostNewsTapped:(id)sender;

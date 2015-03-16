@@ -8,18 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol KLNewsContentTableViewCellDelegate <NSObject>
+@protocol KLEventContentTableViewCellDelegate <NSObject>
 
 - (void)didDeleteCellAtIndexPath:(NSIndexPath*)indexPath;
 - (void)didChooseEditCellAtIndexPath:(NSIndexPath*)indexPath withData:(NSDictionary*)dict withType:(PostType)type;
 @end
 
-@interface KLNewsContentTableViewCell : UITableViewCell
+@interface KLEventContentTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) id<KLNewsContentTableViewCellDelegate>delegate;
-
+@property (weak, nonatomic) id<KLEventContentTableViewCellDelegate>delegate;
+@property (weak, nonatomic) IBOutlet UILabel *lblEventTitle;
+@property (weak, nonatomic) IBOutlet UILabel *lblEventTime;
 @property (assign, nonatomic) PostType postType;
-
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;

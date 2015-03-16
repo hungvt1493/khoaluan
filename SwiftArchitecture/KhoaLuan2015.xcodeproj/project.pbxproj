@@ -119,6 +119,10 @@
 		04422EC71AA8854F008E4015 /* Login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04422EB91AA8854F008E4015 /* Login@2x.png */; };
 		04422EC81AA8854F008E4015 /* uncheck-login.png in Resources */ = {isa = PBXBuildFile; fileRef = 04422EBA1AA8854F008E4015 /* uncheck-login.png */; };
 		04422ECA1AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 04422EC91AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png */; };
+		04637A001AB74842004431E9 /* Female.png in Resources */ = {isa = PBXBuildFile; fileRef = 046379FC1AB74842004431E9 /* Female.png */; };
+		04637A011AB74842004431E9 /* Female@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046379FD1AB74842004431E9 /* Female@2x.png */; };
+		04637A021AB74842004431E9 /* Male.png in Resources */ = {isa = PBXBuildFile; fileRef = 046379FE1AB74842004431E9 /* Male.png */; };
+		04637A031AB74842004431E9 /* Male@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046379FF1AB74842004431E9 /* Male@2x.png */; };
 		048DA09B1AB2E53A0003E585 /* KLPostNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048DA0991AB2E53A0003E585 /* KLPostNewsViewController.m */; };
 		048DA09C1AB2E53A0003E585 /* KLPostNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048DA09A1AB2E53A0003E585 /* KLPostNewsViewController.xib */; };
 		04BF6C471AB1499F00F0F42D /* DMLazyScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BF6C461AB1499F00F0F42D /* DMLazyScrollView.m */; };
@@ -176,6 +180,10 @@
 		04DC2BBC1AB0421C00565689 /* README.textile in Resources */ = {isa = PBXBuildFile; fileRef = 04DC2B9A1AB0421C00565689 /* README.textile */; };
 		04DC2BBD1AB0421C00565689 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC2B9E1AB0421C00565689 /* UIScrollView+SVInfiniteScrolling.m */; };
 		04DC2BBE1AB0421C00565689 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC2BA01AB0421C00565689 /* UIScrollView+SVPullToRefresh.m */; };
+		04EEBC931AB727330092A011 /* KLEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EEBC911AB727330092A011 /* KLEventsViewController.m */; };
+		04EEBC941AB727330092A011 /* KLEventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EEBC921AB727330092A011 /* KLEventsViewController.xib */; };
+		04EEBC991AB727D30092A011 /* KLEventContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EEBC971AB727D30092A011 /* KLEventContentTableViewCell.m */; };
+		04EEBC9A1AB727D30092A011 /* KLEventContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EEBC981AB727D30092A011 /* KLEventContentTableViewCell.xib */; };
 		04F03B131AB5F31B005827D2 /* GTScrollNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F03B121AB5F31B005827D2 /* GTScrollNavigationBar.m */; };
 		04F03B261AB5FEBA005827D2 /* KhoaLuan2015-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04F03B251AB5FEB9005827D2 /* KhoaLuan2015-Info.plist */; };
 		04F03B2B1AB60410005827D2 /* arrow_refresh_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F03B271AB60410005827D2 /* arrow_refresh_down.png */; };
@@ -403,6 +411,10 @@
 		04422EB91AA8854F008E4015 /* Login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login@2x.png"; sourceTree = "<group>"; };
 		04422EBA1AA8854F008E4015 /* uncheck-login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "uncheck-login.png"; sourceTree = "<group>"; };
 		04422EC91AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LOGO DHSP HANOI-2 copy.png"; path = "2x/LOGO DHSP HANOI-2 copy.png"; sourceTree = "<group>"; };
+		046379FC1AB74842004431E9 /* Female.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Female.png; sourceTree = "<group>"; };
+		046379FD1AB74842004431E9 /* Female@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Female@2x.png"; sourceTree = "<group>"; };
+		046379FE1AB74842004431E9 /* Male.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Male.png; sourceTree = "<group>"; };
+		046379FF1AB74842004431E9 /* Male@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Male@2x.png"; sourceTree = "<group>"; };
 		048DA0981AB2E53A0003E585 /* KLPostNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLPostNewsViewController.h; sourceTree = "<group>"; };
 		048DA0991AB2E53A0003E585 /* KLPostNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLPostNewsViewController.m; sourceTree = "<group>"; };
 		048DA09A1AB2E53A0003E585 /* KLPostNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLPostNewsViewController.xib; sourceTree = "<group>"; };
@@ -501,6 +513,12 @@
 		04DC2B9E1AB0421C00565689 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		04DC2B9F1AB0421C00565689 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		04DC2BA01AB0421C00565689 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		04EEBC901AB727330092A011 /* KLEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLEventsViewController.h; sourceTree = "<group>"; };
+		04EEBC911AB727330092A011 /* KLEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLEventsViewController.m; sourceTree = "<group>"; };
+		04EEBC921AB727330092A011 /* KLEventsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLEventsViewController.xib; sourceTree = "<group>"; };
+		04EEBC961AB727D30092A011 /* KLEventContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLEventContentTableViewCell.h; sourceTree = "<group>"; };
+		04EEBC971AB727D30092A011 /* KLEventContentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLEventContentTableViewCell.m; sourceTree = "<group>"; };
+		04EEBC981AB727D30092A011 /* KLEventContentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLEventContentTableViewCell.xib; sourceTree = "<group>"; };
 		04F03B111AB5F31B005827D2 /* GTScrollNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTScrollNavigationBar.h; sourceTree = "<group>"; };
 		04F03B121AB5F31B005827D2 /* GTScrollNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTScrollNavigationBar.m; sourceTree = "<group>"; };
 		04F03B251AB5FEB9005827D2 /* KhoaLuan2015-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "KhoaLuan2015-Info.plist"; sourceTree = "<group>"; };
@@ -686,6 +704,7 @@
 		042846511AA848D70003CA26 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				04EEBC8F1AB727330092A011 /* Event */,
 				04422EA21AA8853A008E4015 /* Login&Register */,
 				042846521AA848D70003CA26 /* Friends */,
 				042846561AA848D70003CA26 /* More */,
@@ -752,6 +771,7 @@
 		042846661AA848D70003CA26 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04EEBC951AB727D30092A011 /* Event */,
 				042846671AA848D70003CA26 /* Friends */,
 				0428466B1AA848D70003CA26 /* MyPage */,
 				0428466F1AA848D70003CA26 /* News */,
@@ -795,6 +815,10 @@
 		042846841AA848F30003CA26 /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				046379FC1AB74842004431E9 /* Female.png */,
+				046379FD1AB74842004431E9 /* Female@2x.png */,
+				046379FE1AB74842004431E9 /* Male.png */,
+				046379FF1AB74842004431E9 /* Male@2x.png */,
 				04F03B271AB60410005827D2 /* arrow_refresh_down.png */,
 				04F03B281AB60410005827D2 /* arrow_refresh_down@2x.png */,
 				04F03B291AB60410005827D2 /* arrow_refresh_up.png */,
@@ -1127,6 +1151,26 @@
 				04DC2BA01AB0421C00565689 /* UIScrollView+SVPullToRefresh.m */,
 			);
 			path = SVPullToRefresh;
+			sourceTree = "<group>";
+		};
+		04EEBC8F1AB727330092A011 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				04EEBC901AB727330092A011 /* KLEventsViewController.h */,
+				04EEBC911AB727330092A011 /* KLEventsViewController.m */,
+				04EEBC921AB727330092A011 /* KLEventsViewController.xib */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		04EEBC951AB727D30092A011 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				04EEBC961AB727D30092A011 /* KLEventContentTableViewCell.h */,
+				04EEBC971AB727D30092A011 /* KLEventContentTableViewCell.m */,
+				04EEBC981AB727D30092A011 /* KLEventContentTableViewCell.xib */,
+			);
+			path = Event;
 			sourceTree = "<group>";
 		};
 		04F03B101AB5F31B005827D2 /* GTScrollNavigationBar */ = {
@@ -1637,11 +1681,13 @@
 				042846DA1AA848F30003CA26 /* Online.png in Resources */,
 				042846D31AA848F30003CA26 /* News-blue@2x.png in Resources */,
 				04422EBE1AA8854F008E4015 /* ContactCardFilled.png in Resources */,
+				04637A031AB74842004431E9 /* Male@2x.png in Resources */,
 				042847301AA849260003CA26 /* navbar_bg@2x.png in Resources */,
 				042846D11AA848F30003CA26 /* More-grey@2x.png in Resources */,
 				042846C51AA848F30003CA26 /* HomeFilled-grey@2x.png in Resources */,
 				0428467F1AA848D70003CA26 /* FriendTableViewCell.xib in Resources */,
 				042846C01AA848F30003CA26 /* Group.png in Resources */,
+				04EEBC941AB727330092A011 /* KLEventsViewController.xib in Resources */,
 				042847231AA849260003CA26 /* icon_search.png in Resources */,
 				04F03B2C1AB60410005827D2 /* arrow_refresh_down@2x.png in Resources */,
 				042846E31AA848F30003CA26 /* User.png in Resources */,
@@ -1656,7 +1702,9 @@
 				042846BD1AA848F30003CA26 /* Globe-blue@2x.png in Resources */,
 				0428472C1AA849260003CA26 /* SWMultiSelectContactViewController.xib in Resources */,
 				04DC2BB41AB0421C00565689 /* check~ipad.png in Resources */,
+				04637A021AB74842004431E9 /* Male.png in Resources */,
 				042846C11AA848F30003CA26 /* Group@2x.png in Resources */,
+				04EEBC9A1AB727D30092A011 /* KLEventContentTableViewCell.xib in Resources */,
 				042846811AA848D70003CA26 /* MyPageHeaderView.xib in Resources */,
 				042846CB1AA848F30003CA26 /* LikeOutline@2x.png in Resources */,
 				042847281AA849260003CA26 /* icon_unselect@2x.png in Resources */,
@@ -1664,6 +1712,7 @@
 				04DC2B611AB039AF00565689 /* default-avatar.png in Resources */,
 				042846B71AA848F30003CA26 /* BusinessContact@2x.png in Resources */,
 				04DC2BB31AB0421C00565689 /* check@2x~ipad.png in Resources */,
+				04637A001AB74842004431E9 /* Female.png in Resources */,
 				042846791AA848D70003CA26 /* MyPageViewController.xib in Resources */,
 				04422EC31AA8854F008E4015 /* Email@2x.png in Resources */,
 				042846BA1AA848F30003CA26 /* Clock.png in Resources */,
@@ -1690,6 +1739,7 @@
 				04DC2BB91AB0421C00565689 /* SNPicker.storyboard in Resources */,
 				042846E11AA848F30003CA26 /* SpeechBubble.png in Resources */,
 				04F0F2831AB207890087F8BB /* Bandage@2x.png in Resources */,
+				04637A011AB74842004431E9 /* Female@2x.png in Resources */,
 				04DC2BBC1AB0421C00565689 /* README.textile in Resources */,
 				042846C61AA848F30003CA26 /* InfoFilled.png in Resources */,
 				04422EBB1AA8854F008E4015 /* AddUser.png in Resources */,
@@ -1761,6 +1811,7 @@
 				9193C37C19617E4B00ADD198 /* MagicalRecord+Options.m in Sources */,
 				04DC2BA51AB0421C00565689 /* SDWebImageDecoder.m in Sources */,
 				04DC2BA81AB0421C00565689 /* SDWebImageManager.m in Sources */,
+				04EEBC991AB727D30092A011 /* KLEventContentTableViewCell.m in Sources */,
 				04C38C261AB06FB000F9F54B /* AFURLSessionManager.m in Sources */,
 				9193C38119617E4B00ADD198 /* NSManagedObject+ActiveRecord.m in Sources */,
 				04DC2BB81AB0421C00565689 /* SNImagePickerNC.m in Sources */,
@@ -1859,6 +1910,7 @@
 				9193C37919617E4B00ADD198 /* MagicalRecord+Actions.m in Sources */,
 				91B4C5DF1955249C008F0686 /* NSDictionary+Additions.m in Sources */,
 				04C38C201AB06FB000F9F54B /* AFHTTPSessionManager.m in Sources */,
+				04EEBC931AB727330092A011 /* KLEventsViewController.m in Sources */,
 				042847201AA849260003CA26 /* SWSegmentItem.m in Sources */,
 				04C38C251AB06FB000F9F54B /* AFURLResponseSerialization.m in Sources */,
 				04C38C2A1AB0733000F9F54B /* KeychainItemWrapper.m in Sources */,

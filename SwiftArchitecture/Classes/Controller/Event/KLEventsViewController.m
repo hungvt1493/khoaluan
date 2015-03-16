@@ -6,18 +6,18 @@
 //  Copyright (c) 2015 HungVT. All rights reserved.
 //
 
-#import "NewsViewController.h"
-#import "KLNewsContentTableViewCell.h"
+#import "KLEventsViewController.h"
+#import "KLEventContentTableViewCell.h"
 #import "KLPostNewsViewController.h"
 
-@interface NewsViewController () <UITableViewDataSource, UITableViewDelegate, KLNewsContentTableViewCellDelegate>
+@interface KLEventsViewController () <UITableViewDataSource, UITableViewDelegate, KLEventContentTableViewCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *newsTableView;
 @property (nonatomic, strong) PullToRefreshView *pull;
 @property (nonatomic, assign) CGFloat previousScrollViewYOffset;
 @end
 
-@implementation NewsViewController {
+@implementation KLEventsViewController {
     NSArray *_newsArr;
     NSMutableArray *_fullNewsArr;
     int _oldOffset;
@@ -108,7 +108,7 @@
     
     NSDictionary *parameters = @{@"offset": [NSNumber numberWithInt:_oldOffset],
                                  @"limit": [NSNumber numberWithInt:_limit],
-                                 @"type": [NSNumber numberWithInt:0]};
+                                 @"type": [NSNumber numberWithInt:1]};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSArray class]]) {
@@ -152,10 +152,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (_endOfRespond) {
-        NSLog(@"COUNT 1: %d", _fullNewsArr.count);
         return _fullNewsArr.count;
     }
-    NSLog(@"COUNT 2: %d", _fullNewsArr.count+1);
     return _fullNewsArr.count+1;
 }
 
@@ -181,10 +179,10 @@
     }
 
     
-    NSString *cellIdentifier = [NSString stringWithFormat:@"KLNewsContentTableViewCell-%d-%ld", _checkNewsPost, (long)indexPath.row];
-    KLNewsContentTableViewCell *cell = (KLNewsContentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    NSString *cellIdentifier = [NSString stringWithFormat:@"KLEventContentTableViewCell-%d-%ld", _checkNewsPost, (long)indexPath.row];
+    KLEventContentTableViewCell *cell = (KLEventContentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
-        [tableView registerNib:[UINib nibWithNibName:@"KLNewsContentTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
+        [tableView registerNib:[UINib nibWithNibName:@"KLEventContentTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -221,9 +219,12 @@
     if (indexPath.row < _fullNewsArr.count) {
         NSDictionary *dict = [_fullNewsArr objectAtIndex:indexPath.row];
         NSString *content = [dict objectForKey:@"content"];
+        NSString *eventTitle = [dict objectForKey:@"news_event_title"];
+        int eventTime = [[dict objectForKey:@"event_time"] intValue];
+        NSString *eventTimeStr = [SWUtil convert:eventTime toDateStringWithFormat:FULL_DATE_FORMAT];
         int numberOfImage = [[dict objectForKey:@"number_of_image"] intValue];
         
-        return [self calculateHeightOfCellByString:content andNumberOfImage:numberOfImage];
+        return [self calculateHeightOfCellByString:content eventTitle:eventTitle eventTime:eventTimeStr andNumberOfImage:numberOfImage];
     } else {
         return 44;
     }
@@ -231,7 +232,7 @@
 }
 
 
-- (NSInteger)calculateHeightOfCellByString:(NSString*)str andNumberOfImage:(NSInteger)numberOfImage {
+- (NSInteger)calculateHeightOfCellByString:(NSString*)str eventTitle:(NSString*)eventTitle eventTime:(NSString*)eventTime andNumberOfImage:(NSInteger)numberOfImage {
     CGFloat height;
     CGSize  textSize = { 293, 10000.0 };
     
@@ -239,11 +240,19 @@
                       constrainedToSize:textSize
                           lineBreakMode:NSLineBreakByWordWrapping];
     height = size.height < 30 ? 30 : 77;
+    
+    CGSize eventTitleSize = [str sizeWithFont:[UIFont systemFontOfSize:14]
+                  constrainedToSize:textSize
+                      lineBreakMode:NSLineBreakByWordWrapping];
 
+    CGSize eventTimeSize = [str sizeWithFont:[UIFont systemFontOfSize:14]
+                            constrainedToSize:textSize
+                                lineBreakMode:NSLineBreakByWordWrapping];
+    
     if (numberOfImage == 0) {
-        height += 117;
+        height = height + eventTitleSize.height + eventTimeSize.height + 123;
     } else {
-        height += 277;
+        height = height + eventTitleSize.height + eventTimeSize.height + 283;
     }
     
     return height;

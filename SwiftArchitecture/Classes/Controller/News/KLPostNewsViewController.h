@@ -8,16 +8,6 @@
 
 #import "SWBaseViewController.h"
 
-typedef enum {
-    status = 0,
-    event
-}PostType;
-
-typedef enum {
-    add = 0,
-    edit
-}PageType;
-
 @interface KLPostNewsViewController : SWBaseViewController
 
 @property (assign, nonatomic) PageType pageType;

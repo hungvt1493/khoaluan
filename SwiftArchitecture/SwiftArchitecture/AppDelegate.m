@@ -12,6 +12,7 @@
 #import "NewsViewController.h"
 #import "MyPageViewController.h"
 #import "MoreViewController.h"
+#import "KLEventsViewController.h"
 
 @implementation AppDelegate
 
@@ -29,8 +30,8 @@
     SWNavigationViewController *rootNavigation = [[SWNavigationViewController alloc]initWithRootViewController:controller
                                                                                                     background:navBg
                                                                                                           font:font
-                                                                                                     textColor:[UIColor colorWithHex:Blue_Color alpha:1.0]
-                                                                                                   shadowColor:[UIColor colorWithHex:Blue_Color alpha:1.0]];
+                                                                                                     textColor:[UIColor whiteColor]
+                                                                                                   shadowColor:[UIColor clearColor]];
     
     self.window.rootViewController = rootNavigation;
     [self.window makeKeyAndVisible];
@@ -43,7 +44,7 @@
     UIImage *navbgImage = [UIImage resizableImage:[UIImage imageNamed:navBgName]];
     
     //Init Classes
-    NewsViewController *hnueNewsVC = [[NewsViewController alloc] init];
+    KLEventsViewController *hnueNewsVC = [[KLEventsViewController alloc] init];
     NewsViewController *newsVC = [[NewsViewController alloc] init];
     MyPageViewController *myPageVC = [[MyPageViewController alloc] init];
     NotificationsViewController *notiVC = [[NotificationsViewController alloc] init];
@@ -53,12 +54,12 @@
     
     //SWNavigationViewController *hnueNewsNavi = [[SWNavigationViewController alloc] initWithRootViewController:hnueNewsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
     
-    SWNavigationViewController *hnueNewsNavi = [[SWNavigationViewController alloc] initWithRootViewControllerAndGTScroll:hnueNewsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
-    SWNavigationViewController *newsNavi = [[SWNavigationViewController alloc] initWithRootViewControllerAndGTScroll:newsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
+    SWNavigationViewController *hnueNewsNavi = [[SWNavigationViewController alloc] initWithRootViewControllerAndGTScroll:hnueNewsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor whiteColor] shadowColor:[UIColor clearColor]];
+    SWNavigationViewController *newsNavi = [[SWNavigationViewController alloc] initWithRootViewControllerAndGTScroll:newsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor whiteColor] shadowColor:[UIColor clearColor]];
     //SWNavigationViewController *newsNavi = [[SWNavigationViewController alloc] initWithRootViewController:newsVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
-    SWNavigationViewController *myPageNavi = [[SWNavigationViewController alloc] initWithRootViewController:myPageVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
-    SWNavigationViewController *notiNavi = [[SWNavigationViewController alloc] initWithRootViewController:notiVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
-    SWNavigationViewController *moreNavi = [[SWNavigationViewController alloc] initWithRootViewController:moreVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor colorWithHex:Blue_Color alpha:1.0] shadowColor:[UIColor clearColor]];
+    SWNavigationViewController *myPageNavi = [[SWNavigationViewController alloc] initWithRootViewController:myPageVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor whiteColor] shadowColor:[UIColor clearColor]];
+    SWNavigationViewController *notiNavi = [[SWNavigationViewController alloc] initWithRootViewController:notiVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor whiteColor] shadowColor:[UIColor clearColor]];
+    SWNavigationViewController *moreNavi = [[SWNavigationViewController alloc] initWithRootViewController:moreVC background:navbgImage font:[UIFont fontHelveticaNeue_Medium:18] textColor:[UIColor whiteColor] shadowColor:[UIColor clearColor]];
     
     //Init tabbar
     NSArray *imagesNormal = @[hnue_news,news,home,noti,more];

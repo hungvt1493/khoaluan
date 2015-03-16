@@ -135,13 +135,20 @@
 
             NSDictionary *userDict = (NSDictionary*)responseObject;
             
-            NSString *avatarUrl = EMPTY_IF_NULL_OR_NIL([userDict objectForKey:@"avatar"]);
+            NSString *avatarUrl = EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAvatar]);
             if (avatarUrl.length > 0) {
-                [[NSUserDefaults standardUserDefaults] setObject:avatarUrl forKey:kUserAvatar];
+                [[NSUserDefaults standardUserDefaults] setObject:avatarUrl forKey:kAvatar];
             }
             
-            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:@"user_id"] forKey:kUSER_ID];
-            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:@"is_admin"] forKey:kIsAdmin];
+            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kUserId] forKey:kUserId];
+            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kIsAdmin] forKey:kIsAdmin];
+            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kUserName] forKey:kUserName];
+            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kStudentId] forKey:kStudentId];
+            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kBirthDay] forKey:kBirthDay];
+            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kFaculty] forKey:kFaculty];
+            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kName] forKey:kName];
+            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kTimelineImage] forKey:kTimelineImage];
+            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kGender] forKey:kGender];
             NSLog(@"LOGIN JSON: %@", responseObject);
             [[SWUtil sharedUtil] hideLoadingView];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
