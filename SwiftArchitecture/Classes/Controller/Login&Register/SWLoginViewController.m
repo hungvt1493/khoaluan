@@ -139,16 +139,18 @@
             if (avatarUrl.length > 0) {
                 [[NSUserDefaults standardUserDefaults] setObject:avatarUrl forKey:kAvatar];
             }
+            NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+            [userDefault setObject:[userDict objectForKey:kUserId] forKey:kUserId];
+            [userDefault setObject:[userDict objectForKey:kIsAdmin] forKey:kIsAdmin];
+            [userDefault setObject:[userDict objectForKey:kUserName] forKey:kUserName];
+            [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kStudentId]) forKey:kStudentId];
+            [userDefault setInteger:[[userDict objectForKey:kBirthDay] integerValue] forKey:kBirthDay];
+            [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kFaculty]) forKey:kFaculty];
+            [userDefault setObject:[userDict objectForKey:kName] forKey:kName];
+            [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kTimelineImage]) forKey:kTimelineImage];
+            [userDefault setObject:[userDict objectForKey:kGender] forKey:kGender];
+            [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAboutMe]) forKey:kAboutMe];
             
-            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kUserId] forKey:kUserId];
-            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kIsAdmin] forKey:kIsAdmin];
-            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kUserName] forKey:kUserName];
-            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kStudentId] forKey:kStudentId];
-            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kBirthDay] forKey:kBirthDay];
-            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kFaculty] forKey:kFaculty];
-            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kName] forKey:kName];
-            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kTimelineImage] forKey:kTimelineImage];
-            [[NSUserDefaults standardUserDefaults] setObject:[userDict objectForKey:kGender] forKey:kGender];
             NSLog(@"LOGIN JSON: %@", responseObject);
             [[SWUtil sharedUtil] hideLoadingView];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

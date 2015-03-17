@@ -265,7 +265,7 @@
 }
 
 #pragma mark - MyPageHeaderDelegate
-- (void)pushToViewControllerUseDelegete:(UIViewController *)viewController {
-    [self.navigationController pushViewController:viewController animated:YES];
+- (void)pushToViewControllerUseDelegete:(UIViewController *)viewController withAnimation:(BOOL)animation{
+    [self.navigationController pushViewController:viewController animated:animation];
 }
 @end

@@ -42,6 +42,7 @@
 #define kTimelineImage @"timeline_image"
 #define kIsAdmin @"is_admin"
 #define kNewsId @"news_id"
+#define kAboutMe @"about_me"
 
 /*TYPE ENUM*/
 typedef enum {
