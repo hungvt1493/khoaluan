@@ -31,4 +31,5 @@
                           title:(NSString*)title
                highlightedImage:(NSString*)highlightedImageButtonName
                          target:(id)target action:(SEL)action;
+
 @end

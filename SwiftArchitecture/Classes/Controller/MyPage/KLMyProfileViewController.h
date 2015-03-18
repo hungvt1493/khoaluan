@@ -9,7 +9,7 @@
 #import "SWBaseViewController.h"
 
 @interface KLMyProfileViewController : SWBaseViewController
-@property (weak, nonatomic) IBOutlet UILabel *lblAboutMe;
+@property (weak, nonatomic) IBOutlet UITextView *tvAboutMe;
 @property (weak, nonatomic) IBOutlet UILabel *lblBirthday;
 @property (weak, nonatomic) IBOutlet UILabel *lblStudentCode;
 @property (weak, nonatomic) IBOutlet UILabel *lblFaculty;

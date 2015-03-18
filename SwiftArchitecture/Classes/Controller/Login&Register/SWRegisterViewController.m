@@ -11,37 +11,42 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #define CONTENT_VIEW_Y 20
-#define Register_Arr @[@"Ảnh đại diện",@"Email\n(Tên đăng nhập)",@"Tên",@"Giới tính",@"Ngày sinh",@"Mã sinh viên",@"Khoa",@"Mật khẩu",@"Nhắc lại mật khẩu"]
-#define Avatar 0
-#define Email 1
-#define Name 2
-#define Gender 3
-#define Birthday 4
-#define Student_id 5
-#define Faculty 6
-#define Password 7
-#define Re_Password 8
+#define Register_Arr @[@"Ảnh đại diện",@"Email\n(Tên đăng nhập)",@"Tên",@"Giới tính",@"Ngày sinh",@"Mã sinh viên",@"Khoa",@"Giới thiệu bản thân",@"Mật khẩu",@"Nhắc lại mật khẩu"]
+#define Edit_Arr @[@"Ảnh đại diện",@"Tên",@"Giới tính",@"Ngày sinh",@"Mã sinh viên",@"Khoa",@"Giới thiệu bản thân"]
+#define ChangePass_Arr @[@"Mật khẩu cũ",@"Mật khẩu mới",@"Nhắc lại mật khẩu"]
 
-@interface SWRegisterViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+#define RegAvatar 0
+#define RegEmail 1
+#define RegName 2
+#define RegGender 3
+#define RegBirthday 4
+#define RegStudent_id 5
+#define RegFaculty 6
+#define RegAboutMe 7
+#define RegPassword 8
+#define RegRePassword 9
+
+#define EditAvatar 0
+#define EditName 1
+#define EditGender 2
+#define EditBirthday 3
+#define EditStudent_id 4
+#define EditFaculty 5
+#define EditAboutMe 6
+
+#define ChangeOldPassword 0
+#define ChangePassword 1
+#define ChangeRePassword 2
+
+@interface SWRegisterViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate>
 {
     UIButton *maleButton;
     UIButton *femaleButton;
     UITextField *registerTextField;
-    NSString *birthdayString;
     UIImagePickerController *imagePicker;
-    UIImage *avatarImage;
-    BOOL didPickImage;
-    
-    NSString *userName;
-    NSString *password;
-    NSString *repassword;
-    NSString *email;
-    NSString *name;
-    NSNumber *birthday;
-    NSInteger gender;
-    NSString *faculty;
-    NSString *studentId;
+    NSString *avatarImageStr;
 }
+
 @property (strong, nonatomic) NSArray *registerArray;
 @property (weak, nonatomic) IBOutlet UITableView *registerTableView;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
@@ -73,29 +78,68 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self initUI];
-    [self initData];
-    didPickImage = NO;
-}
-
-- (void)initUI{
     
-    self.datePickerView.hidden = YES;
-    self.datePickerView.alpha = 0;
-    
-    [self setBackButtonWithImage:back_bar_button highlightedImage:nil target:self action:@selector(backButtonTapped:)];
     switch (self.typeUser) {
         case register_new:
         {
-            self.title = Register_Title;
-            [self.registerButton setTitle:Register_Title forState:UIControlStateNormal];
+            if (SYSTEM_VERSION >= 8) {
+                [[UINavigationBar appearance] setTranslucent:NO];
+                [[UINavigationBar appearance] setTintColor:[UIColor colorWithHex:Blue_Color alpha:1]];
+                [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHex:Blue_Color alpha:1]}];
+            } else {
+                [self.navigationController.navigationBar setTranslucent:NO];
+                self.navigationController.navigationBar.tintColor = [UIColor colorWithHex:Blue_Color alpha:1];
+                [self.navigationController.navigationBar
+                 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHex:Blue_Color alpha:1]}];
+            }
         }
             break;
-        case edit_infor:
+        default:
         {
+            if (SYSTEM_VERSION >= 8) {
+                [[UINavigationBar appearance] setTranslucent:NO];
+                [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+                [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+            } else {
+                [self.navigationController.navigationBar setTranslucent:NO];
+                self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+                [self.navigationController.navigationBar
+                 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+            }
+        }
+            break;
+    }
+    
+    [self initData];
+    [self initUI];
+}
+
+- (void)initUI {
+    self.navigationController.navigationBarHidden = NO;
+    self.datePickerView.hidden = YES;
+    self.datePickerView.alpha = 0;
+    
+    switch (self.typeUser) {
+        case register_new:
+        {
+            [self setBackButtonWithImage:back_bar_button_blue highlightedImage:nil target:self action:@selector(backButtonTapped:)];
+            self.title = Register_Title;
+            [self.registerButton setTitle:Register_Title forState:UIControlStateNormal];
+            _gender = 1;
+            _didPickImage = NO;
+        }
+            break;
+        case edit_info:
+        {
+            [self setBackButtonWithImage:back_bar_button highlightedImage:nil target:self action:@selector(backButtonTapped:)];
             self.title = InforUser_Title;
-            [self setRightButtonWithImage:Edit highlightedImage:nil target:self action:@selector(editButtonTapped:)];
-            self.registerTableView.userInteractionEnabled = NO;
+            [self.registerButton setTitle:Complete_Button forState:UIControlStateNormal];
+        }
+            break;
+        case change_password:
+        {
+            [self setBackButtonWithImage:back_bar_button highlightedImage:nil target:self action:@selector(backButtonTapped:)];
+            self.title = Change_Password_Title;
             [self.registerButton setTitle:Complete_Button forState:UIControlStateNormal];
         }
             break;
@@ -105,15 +149,23 @@
 }
 
 - (void)initData{
-    self.registerArray = Register_Arr;
+    switch (self.typeUser) {
+        case register_new:
+            self.registerArray = Register_Arr;
+            break;
+        case edit_info:
+            self.registerArray = Edit_Arr;
+            break;
+        case change_password:
+            self.registerArray = ChangePass_Arr;
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)backButtonTapped:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)editButtonTapped:(id)sender{
-    self.registerTableView.userInteractionEnabled = YES;
 }
 
 - (IBAction)hiddenDatePickerButtonTapped:(id)sender {
@@ -143,10 +195,21 @@
     [_dateFormatter setDateFormat:DATE_FORMAT];
     _dateString = [_dateFormatter stringFromDate:_chosenDate];
     
-    birthdayString = _dateString;
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:Birthday inSection:0];
+    _birthdayString = _dateString;
+    NSIndexPath *indexPath;
+    switch (self.typeUser) {
+        case register_new:
+            indexPath = [NSIndexPath indexPathForRow:RegBirthday inSection:0];
+            break;
+        case edit_info:
+            indexPath = [NSIndexPath indexPathForRow:EditBirthday inSection:0];
+            break;
+        default:
+            break;
+    }
     
-    birthday = [SWUtil convertDateToNumber:_chosenDate];
+    
+    _birthday = [SWUtil convertDateToNumber:_chosenDate];
     
     [self.registerTableView beginUpdates];
     [self.registerTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -161,55 +224,213 @@
     }
     
     [[SWUtil sharedUtil] showLoadingView];
-    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uReg];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    NSDictionary *parameters = @{@"username": email,
-                                 @"password": password,
-                                 @"email"   : email,
-                                 @"name"    : name,
-                                 @"birthday": NULL_IF_NIL(birthday),
-                                 @"gender"  : [NSNumber numberWithInteger:gender],
-                                 @"faculty" : NULL_IF_NIL(faculty),
-                                 @"student_id" : NULL_IF_NIL(studentId),
-                                 @"avatar" : NULL_IF_NIL(avatarImage)};
+    NSDictionary *parameters;
+    switch (self.typeUser) {
+        case change_password:
+        {
+            [[SWUtil sharedUtil] showLoadingView];
+            NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uUpdatePassword];
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            
+            NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+            NSDictionary *parameters = @{@"old_password"        : NULL_IF_NIL(_oldPassword),
+                                         @"password"            : NULL_IF_NIL(_password),
+                                         @"user_id"             : userId};
+            
+            [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary *dict = (NSDictionary*)responseObject;
+                [[SWUtil sharedUtil] hideLoadingView];
+                NSInteger code = [[dict objectForKey:@"code"] integerValue];
+                if (code == 0) {
+                    [SWUtil showConfirmAlert:@"Lỗi!" message:[dict objectForKey:@"message"] delegate:nil];
+                }
+                
+                if (code == 1) {
+                    [SWUtil showConfirmAlertWithMessage:@"Thành công" delegate:nil];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                
+                if (code == 3) {
+                    NSString *mesage = [dict objectForKey:@"message"];
+                    [SWUtil showConfirmAlertWithMessage:mesage delegate:nil];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
 
-    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dict = (NSDictionary*)responseObject;
-        
-        NSInteger code = [[dict objectForKey:@"code"] integerValue];
-        if (code > 1) {
-            [SWUtil showConfirmAlert:@"Lỗi!" message:[dict objectForKey:@"message"] delegate:nil];
+                NSLog(@"POST NEWS JSON: %@", dict);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+                [[SWUtil sharedUtil] hideLoadingView];
+            }];
         }
-        
-        if (code == 1) {
-            [SWUtil showConfirmAlertWithMessage:@"Đăng ký thành công" delegate:nil];
-            [self.navigationController popViewControllerAnimated:YES];
+            break;
+            
+        default:
+        {
+            NSString *url = @"";
+            if (self.typeUser == register_new) {
+                url = [NSString stringWithFormat:@"%@%@", URL_BASE, uReg];
+            } else {
+                url = [NSString stringWithFormat:@"%@%@", URL_BASE, uUpdate];
+            }
+            
+            if (_avatarImage && avatarImageStr) {
+                if (self.typeUser == register_new) {
+                    parameters = @{@"username": _email,
+                                   @"password": _password,
+                                   @"email"   : _email,
+                                   @"name"    : _name,
+                                   @"birthday": NULL_IF_NIL(_birthday),
+                                   @"gender"  : [NSNumber numberWithInteger:_gender],
+                                   @"faculty" : NULL_IF_NIL(_faculty),
+                                   @"student_id" : NULL_IF_NIL(_studentId),
+                                   @"about_me" : NULL_IF_NIL(_aboutMe)};
+                } else if (self.typeUser == edit_info) {
+                    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+                    parameters = @{@"user_id"    : userId,
+                                   @"name"    : _name,
+                                   @"birthday": NULL_IF_NIL(_birthday),
+                                   @"gender"  : [NSNumber numberWithInteger:_gender],
+                                   @"faculty" : NULL_IF_NIL(_faculty),
+                                   @"student_id" : NULL_IF_NIL(_studentId),
+                                   @"about_me" : NULL_IF_NIL(_aboutMe)};
+                }
+                
+                AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:url]];
+                NSData *imageData = UIImageJPEGRepresentation(_avatarImage, 0.5);
+                
+                AFHTTPRequestOperation *op = [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                    //do not put image inside parameters dictionary as I did, but append it!
+                    [formData appendPartWithFileData:imageData name:@"avatar" fileName:avatarImageStr mimeType:@"image/jpeg"];
+                } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSDictionary *userDict = (NSDictionary*)responseObject;
+                    
+                    NSInteger code = [[userDict objectForKey:@"code"] integerValue];
+                    if (code == 0 && userDict.count <= 2) {
+                        [self performSelector:@selector(popViewController) withObject:nil afterDelay:1.0 inModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
+                    } else {
+                        NSString *avatarUrl = EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAvatar]);
+                        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+                        
+                        if (avatarUrl.length > 0) {
+                            [userDefault setObject:avatarUrl forKey:kAvatar];
+                        }
+                        
+                        [userDefault setObject:[userDict objectForKey:kUserId] forKey:kUserId];
+                        [userDefault setObject:[userDict objectForKey:kIsAdmin] forKey:kIsAdmin];
+                        [userDefault setObject:[userDict objectForKey:kUserName] forKey:kUserName];
+                        [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kStudentId]) forKey:kStudentId];
+                        [userDefault setInteger:[[userDict objectForKey:kBirthDay] integerValue] forKey:kBirthDay];
+                        [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kFaculty]) forKey:kFaculty];
+                        [userDefault setObject:[userDict objectForKey:kName] forKey:kName];
+                        [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kTimelineImage]) forKey:kTimelineImage];
+                        [userDefault setObject:[userDict objectForKey:kGender] forKey:kGender];
+                        [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAboutMe]) forKey:kAboutMe];
+                        [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kEmail]) forKey:kEmail];
+                        
+                        //                        [SWUtil showConfirmAlertWithMessage:@"Thành công" delegate:nil];
+                        [[SWUtil sharedUtil] showLoadingViewWithTitle:@"Thành công"];
+                        [self performSelector:@selector(popViewController) withObject:nil afterDelay:1.0 inModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
+                    }
+
+                    
+                    NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@ ***** %@", operation.responseString, error);
+                    [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+                    [[SWUtil sharedUtil] hideLoadingView];
+                }];
+                [op start];
+                
+            } else {
+                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+                manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
+                manager.requestSerializer = [AFJSONRequestSerializer serializer];
+                if (self.typeUser == register_new) {
+                    parameters = @{@"username": _email,
+                                   @"password": _password,
+                                   @"email"   : _email,
+                                   @"name"    : _name,
+                                   @"birthday": NULL_IF_NIL(_birthday),
+                                   @"gender"  : [NSNumber numberWithInteger:_gender],
+                                   @"faculty" : NULL_IF_NIL(_faculty),
+                                   @"student_id" : NULL_IF_NIL(_studentId),
+                                   @"about_me" : NULL_IF_NIL(_aboutMe)};
+                } else if (self.typeUser == edit_info) {
+                    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+                    parameters = @{@"user_id"    : userId,
+                                   @"name"    : _name,
+                                   @"birthday": NULL_IF_NIL(_birthday),
+                                   @"gender"  : [NSNumber numberWithInteger:_gender],
+                                   @"faculty" : NULL_IF_NIL(_faculty),
+                                   @"student_id" : NULL_IF_NIL(_studentId),
+                                   @"about_me" : NULL_IF_NIL(_aboutMe)};
+                }
+                
+                [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    NSDictionary *userDict = (NSDictionary*)responseObject;
+                    
+                    NSInteger code = [[userDict objectForKey:@"code"] integerValue];
+                    if (code == 0 && userDict.count <= 2) {
+                        [self performSelector:@selector(popViewController) withObject:nil afterDelay:1.0 inModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
+                    } else {
+                        NSString *avatarUrl = EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAvatar]);
+                        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+                        
+                        if (avatarUrl.length > 0) {
+                            [userDefault setObject:avatarUrl forKey:kAvatar];
+                        }
+                        
+                        [userDefault setObject:[userDict objectForKey:kUserId] forKey:kUserId];
+                        [userDefault setObject:[userDict objectForKey:kIsAdmin] forKey:kIsAdmin];
+                        [userDefault setObject:[userDict objectForKey:kUserName] forKey:kUserName];
+                        [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kStudentId]) forKey:kStudentId];
+                        [userDefault setInteger:[[userDict objectForKey:kBirthDay] integerValue] forKey:kBirthDay];
+                        [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kFaculty]) forKey:kFaculty];
+                        [userDefault setObject:[userDict objectForKey:kName] forKey:kName];
+                        [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kTimelineImage]) forKey:kTimelineImage];
+                        [userDefault setObject:[userDict objectForKey:kGender] forKey:kGender];
+                        [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAboutMe]) forKey:kAboutMe];
+                        [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kEmail]) forKey:kEmail];
+                        
+//                        [SWUtil showConfirmAlertWithMessage:@"Thành công" delegate:nil];
+                        [[SWUtil sharedUtil] showLoadingViewWithTitle:@"Thành công"];
+                       [self performSelector:@selector(popViewController) withObject:nil afterDelay:1.0 inModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
+                    }
+                    
+                    NSLog(@"Reg JSON: %@", userDict);
+                    
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error: %@", error);
+                    [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+                    [[SWUtil sharedUtil] hideLoadingView];
+                }];
+                
+            }
+
         }
-        
-        NSLog(@"Reg JSON: %@", dict);
-        [[SWUtil sharedUtil] hideLoadingView];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
-        [[SWUtil sharedUtil] hideLoadingView];
-    }];
+            break;
+    }
+}
+
+- (void)popViewController {
+     [self.navigationController popViewControllerAnimated:YES];
+    [[SWUtil sharedUtil] hideLoadingView];
 }
 
 - (void)maleButtonTapped:(id)sender{
     [self setButton:femaleButton andBackground:Button_bg andTitleColor:Black_Color];
     [self setButton:maleButton andBackground:Button_bg_Selected andTitleColor:White_Color];
     
-    gender = 1;
+    _gender = 1;
 }
 
 - (void)femaleButtonTapped:(id)sender{
     [self setButton:maleButton andBackground:Button_bg andTitleColor:Black_Color];
     [self setButton:femaleButton andBackground:Button_bg_Selected andTitleColor:White_Color];
-    gender = 0;
+    _gender = 0;
 }
 
 - (void)setButton:(UIButton *)button andBackground:(NSString *)bg andTitleColor:(NSString *)title{
@@ -258,42 +479,90 @@
             if ([subview isKindOfClass:[UITextField class]]) {
                 UITextField *tf = (UITextField*)subview;
                 NSString *text = tf.text;
-                switch (tf.tag) {
-                    case Name:
+                switch (self.typeUser) {
+                    case register_new:
                     {
-                        if (![self isValidName:text]) {
-                            errorMessage = Name_Message;
-                        }
-                    }
-                        break;
-
-                    case Email:
-                    {
-                        if (text.length > 0) {
-                            if (![self isValidEmail:text ]) {
-                                errorMessage = Email_Message;
+                        switch (tf.tag) {
+                            case RegName:
+                            {
+                                if (![self isValidName:text]) {
+                                    errorMessage = Name_Message;
+                                }
                             }
-                        } else {
-                            errorMessage = Email_Require_Message;
+                                break;
+                                
+                            case RegEmail:
+                            {
+                                if (text.length > 0) {
+                                    if (![self isValidEmail:text ]) {
+                                        errorMessage = Email_Message;
+                                    }
+                                } else {
+                                    errorMessage = Email_Require_Message;
+                                }
+                                
+                            }
+                                break;
+                            case RegPassword:
+                            {
+                                passWord = text;
+                                if (![self isValidPassword:text]) {
+                                    errorMessage = Password_Message;
+                                }
+                            }
+                                break;
+                            case RegRePassword:
+                            {
+                                if (![text isEqualToString:passWord]) {
+                                    errorMessage = Re_Password_Message;
+                                }
+                            }
+                                break;
+                            default:
+                                break;
                         }
                         
                     }
                         break;
-                    case Password:
+                    case edit_info:
                     {
-                        passWord = text;
-                        if (![self isValidPassword:text]) {
-                            errorMessage = Password_Message;
+                        if (tf.tag == EditName) {
+                            if (![self isValidName:text]) {
+                                errorMessage = Name_Message;
+                            }
                         }
                     }
                         break;
-                    case Re_Password:
-                    {
-                        if (![text isEqualToString:passWord]) {
-                            errorMessage = Re_Password_Message;
+                    case change_password:
+                        {
+                            switch (tf.tag) {
+                                case ChangeOldPassword:
+                                {
+                                    if (![self isValidName:text]) {
+                                        errorMessage = Old_Password_Message;
+                                    }
+                                }
+                                    break;
+                                case ChangePassword:
+                                {
+                                    passWord = text;
+                                    if (![self isValidPassword:text]) {
+                                        errorMessage = Password_Message;
+                                    }
+                                }
+                                    break;
+                                case ChangeRePassword:
+                                {
+                                    if (![text isEqualToString:passWord]) {
+                                        errorMessage = Re_Password_Message;
+                                    }
+                                }
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
-                    }
-                        break;
+                            break;
                     default:
                         break;
                 }
@@ -317,156 +586,425 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+   
     NSString *cellIdentifier = [NSString stringWithFormat:@"Cell-Index%ld",(long)indexPath.row];
-    UITableViewCell *cellDefault = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cellDefault) {
-    
-        cellDefault = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        cellDefault.textLabel.text = [self.registerArray objectAtIndex:indexPath.row];
-        cellDefault.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    KLRegisterTableViewCell *cell = (KLRegisterTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (!cell) {
-        [tableView registerNib:[UINib nibWithNibName:@"KLRegisterTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        
-        if (indexPath.row == Gender) {
-
-            cell.tfInput.enabled = NO;
-            cell.tfInput.hidden = YES;
-            maleButton = [UIButton buttonWithType:UIButtonTypeSystem];
-            [maleButton addTarget:self
-                           action:@selector(maleButtonTapped:)
-                 forControlEvents:UIControlEventTouchUpInside];
-            [maleButton setTitle:@"Nam" forState:UIControlStateNormal];
-            maleButton.layer.masksToBounds = YES;
-            maleButton.layer.cornerRadius = 5.0;
-            [self setButton:maleButton andBackground:@"EAEAEA" andTitleColor:@"000000"];
-            maleButton.frame = CGRectMake(120.0, 6, 80, 30.0);
-            [cell addSubview:maleButton];
-            
-            femaleButton = [UIButton buttonWithType:UIButtonTypeSystem];
-            [femaleButton addTarget:self
-                             action:@selector(femaleButtonTapped:)
-                   forControlEvents:UIControlEventTouchUpInside];
-            [femaleButton setTitle:@"Nữ" forState:UIControlStateNormal];
-            femaleButton.layer.masksToBounds = YES;
-            femaleButton.layer.cornerRadius = 5.0;
-            [self setButton:femaleButton andBackground:@"EAEAEA" andTitleColor:@"000000"];
-            femaleButton.frame = CGRectMake(210.0, 6, 80, 30.0);
-            [cell addSubview:femaleButton];
-            
-            [self maleButtonTapped:nil];
-        }
-    }
-    
-    switch (indexPath.row) {
-        case Avatar:
+    switch (self.typeUser) {
+        case register_new:
         {
-            if (didPickImage) {
-                cellDefault.imageView.image = avatarImage;
+            if (indexPath.row == RegAvatar) {
+                UITableViewCell *cellDefault = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                if (!cellDefault) {
+                    
+                    cellDefault = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                    cellDefault.textLabel.text = [self.registerArray objectAtIndex:indexPath.row];
+                    cellDefault.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                
+                if (_didPickImage) {
+                    cellDefault.imageView.image = _avatarImage;
+                } else {
+                    cellDefault.imageView.image = [UIImage imageNamed:@"default-avatar"];
+                }
+                cellDefault.separatorInset = UIEdgeInsetsZero;
+                return cellDefault;
             } else {
-                cellDefault.imageView.image = [UIImage imageNamed:@"default-avatar"];
+                KLRegisterTableViewCell *cell = (KLRegisterTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                if (!cell) {
+                    [tableView registerNib:[UINib nibWithNibName:@"KLRegisterTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
+                    cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                }
+                
+                switch (indexPath.row) {
+                        
+                    case RegEmail:
+                    {
+                        cell.lblTitle.font = [UIFont systemFontOfSize:15];
+                        cell.tfInput.text = _email;
+                    }
+                        break;
+                    case RegName:
+                    {
+                        cell.tfInput.text = _name;
+                    }
+                        break;
+                    case RegGender:
+                    {
+                        cell.tfInput.enabled = NO;
+                        cell.tfInput.hidden = YES;
+                        maleButton = [UIButton buttonWithType:UIButtonTypeSystem];
+                        [maleButton addTarget:self
+                                       action:@selector(maleButtonTapped:)
+                             forControlEvents:UIControlEventTouchUpInside];
+                        [maleButton setTitle:@"Nam" forState:UIControlStateNormal];
+                        maleButton.layer.masksToBounds = YES;
+                        maleButton.layer.cornerRadius = 5.0;
+                        [self setButton:maleButton andBackground:@"EAEAEA" andTitleColor:@"000000"];
+                        maleButton.frame = CGRectMake(120.0, 6, 80, 30.0);
+                        [cell addSubview:maleButton];
+                        
+                        femaleButton = [UIButton buttonWithType:UIButtonTypeSystem];
+                        [femaleButton addTarget:self
+                                         action:@selector(femaleButtonTapped:)
+                               forControlEvents:UIControlEventTouchUpInside];
+                        [femaleButton setTitle:@"Nữ" forState:UIControlStateNormal];
+                        femaleButton.layer.masksToBounds = YES;
+                        femaleButton.layer.cornerRadius = 5.0;
+                        [self setButton:femaleButton andBackground:@"EAEAEA" andTitleColor:@"000000"];
+                        femaleButton.frame = CGRectMake(210.0, 6, 80, 30.0);
+                        [cell addSubview:femaleButton];
+                        
+                        if (_gender == 0) {
+                            [self femaleButtonTapped:nil];
+                        } else {
+                            [self maleButtonTapped:nil];
+                        }
+                        
+                    }
+                        break;
+                    case RegBirthday:
+                    {
+                        cell.tfInput.enabled = NO;
+                        cell.tfInput.hidden = YES;
+                        UILabel *birthdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, 7, 160, 30)];
+                        birthdayLabel.text = _birthdayString;
+                        birthdayLabel.textAlignment = NSTextAlignmentRight;
+                        cell.accessoryView = birthdayLabel;
+                    }
+                        break;
+                    case RegAboutMe:
+                    {
+                        //            cell.lblTitle.font = [UIFont systemFontOfSize:15];
+                        cell.tvInput.hidden = NO;
+                        cell.tfInput.hidden = YES;
+                        cell.tvInput.layer.borderColor = [UIColor blackColor].CGColor;
+                        cell.tvInput.layer.borderWidth = 1;
+                        cell.tvInput.delegate = self;
+                        [cell setHeightForCell:80];
+                        cell.tfInput.text = _aboutMe;
+                        cell.tvInput.text = _aboutMe;
+                    }
+                        break;
+                    case RegPassword:
+                    {
+                        cell.tfInput.secureTextEntry = YES;
+                        cell.tfInput.text = _password;
+                    }
+                    case RegRePassword:
+                    {
+                        cell.lblTitle.font = [UIFont systemFontOfSize:14];
+                        cell.tfInput.secureTextEntry = YES;
+                        cell.tfInput.text = _repassword;
+                    }
+                        break;
+                    case RegStudent_id:
+                    {
+                        cell.tfInput.text = _studentId;
+                    }
+                        break;
+                    case RegFaculty:
+                    {
+                        cell.tfInput.text = _faculty;
+                    }
+                        break;
+                    default:
+                        break;
+                }
+                
+                cell.lblTitle.text = [self.registerArray objectAtIndex:indexPath.row];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.tfInput.delegate = self;
+                cell.tfInput.tag = indexPath.row;
+                
+                [cell.tfInput addTarget:self
+                                 action:@selector(textFieldDidChange:)
+                       forControlEvents:UIControlEventEditingChanged];
+                
+                return cell;
             }
-            cellDefault.separatorInset = UIEdgeInsetsZero;
-            return cellDefault;
-        }
-        case Email:
-        {
-            cell.lblTitle.font = [UIFont systemFontOfSize:15];
-            cell.tfInput.text = email;
+
         }
             break;
-        case Name:
+        case edit_info:
         {
-            cell.tfInput.text = name;
+            if (indexPath.row == EditAvatar) {
+                UITableViewCell *cellDefault = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                if (!cellDefault) {
+                    
+                    cellDefault = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                    cellDefault.textLabel.text = [self.registerArray objectAtIndex:indexPath.row];
+                    cellDefault.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+                
+                if (_didPickImage) {
+                    cellDefault.imageView.image = _avatarImage;
+                } else {
+                    cellDefault.imageView.image = [UIImage imageNamed:@"default-avatar"];
+                }
+                cellDefault.separatorInset = UIEdgeInsetsZero;
+                return cellDefault;
+            } else {
+                KLRegisterTableViewCell *cell = (KLRegisterTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                if (!cell) {
+                    [tableView registerNib:[UINib nibWithNibName:@"KLRegisterTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
+                    cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+                }
+                
+                switch (indexPath.row) {
+                    case EditName:
+                    {
+                        cell.tfInput.text = _name;
+                    }
+                        break;
+                    case EditGender:
+                    {
+                        cell.tfInput.enabled = NO;
+                        cell.tfInput.hidden = YES;
+                        maleButton = [UIButton buttonWithType:UIButtonTypeSystem];
+                        [maleButton addTarget:self
+                                       action:@selector(maleButtonTapped:)
+                             forControlEvents:UIControlEventTouchUpInside];
+                        [maleButton setTitle:@"Nam" forState:UIControlStateNormal];
+                        maleButton.layer.masksToBounds = YES;
+                        maleButton.layer.cornerRadius = 5.0;
+                        [self setButton:maleButton andBackground:@"EAEAEA" andTitleColor:@"000000"];
+                        maleButton.frame = CGRectMake(120.0, 6, 80, 30.0);
+                        [cell addSubview:maleButton];
+                        
+                        femaleButton = [UIButton buttonWithType:UIButtonTypeSystem];
+                        [femaleButton addTarget:self
+                                         action:@selector(femaleButtonTapped:)
+                               forControlEvents:UIControlEventTouchUpInside];
+                        [femaleButton setTitle:@"Nữ" forState:UIControlStateNormal];
+                        femaleButton.layer.masksToBounds = YES;
+                        femaleButton.layer.cornerRadius = 5.0;
+                        [self setButton:femaleButton andBackground:@"EAEAEA" andTitleColor:@"000000"];
+                        femaleButton.frame = CGRectMake(210.0, 6, 80, 30.0);
+                        [cell addSubview:femaleButton];
+                        
+                        if (_gender == 0) {
+                            [self femaleButtonTapped:nil];
+                        } else {
+                            [self maleButtonTapped:nil];
+                        }
+                        
+                    }
+                        break;
+                    case EditBirthday:
+                    {
+                        cell.tfInput.enabled = NO;
+                        cell.tfInput.hidden = YES;
+                        UILabel *birthdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, 7, 160, 30)];
+                        birthdayLabel.text = _birthdayString;
+                        birthdayLabel.textAlignment = NSTextAlignmentRight;
+                        cell.accessoryView = birthdayLabel;
+                    }
+                        break;
+                    case EditAboutMe:
+                    {
+                        //            cell.lblTitle.font = [UIFont systemFontOfSize:15];
+                        cell.tvInput.hidden = NO;
+                        cell.tfInput.hidden = YES;
+                        cell.tvInput.layer.borderColor = [UIColor blackColor].CGColor;
+                        cell.tvInput.layer.borderWidth = 1;
+                        cell.tvInput.delegate = self;
+                        [cell setHeightForCell:80];
+                        cell.tfInput.text = _aboutMe;
+                        cell.tvInput.text = _aboutMe;
+                    }
+                        break;
+                    case EditStudent_id:
+                    {
+                        cell.tfInput.text = _studentId;
+                    }
+                        break;
+                    case EditFaculty:
+                    {
+                        cell.tfInput.text = _faculty;
+                    }
+                        break;
+                    default:
+                        break;
+                }
+                
+                cell.lblTitle.text = [self.registerArray objectAtIndex:indexPath.row];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.tfInput.delegate = self;
+                cell.tfInput.tag = indexPath.row;
+                
+                [cell.tfInput addTarget:self
+                                 action:@selector(textFieldDidChange:)
+                       forControlEvents:UIControlEventEditingChanged];
+                
+                return cell;
+            }
         }
             break;
-        case Birthday:
+        case change_password:
         {
-            cell.tfInput.enabled = NO;
-            cell.tfInput.hidden = YES;
-            UILabel *birthdayLabel = [[UILabel alloc] initWithFrame:CGRectMake(130, 7, 160, 30)];
-            birthdayLabel.text = birthdayString;
-            birthdayLabel.textAlignment = NSTextAlignmentRight;
-            cell.accessoryView = birthdayLabel;
-        }
-            break;
-        case Password:
-        {
-            cell.tfInput.secureTextEntry = YES;
-            cell.tfInput.text = password;
-        }
-        case Re_Password:
-        {
-            cell.lblTitle.font = [UIFont systemFontOfSize:15];
-            cell.tfInput.secureTextEntry = YES;
-            cell.tfInput.text = repassword;
-        }
-            break;
+            KLRegisterTableViewCell *cell = (KLRegisterTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            if (!cell) {
+                [tableView registerNib:[UINib nibWithNibName:@"KLRegisterTableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
+                cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            }
             
+            switch (indexPath.row) {
+                case ChangeOldPassword:
+                {
+                    cell.tfInput.secureTextEntry = YES;
+                    cell.tfInput.text = _oldPassword;
+                }
+                case ChangePassword:
+                {
+                    cell.tfInput.secureTextEntry = YES;
+                    cell.tfInput.text = _password;
+                }
+                case ChangeRePassword:
+                {
+                    cell.lblTitle.font = [UIFont systemFontOfSize:14];
+                    cell.tfInput.secureTextEntry = YES;
+                    cell.tfInput.text = _repassword;
+                }
+                    break;
+
+                default:
+                    break;
+            }
+            
+            cell.lblTitle.text = [self.registerArray objectAtIndex:indexPath.row];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.tfInput.delegate = self;
+            cell.tfInput.tag = indexPath.row;
+            
+            [cell.tfInput addTarget:self
+                             action:@selector(textFieldDidChange:)
+                   forControlEvents:UIControlEventEditingChanged];
+            
+            return cell;
+
+        }
+            break;
         default:
+            return nil;
             break;
     }
     
-    cell.lblTitle.text = [self.registerArray objectAtIndex:indexPath.row];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.tfInput.delegate = self;
-    cell.tfInput.tag = indexPath.row;
-    return cell;
 }
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == Avatar) {
-        [self choosePhotoFromLibrary];
-    }
-    if (indexPath.row == Birthday) {
-        if (self.datePickerView.hidden) {
-            [self.view endEditing:YES];
-            self.datePickerView.hidden = NO;
-            [UIView animateWithDuration:.3 animations:^{
-                
-                self.datePickerView.alpha = 1;
-            } completion:^(BOOL finished) {}];
-        }
-        else {
+    switch (self.typeUser) {
+        case register_new:
+        {
+            if (indexPath.row == RegAvatar) {
+                [self choosePhotoFromLibrary];
+            }
             
-            [UIView animateWithDuration:.3 animations:^{
-                
-                self.datePickerView.alpha = 0;
-            } completion:^(BOOL finished) {
-                
-                self.datePickerView.hidden = YES;
-            }];
+            if (indexPath.row == RegBirthday) {
+                if (self.datePickerView.hidden) {
+                    [self.view endEditing:YES];
+                    self.datePickerView.hidden = NO;
+                    [UIView animateWithDuration:.3 animations:^{
+                        
+                        self.datePickerView.alpha = 1;
+                    } completion:^(BOOL finished) {}];
+                }
+                else {
+                    
+                    [UIView animateWithDuration:.3 animations:^{
+                        
+                        self.datePickerView.alpha = 0;
+                    } completion:^(BOOL finished) {
+                        
+                        self.datePickerView.hidden = YES;
+                    }];
+                }
+            } else {
+                [self.view endEditing:YES];
+            }
         }
-
-    } else {
-        [self.view endEditing:YES];
+            break;
+        case edit_info:
+            {
+                if (indexPath.row == EditAvatar) {
+                    [self choosePhotoFromLibrary];
+                }
+                if (indexPath.row == EditBirthday) {
+                    if (self.datePickerView.hidden) {
+                        [self.view endEditing:YES];
+                        self.datePickerView.hidden = NO;
+                        [UIView animateWithDuration:.3 animations:^{
+                            
+                            self.datePickerView.alpha = 1;
+                        } completion:^(BOOL finished) {}];
+                    }
+                    else {
+                        
+                        [UIView animateWithDuration:.3 animations:^{
+                            
+                            self.datePickerView.alpha = 0;
+                        } completion:^(BOOL finished) {
+                            
+                            self.datePickerView.hidden = YES;
+                        }];
+                    }
+                } else {
+                    [self.view endEditing:YES];
+                }
+            }
+                break;
+        default:
+            break;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        return 80;
+    switch (self.typeUser) {
+        case register_new:
+        {
+            if (indexPath.row == RegAvatar) {
+                return 80;
+            }
+            
+            if (indexPath.row == RegAboutMe) {
+                return 80;
+            }
+        }
+            break;
+        case edit_info:
+        {
+            if (indexPath.row == EditAvatar) {
+                return 80;
+            }
+            
+            if (indexPath.row == EditAboutMe) {
+                return 80;
+            }
+        }
+            break;
+        default:
+            return 44;
+            break;
     }
+    
     return 44;
 }
 
 - (void)choosePhotoFromLibrary
 {
-    imagePicker = [[UIImagePickerController alloc] init];
-    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    imagePicker.delegate = self;
-    imagePicker.allowsEditing = YES;
-    [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
+    if (!imagePicker) {
+        imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        imagePicker.delegate = self;
+        imagePicker.allowsEditing = YES;
+        [self.navigationController presentViewController:imagePicker animated:YES completion:nil];
+    }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    avatarImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    _avatarImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
     NSURL *refURL = [info valueForKey:UIImagePickerControllerReferenceURL];
     
@@ -475,6 +1013,7 @@
     {
         ALAssetRepresentation *imageRep = [imageAsset defaultRepresentation];
         NSLog(@"[imageRep filename] : %@", [imageRep filename]);
+        avatarImageStr = [imageRep filename];
     };
     
     // get the asset library and fetch the asset based on the ref url (pass in block above)
@@ -483,20 +1022,18 @@
     
     // Only do this if our screen did not get unloaded.
     if ([self isViewLoaded]) {
-        if (avatarImage) {
-            didPickImage = YES;
+        if (_avatarImage) {
+            _didPickImage = YES;
             [self.registerTableView reloadData];
         }
     }
     
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    imagePicker = nil;
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    imagePicker = nil;
 }
 
 #pragma mark - TextField
@@ -524,32 +1061,169 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:textField.tag inSection:0];
     KLRegisterTableViewCell *cell = (KLRegisterTableViewCell*)[self.registerTableView cellForRowAtIndexPath:indexPath];
-    switch (textField.tag) {
-        case Email:
-            userName = cell.tfInput.text;
-            email = cell.tfInput.text;
+    
+    switch (self.typeUser) {
+        case register_new:
+        {
+            switch (textField.tag) {
+                case RegEmail:
+                    _userName = cell.tfInput.text;
+                    _email = cell.tfInput.text;
+                    break;
+                case RegName:
+                    _name = cell.tfInput.text;
+                    break;
+                case RegStudent_id:
+                    _studentId = cell.tfInput.text;
+                    break;
+                case RegFaculty:
+                    _faculty = cell.tfInput.text;
+                    break;
+                case RegAboutMe:
+                    _aboutMe = cell.tfInput.text;
+                    break;
+                case RegPassword:
+                    _password = cell.tfInput.text;
+                    break;
+                case RegRePassword:
+                    _repassword = cell.tfInput.text;
+                    break;
+                default:
+                    break;
+            }
+
+        }
             break;
-        case Name:
-            name = cell.tfInput.text;
+        case edit_info:
+        {
+            switch (textField.tag) {
+                case EditName:
+                    _name = cell.tfInput.text;
+                    break;
+                case EditStudent_id:
+                    _studentId = cell.tfInput.text;
+                    break;
+                case EditFaculty:
+                    _faculty = cell.tfInput.text;
+                    break;
+                case EditAboutMe:
+                    _aboutMe = cell.tfInput.text;
+                    break;
+                default:
+                    break;
+            }
+            
+        }
             break;
-        case Birthday:
-            name = cell.tfInput.text;
-            break;
-        case Student_id:
-            studentId = cell.tfInput.text;
-            break;
-        case Faculty:
-            faculty = cell.tfInput.text;
-            break;
-        case Password:
-            password = cell.tfInput.text;
-            break;
-        case Re_Password:
-            repassword = cell.tfInput.text;
+        case change_password:
+        {
+            switch (textField.tag) {
+                case ChangeOldPassword:
+                    _oldPassword = cell.tfInput.text;
+                    break;
+                case ChangePassword:
+                    _password = cell.tfInput.text;
+                    break;
+                case ChangeRePassword:
+                    _repassword = cell.tfInput.text;
+                    break;
+                default:
+                    break;
+            }
+            
+        }
             break;
         default:
             break;
     }
+    
+}
+
+- (void)textFieldDidChange:(UITextField*)textField {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:textField.tag inSection:0];
+    KLRegisterTableViewCell *cell = (KLRegisterTableViewCell*)[self.registerTableView cellForRowAtIndexPath:indexPath];
+    switch (self.typeUser) {
+        case register_new:
+        {
+            switch (textField.tag) {
+                case RegEmail:
+                    _userName = cell.tfInput.text;
+                    _email = cell.tfInput.text;
+                    break;
+                case RegName:
+                    _name = cell.tfInput.text;
+                    break;
+                case RegStudent_id:
+                    _studentId = cell.tfInput.text;
+                    break;
+                case RegFaculty:
+                    _faculty = cell.tfInput.text;
+                    break;
+                case RegAboutMe:
+                    _aboutMe = cell.tfInput.text;
+                    break;
+                case RegPassword:
+                    _password = cell.tfInput.text;
+                    break;
+                case RegRePassword:
+                    _repassword = cell.tfInput.text;
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+            break;
+        case edit_info:
+        {
+            switch (textField.tag) {
+                case EditName:
+                    _name = cell.tfInput.text;
+                    break;
+                case EditStudent_id:
+                    _studentId = cell.tfInput.text;
+                    break;
+                case EditFaculty:
+                    _faculty = cell.tfInput.text;
+                    break;
+                case EditAboutMe:
+                    _aboutMe = cell.tfInput.text;
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+            break;
+        case change_password:
+        {
+            switch (textField.tag) {
+                case ChangeOldPassword:
+                    _oldPassword = cell.tfInput.text;
+                    break;
+                case ChangePassword:
+                    _password = cell.tfInput.text;
+                    break;
+                case ChangeRePassword:
+                    _repassword = cell.tfInput.text;
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    _aboutMe = textView.text;
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    _aboutMe = textView.text;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notifi {

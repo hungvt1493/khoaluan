@@ -135,6 +135,10 @@
 		044575801AB88ED300C7B6E4 /* User Male@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044575741AB88ED300C7B6E4 /* User Male@2x.png */; };
 		044575831AB893EB00C7B6E4 /* Undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 044575811AB893EB00C7B6E4 /* Undo.png */; };
 		044575841AB893EB00C7B6E4 /* Undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 044575821AB893EB00C7B6E4 /* Undo@2x.png */; };
+		04599B931AB97D0700B51A53 /* BlueBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 04599B8F1AB97D0700B51A53 /* BlueBack.png */; };
+		04599B941AB97D0700B51A53 /* BlueBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04599B901AB97D0700B51A53 /* BlueBack@2x.png */; };
+		04599B951AB97D0700B51A53 /* BlueEdit.png in Resources */ = {isa = PBXBuildFile; fileRef = 04599B911AB97D0700B51A53 /* BlueEdit.png */; };
+		04599B961AB97D0700B51A53 /* BlueEdit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04599B921AB97D0700B51A53 /* BlueEdit@2x.png */; };
 		04637A001AB74842004431E9 /* Female.png in Resources */ = {isa = PBXBuildFile; fileRef = 046379FC1AB74842004431E9 /* Female.png */; };
 		04637A011AB74842004431E9 /* Female@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046379FD1AB74842004431E9 /* Female@2x.png */; };
 		04637A021AB74842004431E9 /* Male.png in Resources */ = {isa = PBXBuildFile; fileRef = 046379FE1AB74842004431E9 /* Male.png */; };
@@ -444,6 +448,10 @@
 		044575741AB88ED300C7B6E4 /* User Male@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "User Male@2x.png"; sourceTree = "<group>"; };
 		044575811AB893EB00C7B6E4 /* Undo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Undo.png; sourceTree = "<group>"; };
 		044575821AB893EB00C7B6E4 /* Undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Undo@2x.png"; sourceTree = "<group>"; };
+		04599B8F1AB97D0700B51A53 /* BlueBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueBack.png; sourceTree = "<group>"; };
+		04599B901AB97D0700B51A53 /* BlueBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlueBack@2x.png"; sourceTree = "<group>"; };
+		04599B911AB97D0700B51A53 /* BlueEdit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueEdit.png; sourceTree = "<group>"; };
+		04599B921AB97D0700B51A53 /* BlueEdit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BlueEdit@2x.png"; sourceTree = "<group>"; };
 		046379FC1AB74842004431E9 /* Female.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Female.png; sourceTree = "<group>"; };
 		046379FD1AB74842004431E9 /* Female@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Female@2x.png"; sourceTree = "<group>"; };
 		046379FE1AB74842004431E9 /* Male.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Male.png; sourceTree = "<group>"; };
@@ -851,6 +859,10 @@
 		042846841AA848F30003CA26 /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				04599B8F1AB97D0700B51A53 /* BlueBack.png */,
+				04599B901AB97D0700B51A53 /* BlueBack@2x.png */,
+				04599B911AB97D0700B51A53 /* BlueEdit.png */,
+				04599B921AB97D0700B51A53 /* BlueEdit@2x.png */,
 				044575811AB893EB00C7B6E4 /* Undo.png */,
 				044575821AB893EB00C7B6E4 /* Undo@2x.png */,
 				044575691AB88ED300C7B6E4 /* Birthday Cake.png */,
@@ -1732,8 +1744,10 @@
 				0428472D1AA849260003CA26 /* nav_ios7.png in Resources */,
 				9193C36519617E4B00ADD198 /* README.md in Resources */,
 				042846DA1AA848F30003CA26 /* Online.png in Resources */,
+				04599B941AB97D0700B51A53 /* BlueBack@2x.png in Resources */,
 				042846D31AA848F30003CA26 /* News-blue@2x.png in Resources */,
 				04422EBE1AA8854F008E4015 /* ContactCardFilled.png in Resources */,
+				04599B961AB97D0700B51A53 /* BlueEdit@2x.png in Resources */,
 				04637A031AB74842004431E9 /* Male@2x.png in Resources */,
 				042847301AA849260003CA26 /* navbar_bg@2x.png in Resources */,
 				044575831AB893EB00C7B6E4 /* Undo.png in Resources */,
@@ -1817,6 +1831,7 @@
 				042846E01AA848F30003CA26 /* Settings@2x.png in Resources */,
 				042846BB1AA848F30003CA26 /* Clock@2x.png in Resources */,
 				042846CF1AA848F30003CA26 /* More-blue@2x.png in Resources */,
+				04599B951AB97D0700B51A53 /* BlueEdit.png in Resources */,
 				04DC2BBA1AB0421C00565689 /* SNPicker~ipad.storyboard in Resources */,
 				042846C21AA848F30003CA26 /* HomeFilled-blue.png in Resources */,
 				042846BC1AA848F30003CA26 /* Globe-blue.png in Resources */,
@@ -1826,6 +1841,7 @@
 				0428467D1AA848D70003CA26 /* NotificationsViewController.xib in Resources */,
 				0445757C1AB88ED300C7B6E4 /* University@2x.png in Resources */,
 				042846DF1AA848F30003CA26 /* Settings.png in Resources */,
+				04599B931AB97D0700B51A53 /* BlueBack.png in Resources */,
 				042846B81AA848F30003CA26 /* Camera.png in Resources */,
 				04422EC41AA8854F008E4015 /* Lock.png in Resources */,
 				04DC2BB21AB0421C00565689 /* check@2x.png in Resources */,

@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KLRegisterTableViewCell : UITableViewCell
+@interface KLRegisterTableViewCell : UITableViewCell 
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
 @property (weak, nonatomic) IBOutlet UITextField *tfInput;
+@property (weak, nonatomic) IBOutlet UITextView *tvInput;
 
+- (void)setHeightForCell:(NSInteger)height;
 @end

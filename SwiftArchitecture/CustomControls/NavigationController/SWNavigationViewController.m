@@ -50,18 +50,18 @@
             //iOS 5 new UINavigationBar custom background
             [self.navigationBar setBackgroundImage:background forBarMetrics: UIBarMetricsDefault];
             
-            if (SYSTEM_VERSION >= 8) {
-                [[UINavigationBar appearance] setTranslucent:NO];
-                [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHex:Blue_Color alpha:1]];
-                [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-                [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-            } else {
-                [self.navigationController.navigationBar setTranslucent:NO];
-                self.navigationBar.barTintColor = [UIColor colorWithHex:Blue_Color alpha:1];
-                self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-                [self.navigationController.navigationBar
-                 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-            }
+//            if (SYSTEM_VERSION >= 8) {
+//                [[UINavigationBar appearance] setTranslucent:NO];
+//                [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHex:Blue_Color alpha:1]];
+//                [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+//                [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+//            } else {
+//                [self.navigationController.navigationBar setTranslucent:NO];
+//                self.navigationBar.barTintColor = [UIColor colorWithHex:Blue_Color alpha:1];
+//                self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+//                [self.navigationController.navigationBar
+//                 setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+//            }
             
             NSShadow *shadow = [NSShadow new];
             [shadow setShadowColor: [UIColor clearColor]];
@@ -71,7 +71,7 @@
                 
                 settings = @{
                              UITextAttributeFont                 :  font,
-                             UITextAttributeTextColor            :  [UIColor whiteColor],
+                             UITextAttributeTextColor            :  textColor,
                              UITextAttributeTextShadowColor      :  [UIColor clearColor],
                              UITextAttributeTextShadowOffset     :  [NSValue valueWithUIOffset:UIOffsetMake(1,-1)],
                              };

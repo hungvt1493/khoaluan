@@ -21,6 +21,9 @@
 
 #define uLogin @"users/api_login"
 #define uReg @"users/api_register"
+#define uUpdate @"users/api_updateUser"
+#define uUpdateTimelineImage @"users/api_updateTimelineImage"
+#define uUpdatePassword @"users/api_updateUserPassword"
 #define nGetNews @"news/api_getNewsWithOffset"
 #define nGetNewsWithUserId @"news/api_getNewsByUserIdWithOffset"
 #define nLikeNews @"news/api_insertLike"
@@ -53,7 +56,8 @@ typedef enum {
 
 typedef enum{
     register_new = 0,
-    edit_infor
+    edit_info,
+    change_password
 }UserType;
 
 typedef enum {
@@ -84,6 +88,7 @@ typedef enum {
 #define Register_Title @"Đăng ký"
 #define Complete_Button @"Hoàn thành"
 #define InforUser_Title @"Thông tin của bạn"
+#define Change_Password_Title @"Đổi mật khẩu"
 #define Update_Status_Title @"Cập nhật trạng thái"
 #define Create_Event_Title @"Tạo sự kiện"
 #define The_Last_Cell_Have_No_Data_Title @"Không có bài viết"
@@ -98,6 +103,7 @@ typedef enum {
 #define Email_Message @"Email không đúng định dạng!"
 #define Email_Require_Message @"Email là bắt buộc"
 #define Password_Message @"Mật khẩu cần ít nhất 6 kí tự"
+#define Old_Password_Message @"Mật khẩu cũ cần ít nhất 6 kí tự"
 #define Re_Password_Message @"Mật khẩu và Nhắc lại mật khẩu cần giống nhau"
 #define Post_Event_No_Title_Error @"Bạn chưa nhập tên sự kiện"
 #define Post_Event_No_Time_Error @"Bạn chưa chọn thời gian cho sự kiện"
@@ -119,8 +125,9 @@ typedef enum {
 #define noti @"Globe-grey"
 #define more_act @"More-blue"
 #define more @"More-grey"
+#define back_bar_button_blue @"BlueBack"
+#define Edit @"BlueEdit"
 #define back_bar_button @"Back"
-#define Edit @"edit_green"
 #define avatar @"User"
 #define checked @"checked-login"
 #define unchecked @"uncheck-login"

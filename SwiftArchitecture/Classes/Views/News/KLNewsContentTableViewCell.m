@@ -88,7 +88,7 @@
     btnMessFrame.size.height = 30;
     _btnMessage.frame = btnMessFrame;
     
-    _lblName.text = [dict objectForKey:@"username"];
+    _lblName.text = [dict objectForKey:@"name"];
     
     int time = [[dict objectForKey:@"time"] intValue];
     NSDate *date = [SWUtil convertNumberToDate:time];
@@ -122,18 +122,21 @@
     newsFrame.size.height = height + 42;
     _newsContentView.frame = newsFrame;
         
-    NSString *imgPath = [dict objectForKey:@"avatar"];
-    NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgPath];
-    [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
-                      placeholderImage:[UIImage imageNamed:@"default-avatar"]
-                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                 if (image) {
-                                     
-                                 } else {
-                                     
-                                 }
-                             }];
     
+    NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];
+    if (imgAvatarPath.length > 0) {
+        NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgAvatarPath];
+        [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
+                          placeholderImage:[UIImage imageNamed:@"default-avatar"]
+                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                     if (image) {
+                                         
+                                     } else {
+                                         
+                                     }
+                                 }];
+    }
+
     NSArray *userLikeArr = [dict objectForKey:@"user_like"];
     self.numberOfLikeInNews = userLikeArr.count;
     if (userLikeArr.count == 0) {
@@ -218,32 +221,6 @@
     }
 }
 
-- (void)showView:(UIView*)view{
-    
-    [view setAlpha:0.0f];
-    view.hidden = NO;
-    
-    [UIView animateWithDuration:0.6f animations:^{
-        
-        [view setAlpha:1];
-    } completion:^(BOOL finished) {
-        
-    }];
-}
-
-- (void)hiddenView:(UIView*)view {
-    
-    [view setAlpha:1];
-    
-    [UIView animateWithDuration:0.6f animations:^{
-        
-        [view setAlpha:0.0f];
-    } completion:^(BOOL finished) {
-        
-        view.hidden = YES;
-    }];
-}
-
 - (IBAction)btnEditTapped:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(didChooseEditCellAtIndexPath:withData:withType:)]) {
         [self.delegate didChooseEditCellAtIndexPath:_indexPath withData:_cellData withType:_postType];
@@ -282,6 +259,32 @@
     } else {
         [self hiddenView:_toolView];
     }
+}
+
+- (void)showView:(UIView*)view{
+    
+    [view setAlpha:0.0f];
+    view.hidden = NO;
+    
+    [UIView animateWithDuration:0.6f animations:^{
+        
+        [view setAlpha:1];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)hiddenView:(UIView*)view {
+    
+    [view setAlpha:1];
+    
+    [UIView animateWithDuration:0.6f animations:^{
+        
+        [view setAlpha:0.0f];
+    } completion:^(BOOL finished) {
+        
+        view.hidden = YES;
+    }];
 }
 
 @end

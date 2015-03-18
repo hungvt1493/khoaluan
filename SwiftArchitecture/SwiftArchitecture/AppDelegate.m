@@ -13,6 +13,7 @@
 #import "MyPageViewController.h"
 #import "MoreViewController.h"
 #import "KLEventsViewController.h"
+#import "KeychainItemWrapper.h"
 
 @implementation AppDelegate
 
@@ -30,7 +31,7 @@
     SWNavigationViewController *rootNavigation = [[SWNavigationViewController alloc]initWithRootViewController:controller
                                                                                                     background:navBg
                                                                                                           font:font
-                                                                                                     textColor:[UIColor whiteColor]
+                                                                                                     textColor:[UIColor colorWithHex:Blue_Color alpha:1]
                                                                                                    shadowColor:[UIColor clearColor]];
     
     self.window.rootViewController = rootNavigation;
@@ -88,6 +89,9 @@
     UIWindow *window = self.window;
     [window setRootViewController:nil];
 
+    KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:kKeyChain accessGroup:nil];
+    [keychainItem resetKeychainItem];
+    
     SWLoginViewController *controller = [[SWLoginViewController alloc] init];
     SWNavigationViewController *rootNavigation = [[SWNavigationViewController alloc]initWithRootViewController:controller
                                                                                                     background:navBg

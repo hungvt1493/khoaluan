@@ -112,7 +112,7 @@
                                      @"password": self.passWordTextField.text};
 
         [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if(_isAutoLoginChecked ==NO)
+            if(_isAutoLoginChecked == NO)
             {
                 KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:kKeyChain accessGroup:nil];
                 [keychainItem resetKeychainItem];
@@ -120,26 +120,25 @@
             else
             {
                 KeychainItemWrapper *keychainItem = [[KeychainItemWrapper alloc] initWithIdentifier:kKeyChain accessGroup:nil];
-                NSString *password = [keychainItem objectForKey:(__bridge id)kSecValueData];
-                NSString *username = [keychainItem objectForKey:(__bridge id)kSecAttrAccount];
+//                NSString *password = [keychainItem objectForKey:(__bridge id)kSecValueData];
+//                NSString *username = [keychainItem objectForKey:(__bridge id)kSecAttrAccount];
                 
-                if (username.length == 0 || [username isEqualToString:@""]) {
-                    if (password.length == 0 || [password isEqualToString:@""]) {
+//                if (username.length == 0 || [username isEqualToString:@""]) {
+//                    if (password.length == 0 || [password isEqualToString:@""]) {
                         [keychainItem setObject:self.passWordTextField.text forKey:(__bridge id)kSecValueData];
                         [keychainItem setObject:self.emailTextField.text forKey:(__bridge id)kSecAttrAccount];
-                    }
-                }
+//                    }
+//                }
             }
             
-            [[SWUtil appDelegate] initTabbar];
-
             NSDictionary *userDict = (NSDictionary*)responseObject;
             
             NSString *avatarUrl = EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAvatar]);
-            if (avatarUrl.length > 0) {
-                [[NSUserDefaults standardUserDefaults] setObject:avatarUrl forKey:kAvatar];
-            }
             NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+            if (avatarUrl.length > 0) {
+                [userDefault setObject:avatarUrl forKey:kAvatar];
+            }
+            
             [userDefault setObject:[userDict objectForKey:kUserId] forKey:kUserId];
             [userDefault setObject:[userDict objectForKey:kIsAdmin] forKey:kIsAdmin];
             [userDefault setObject:[userDict objectForKey:kUserName] forKey:kUserName];
@@ -150,12 +149,15 @@
             [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kTimelineImage]) forKey:kTimelineImage];
             [userDefault setObject:[userDict objectForKey:kGender] forKey:kGender];
             [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAboutMe]) forKey:kAboutMe];
-            
+            [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kEmail]) forKey:kEmail];
+
+            [[SWUtil appDelegate] initTabbar];
+
             NSLog(@"LOGIN JSON: %@", responseObject);
             [[SWUtil sharedUtil] hideLoadingView];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
-            [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+            [SWUtil showConfirmAlert:@"Lỗi!" message:@"Tên đăng nhập hoặc mật khẩu không đúng" delegate:nil];
             [[SWUtil sharedUtil] hideLoadingView];
         }];
     } else {

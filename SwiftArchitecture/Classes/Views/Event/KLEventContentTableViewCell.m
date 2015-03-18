@@ -88,7 +88,7 @@
     btnMessFrame.size.height = 30;
     _btnMessage.frame = btnMessFrame;
     
-    _lblName.text = [dict objectForKey:@"username"];
+    _lblName.text = [dict objectForKey:@"name"];
     
     int time = [[dict objectForKey:@"time"] intValue];
     NSDate *date = [SWUtil convertNumberToDate:time];
@@ -139,17 +139,19 @@
     newsFrame.size.height = height + 41 + lblEventTitleFrame.size.height + lblEventTimeFrame.size.height;
     _newsContentView.frame = newsFrame;
         
-    NSString *imgPath = [dict objectForKey:@"avatar"];
-    NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgPath];
-    [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
-                      placeholderImage:[UIImage imageNamed:@"default-avatar"]
-                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                 if (image) {
-                                     
-                                 } else {
-                                     
-                                 }
-                             }];
+    NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];
+    if (imgAvatarPath.length > 0) {
+        NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgAvatarPath];
+        [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
+                          placeholderImage:[UIImage imageNamed:@"default-avatar"]
+                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                     if (image) {
+                                         
+                                     } else {
+                                         
+                                     }
+                                 }];
+    }
     
     NSArray *userLikeArr = [dict objectForKey:@"user_like"];
     self.numberOfLikeInNews = userLikeArr.count;

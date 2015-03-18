@@ -46,7 +46,7 @@
     [tmpButton setBackgroundImage:[UIImage imageNamed:highlightedImageButtonName] forState:UIControlStateHighlighted];
     [tmpButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     tmpButton.frame = CGRectMake(0, 0, temBack.size.width, temBack.size.height);
-    [tmpButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [tmpButton setTitleColor:[UIColor colorWithHex:Blue_Color alpha:1] forState:UIControlStateNormal];
     [tmpButton setShowsTouchWhenHighlighted:YES];
     
     if ([[[UIDevice currentDevice] systemVersion] integerValue] >= 7) {
@@ -73,7 +73,7 @@
     [tmpButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     tmpButton.frame = CGRectMake(0, 0, temEdit.size.width, temEdit.size.height);
     [tmpButton setShowsTouchWhenHighlighted:YES];
-    [tmpButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [tmpButton setTitleColor:[UIColor colorWithHex:Blue_Color alpha:1] forState:UIControlStateNormal];
     if ([[[UIDevice currentDevice] systemVersion] integerValue] >= 7) {
         UIBarButtonItem *spacingAdjust = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
         [spacingAdjust setWidth:-10];
