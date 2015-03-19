@@ -145,6 +145,16 @@
 		04637A031AB74842004431E9 /* Male@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 046379FF1AB74842004431E9 /* Male@2x.png */; };
 		048DA09B1AB2E53A0003E585 /* KLPostNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048DA0991AB2E53A0003E585 /* KLPostNewsViewController.m */; };
 		048DA09C1AB2E53A0003E585 /* KLPostNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048DA09A1AB2E53A0003E585 /* KLPostNewsViewController.xib */; };
+		04B4F59E1ABAD6840015E95E /* Add User Filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F59C1ABAD6840015E95E /* Add User Filled.png */; };
+		04B4F59F1ABAD6840015E95E /* Add User Filled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F59D1ABAD6840015E95E /* Add User Filled@2x.png */; };
+		04B4F5A21ABAD6F80015E95E /* Add User Filled-Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F5A01ABAD6F80015E95E /* Add User Filled-Blue.png */; };
+		04B4F5A31ABAD6F80015E95E /* Add User Filled-Blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F5A11ABAD6F80015E95E /* Add User Filled-Blue@2x.png */; };
+		04B4F5A61ABADC090015E95E /* Image File.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F5A41ABADC090015E95E /* Image File.png */; };
+		04B4F5A71ABADC090015E95E /* Image File@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F5A51ABADC090015E95E /* Image File@2x.png */; };
+		04B4F5AC1ABADD280015E95E /* Female-Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F5A81ABADD280015E95E /* Female-Blue.png */; };
+		04B4F5AD1ABADD280015E95E /* Female-Blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F5A91ABADD280015E95E /* Female-Blue@2x.png */; };
+		04B4F5AE1ABADD280015E95E /* Male-Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F5AA1ABADD280015E95E /* Male-Blue.png */; };
+		04B4F5AF1ABADD280015E95E /* Male-Blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F5AB1ABADD280015E95E /* Male-Blue@2x.png */; };
 		04BF6C471AB1499F00F0F42D /* DMLazyScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BF6C461AB1499F00F0F42D /* DMLazyScrollView.m */; };
 		04BF6C4B1AB168D600F0F42D /* KLNewsContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BF6C491AB168D600F0F42D /* KLNewsContentTableViewCell.m */; };
 		04BF6C4C1AB168D600F0F42D /* KLNewsContentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04BF6C4A1AB168D600F0F42D /* KLNewsContentTableViewCell.xib */; };
@@ -459,6 +469,16 @@
 		048DA0981AB2E53A0003E585 /* KLPostNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLPostNewsViewController.h; sourceTree = "<group>"; };
 		048DA0991AB2E53A0003E585 /* KLPostNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLPostNewsViewController.m; sourceTree = "<group>"; };
 		048DA09A1AB2E53A0003E585 /* KLPostNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLPostNewsViewController.xib; sourceTree = "<group>"; };
+		04B4F59C1ABAD6840015E95E /* Add User Filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add User Filled.png"; sourceTree = "<group>"; };
+		04B4F59D1ABAD6840015E95E /* Add User Filled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add User Filled@2x.png"; sourceTree = "<group>"; };
+		04B4F5A01ABAD6F80015E95E /* Add User Filled-Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add User Filled-Blue.png"; sourceTree = "<group>"; };
+		04B4F5A11ABAD6F80015E95E /* Add User Filled-Blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add User Filled-Blue@2x.png"; sourceTree = "<group>"; };
+		04B4F5A41ABADC090015E95E /* Image File.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Image File.png"; sourceTree = "<group>"; };
+		04B4F5A51ABADC090015E95E /* Image File@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Image File@2x.png"; sourceTree = "<group>"; };
+		04B4F5A81ABADD280015E95E /* Female-Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Female-Blue.png"; sourceTree = "<group>"; };
+		04B4F5A91ABADD280015E95E /* Female-Blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Female-Blue@2x.png"; sourceTree = "<group>"; };
+		04B4F5AA1ABADD280015E95E /* Male-Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Male-Blue.png"; sourceTree = "<group>"; };
+		04B4F5AB1ABADD280015E95E /* Male-Blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Male-Blue@2x.png"; sourceTree = "<group>"; };
 		04BF6C451AB1499F00F0F42D /* DMLazyScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLazyScrollView.h; sourceTree = "<group>"; };
 		04BF6C461AB1499F00F0F42D /* DMLazyScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLazyScrollView.m; sourceTree = "<group>"; };
 		04BF6C481AB168D600F0F42D /* KLNewsContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLNewsContentTableViewCell.h; sourceTree = "<group>"; };
@@ -859,8 +879,14 @@
 		042846841AA848F30003CA26 /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				04B4F5A41ABADC090015E95E /* Image File.png */,
+				04B4F5A51ABADC090015E95E /* Image File@2x.png */,
+				04B4F5A01ABAD6F80015E95E /* Add User Filled-Blue.png */,
+				04B4F5A11ABAD6F80015E95E /* Add User Filled-Blue@2x.png */,
 				04599B8F1AB97D0700B51A53 /* BlueBack.png */,
 				04599B901AB97D0700B51A53 /* BlueBack@2x.png */,
+				04B4F59C1ABAD6840015E95E /* Add User Filled.png */,
+				04B4F59D1ABAD6840015E95E /* Add User Filled@2x.png */,
 				04599B911AB97D0700B51A53 /* BlueEdit.png */,
 				04599B921AB97D0700B51A53 /* BlueEdit@2x.png */,
 				044575811AB893EB00C7B6E4 /* Undo.png */,
@@ -871,6 +897,10 @@
 				0445756C1AB88ED300C7B6E4 /* Info@2x.png */,
 				0445756D1AB88ED300C7B6E4 /* Price Tag.png */,
 				0445756E1AB88ED300C7B6E4 /* Price Tag@2x.png */,
+				04B4F5A81ABADD280015E95E /* Female-Blue.png */,
+				04B4F5A91ABADD280015E95E /* Female-Blue@2x.png */,
+				04B4F5AA1ABADD280015E95E /* Male-Blue.png */,
+				04B4F5AB1ABADD280015E95E /* Male-Blue@2x.png */,
 				0445756F1AB88ED300C7B6E4 /* University.png */,
 				044575701AB88ED300C7B6E4 /* University@2x.png */,
 				044575711AB88ED300C7B6E4 /* User Female.png */,
@@ -1734,10 +1764,15 @@
 				042846D21AA848F30003CA26 /* News-blue.png in Resources */,
 				042846771AA848D70003CA26 /* MoreViewController.xib in Resources */,
 				04F03B2E1AB60410005827D2 /* arrow_refresh_up@2x.png in Resources */,
+				04B4F59F1ABAD6840015E95E /* Add User Filled@2x.png in Resources */,
 				04422EC51AA8854F008E4015 /* Lock@2x.png in Resources */,
+				04B4F5AC1ABADD280015E95E /* Female-Blue.png in Resources */,
+				04B4F5A21ABAD6F80015E95E /* Add User Filled-Blue.png in Resources */,
 				04422EBD1AA8854F008E4015 /* checked-login.png in Resources */,
 				042846D81AA848F30003CA26 /* News-hnue-grey.png in Resources */,
 				0445757E1AB88ED300C7B6E4 /* User Female@2x.png in Resources */,
+				04B4F59E1ABAD6840015E95E /* Add User Filled.png in Resources */,
+				04B4F5A61ABADC090015E95E /* Image File.png in Resources */,
 				042846D71AA848F30003CA26 /* News-hnue-blue@2x.png in Resources */,
 				042846E91AA848FC0003CA26 /* images.jpeg in Resources */,
 				044575681AB88CAA00C7B6E4 /* KLMyProfileViewController.xib in Resources */,
@@ -1757,6 +1792,7 @@
 				0428467F1AA848D70003CA26 /* FriendTableViewCell.xib in Resources */,
 				042846C01AA848F30003CA26 /* Group.png in Resources */,
 				04EEBC941AB727330092A011 /* KLEventsViewController.xib in Resources */,
+				04B4F5AF1ABADD280015E95E /* Male-Blue@2x.png in Resources */,
 				042847231AA849260003CA26 /* icon_search.png in Resources */,
 				04F03B2C1AB60410005827D2 /* arrow_refresh_down@2x.png in Resources */,
 				042846E31AA848F30003CA26 /* User.png in Resources */,
@@ -1771,6 +1807,7 @@
 				042846BD1AA848F30003CA26 /* Globe-blue@2x.png in Resources */,
 				044575791AB88ED300C7B6E4 /* Price Tag.png in Resources */,
 				0428472C1AA849260003CA26 /* SWMultiSelectContactViewController.xib in Resources */,
+				04B4F5A31ABAD6F80015E95E /* Add User Filled-Blue@2x.png in Resources */,
 				04DC2BB41AB0421C00565689 /* check~ipad.png in Resources */,
 				04637A021AB74842004431E9 /* Male.png in Resources */,
 				042846C11AA848F30003CA26 /* Group@2x.png in Resources */,
@@ -1791,6 +1828,7 @@
 				042846C91AA848F30003CA26 /* Like@2x.png in Resources */,
 				042847261AA849260003CA26 /* icon_selected@2x.png in Resources */,
 				04422EBC1AA8854F008E4015 /* AddUser@2x.png in Resources */,
+				04B4F5A71ABADC090015E95E /* Image File@2x.png in Resources */,
 				04F0F2821AB207890087F8BB /* Bandage.png in Resources */,
 				04DC2BBB1AB0421C00565689 /* LICENSE.txt in Resources */,
 				04422EAC1AA8853A008E4015 /* SWRegisterViewController.xib in Resources */,
@@ -1834,6 +1872,7 @@
 				04599B951AB97D0700B51A53 /* BlueEdit.png in Resources */,
 				04DC2BBA1AB0421C00565689 /* SNPicker~ipad.storyboard in Resources */,
 				042846C21AA848F30003CA26 /* HomeFilled-blue.png in Resources */,
+				04B4F5AE1ABADD280015E95E /* Male-Blue.png in Resources */,
 				042846BC1AA848F30003CA26 /* Globe-blue.png in Resources */,
 				04DC2B661AB03AF100565689 /* KLRegisterTableViewCell.xib in Resources */,
 				04422EC21AA8854F008E4015 /* Email.png in Resources */,
@@ -1844,6 +1883,7 @@
 				04599B931AB97D0700B51A53 /* BlueBack.png in Resources */,
 				042846B81AA848F30003CA26 /* Camera.png in Resources */,
 				04422EC41AA8854F008E4015 /* Lock.png in Resources */,
+				04B4F5AD1ABADD280015E95E /* Female-Blue@2x.png in Resources */,
 				04DC2BB21AB0421C00565689 /* check@2x.png in Resources */,
 				0445757D1AB88ED300C7B6E4 /* User Female.png in Resources */,
 				042846B91AA848F30003CA26 /* Camera@2x.png in Resources */,

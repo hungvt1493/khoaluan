@@ -13,6 +13,9 @@
 @property (weak, nonatomic) IBOutlet UIView *onlineView;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
 @property (weak, nonatomic) IBOutlet UILabel *lblAge;
+@property (weak, nonatomic) IBOutlet UILabel *lblAboutMe;
+@property (weak, nonatomic) IBOutlet UIImageView *imgGender;
 
 - (void)setOnline:(BOOL)flag;
+- (void)setDateForCell:(NSDictionary*)dict;
 @end

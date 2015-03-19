@@ -20,8 +20,10 @@
 #define URL_IMG_BASE @"http://localhost/restserver/"
 
 #define uLogin @"users/api_login"
+#define uLogout @"users/api_logout"
 #define uReg @"users/api_register"
 #define uUpdate @"users/api_updateUser"
+#define uGetFriend @"users/api_getFriend"
 #define uUpdateTimelineImage @"users/api_updateTimelineImage"
 #define uUpdatePassword @"users/api_updateUserPassword"
 #define nGetNews @"news/api_getNewsWithOffset"
@@ -33,6 +35,8 @@
 #define nEditNews @"news/api_updateNews"
 
 //Key
+#define kCode @"code"
+#define kMessage @"message"
 #define kUserId @"user_id"
 #define kName @"name"
 #define kUserName @"username"
@@ -46,7 +50,7 @@
 #define kIsAdmin @"is_admin"
 #define kNewsId @"news_id"
 #define kAboutMe @"about_me"
-
+#define kisOnline @"is_online"
 /*TYPE ENUM*/
 typedef enum {
     color = 0,
@@ -133,7 +137,8 @@ typedef enum {
 #define unchecked @"uncheck-login"
 #define male @"Male"
 #define female @"Female"
-
+#define male_blue @"Male-Blue"
+#define female_blue @"Female-Blue"
 /*COLOR*/
 #define White_Color @"FFFFFF"
 #define Gray_Color @"7f8c8d"

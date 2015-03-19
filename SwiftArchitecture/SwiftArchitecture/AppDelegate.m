@@ -81,7 +81,26 @@
     [self.tabbarController hideTabbar:hide];
 }
 
-- (void)logoutFunction{
+- (void)logoutFunction {
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uLogout];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    NSDictionary *parameters = @{kUserId : userId};
+    
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [[SWUtil sharedUtil] hideLoadingView];
+        
+        NSLog(@"LOGOUT SUCCESS");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+       NSLog(@"LOGOUT FAILED");
+    }];
+    
     UIImage *ios7Bg = [UIImage resizableImage:[UIImage imageNamed:@"nav_ios7"]];
     UIImage *iosBg = [UIImage resizableImage:[UIImage imageNamed:@"navbar_bg"]];
     UIImage *navBg = (SYSTEM_VERSION >= 7)?ios7Bg:iosBg;

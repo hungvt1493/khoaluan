@@ -13,7 +13,9 @@
 
 @end
 
-@implementation FriendsViewController
+@implementation FriendsViewController {
+    NSArray *_friendArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,13 +26,53 @@
     _tbFriend.delegate = self;
     _tbFriend.dataSource = self;
     
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [[SWUtil appDelegate] hideTabbar:YES];
+    [self initData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[SWUtil appDelegate] hideTabbar:NO];
 }
+
+- (void)initData {
+    /*
+     state = 1; Dang cho accpet cho nguoi gui loi moi ket ban
+     state = 2; Dang cho accpet cho nguoi nhan loi moi ket ban
+     state = 3; Da la ban be
+     */
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uGetFriend];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    NSDictionary *parameters = @{kUserId: userId};
+    
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([responseObject isKindOfClass:[NSArray class]]) {
+            _friendArr = (NSArray*)responseObject;
+        }
+        else if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dict = (NSDictionary*)responseObject;
+            int code = [[dict objectForKey:kCode] intValue];
+            if (code == 3) {
+                [SWUtil showConfirmAlertWithMessage:[dict objectForKey:kMessage] delegate:nil];
+                _friendArr = nil;
+            }
+        }
+        [_tbFriend reloadData];
+        [[SWUtil sharedUtil] hideLoadingView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
+}
+
 
 - (void)backBarButtonTapped {
     [self.navigationController popViewControllerAnimated:YES];
@@ -41,7 +83,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return _friendArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -54,11 +96,7 @@
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    if (indexPath.row %2 == 0) {
-        [cell setOnline:YES];
-    }
-    
+    [cell setDateForCell:[_friendArr objectAtIndex:indexPath.row]];
     return cell;
 }
 
