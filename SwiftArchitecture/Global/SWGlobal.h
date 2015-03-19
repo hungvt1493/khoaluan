@@ -26,13 +26,18 @@
 #define uGetFriend @"users/api_getFriend"
 #define uUpdateTimelineImage @"users/api_updateTimelineImage"
 #define uUpdatePassword @"users/api_updateUserPassword"
+
 #define nGetNews @"news/api_getNewsWithOffset"
 #define nGetNewsWithUserId @"news/api_getNewsByUserIdWithOffset"
+#define nGetNewsWithNewsId @"news/api_getNewsWithNewsId"
 #define nLikeNews @"news/api_insertLike"
 #define nDeleteLikeNews @"news/api_deleteLike"
 #define nPostNews @"news/api_insertNews"
 #define nDeleteNews @"news/api_deleteNews"
 #define nEditNews @"news/api_updateNews"
+
+#define cmGetComment @"comments/api_getComments"
+#define cmAddComment @"comments/api_insertComment"
 
 //Key
 #define kCode @"code"

@@ -45,6 +45,16 @@
     _toolView.layer.borderColor = [UIColor blackColor].CGColor;
     _toolView.layer.borderWidth = 1;
     _toolView.hidden = YES;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailViewControllerForCell)];
+    _lblContent.userInteractionEnabled = YES;
+    [_lblContent addGestureRecognizer:tap];
+}
+
+- (void)showDetailViewControllerForCell {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pushToDetailViewControllerUserDelegateForCellAtIndexPath:)]) {
+        [self.delegate pushToDetailViewControllerUserDelegateForCellAtIndexPath:_indexPath];
+    }
 }
 
 - (void)haveImage:(BOOL)flag {

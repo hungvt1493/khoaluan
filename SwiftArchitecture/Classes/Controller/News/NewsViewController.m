@@ -9,6 +9,7 @@
 #import "NewsViewController.h"
 #import "KLNewsContentTableViewCell.h"
 #import "KLPostNewsViewController.h"
+#import "KLNewsDetailViewController.h"
 
 @interface NewsViewController () <UITableViewDataSource, UITableViewDelegate, KLNewsContentTableViewCellDelegate>
 
@@ -42,8 +43,6 @@
     [self.pull setDelegate:(id<PullToRefreshViewDelegate>)self];
     [_newsTableView addSubview:self.pull];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kDidPostNews];
-    
-    self.navigationController.scrollNavigationBar.scrollView = self.newsTableView;
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
@@ -53,6 +52,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationController.scrollNavigationBar.scrollView = self.newsTableView;
+    
     if ([[UIDevice currentDevice].systemVersion floatValue]>=8) {
         [[UINavigationBar appearance] setTranslucent:NO];
         
@@ -275,5 +276,16 @@
     postNewsVC.contentStr = content;
     
     [self.navigationController pushViewController:postNewsVC animated:YES];
+}
+
+- (void)pushToDetailViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath {
+    int newsId = [[[_fullNewsArr objectAtIndex:indexPath.row] objectForKey:@"news_id"] intValue];
+    int type = [[[_fullNewsArr objectAtIndex:indexPath.row] objectForKey:@"type"] intValue];
+    
+    KLNewsDetailViewController *detailVC = [[KLNewsDetailViewController alloc] init];
+//    detailVC.dict = [_fullNewsArr objectAtIndex:indexPath.row];
+    detailVC.newsId = newsId;
+    detailVC.postType = type;
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 @end
