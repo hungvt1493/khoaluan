@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnLike;
 @property (weak, nonatomic) IBOutlet UIView *toolView;
 @property (assign, nonatomic) NSInteger numberOfLikeInNews;
+@property (weak, nonatomic) IBOutlet UILabel *lblName;
 - (IBAction)btnLikeTapped:(id)sender;
 
 - (void)setContentUIByString:(NSDictionary*)dict;

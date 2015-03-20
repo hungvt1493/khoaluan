@@ -23,13 +23,17 @@
 #define uLogout @"users/api_logout"
 #define uReg @"users/api_register"
 #define uUpdate @"users/api_updateUser"
+
 #define uGetFriend @"users/api_getFriend"
+#define uAddFriend @"users/api_addFriend"
+
 #define uUpdateTimelineImage @"users/api_updateTimelineImage"
 #define uUpdatePassword @"users/api_updateUserPassword"
 
 #define nGetNews @"news/api_getNewsWithOffset"
 #define nGetNewsWithUserId @"news/api_getNewsByUserIdWithOffset"
 #define nGetNewsWithNewsId @"news/api_getNewsWithNewsId"
+
 #define nLikeNews @"news/api_insertLike"
 #define nDeleteLikeNews @"news/api_deleteLike"
 #define nPostNews @"news/api_insertNews"
@@ -38,7 +42,9 @@
 
 #define cmGetComment @"comments/api_getComments"
 #define cmAddComment @"comments/api_insertComment"
-
+#define cmEditComment @"comments/api_updateComment"
+#define cmDeleteComment @"comments/api_deleteComment"
+#define cmLikeComment @"comments/api_deleteComment"
 //Key
 #define kCode @"code"
 #define kMessage @"message"
@@ -56,6 +62,9 @@
 #define kNewsId @"news_id"
 #define kAboutMe @"about_me"
 #define kisOnline @"is_online"
+
+#define kCommentId @"comment_id"
+#define kCommentContent @"content"
 /*TYPE ENUM*/
 typedef enum {
     color = 0,

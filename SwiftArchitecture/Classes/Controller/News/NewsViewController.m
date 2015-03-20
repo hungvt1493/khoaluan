@@ -153,10 +153,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (_endOfRespond) {
-        NSLog(@"COUNT 1: %d", _fullNewsArr.count);
+
         return _fullNewsArr.count;
     }
-    NSLog(@"COUNT 2: %d", _fullNewsArr.count+1);
+
     return _fullNewsArr.count+1;
 }
 
@@ -287,5 +287,6 @@
     detailVC.newsId = newsId;
     detailVC.postType = type;
     [self.navigationController pushViewController:detailVC animated:YES];
+    [detailVC removeNavigationBarAnimation];
 }
 @end

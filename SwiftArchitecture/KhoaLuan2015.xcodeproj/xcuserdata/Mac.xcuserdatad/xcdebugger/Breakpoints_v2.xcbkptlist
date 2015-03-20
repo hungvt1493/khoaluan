@@ -22,38 +22,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Classes/Controller/News/NewsViewController.m"
-            timestampString = "448469749.617393"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "-tableView:willDisplayCell:forRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Classes/Controller/News/NewsViewController.m"
-            timestampString = "448469749.617393"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
-            landmarkName = "-tableView:heightForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -105,7 +73,7 @@
                   symbolName = "-[SWRegisterViewController registerButtonTapped:]"
                   moduleName = "KhoaLuan2015"
                   urlString = "file:///Users/Mac/Desktop/KhoaLuan/SwiftArchitecture/Classes/Controller/Login&amp;Register/SWRegisterViewController.m"
-                  timestampString = "448482284.543932"
+                  timestampString = "448566021.166163"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "372"
@@ -119,7 +87,7 @@
                   symbolName = "__49-[SWRegisterViewController registerButtonTapped:]_block_invoke_2318"
                   moduleName = "KhoaLuan2015"
                   urlString = "file:///Users/Mac/Desktop/KhoaLuan/SwiftArchitecture/Classes/Controller/Login&amp;Register/SWRegisterViewController.m"
-                  timestampString = "448482284.544077"
+                  timestampString = "448566021.166388"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "372"
@@ -222,6 +190,22 @@
             startingLineNumber = "308"
             endingLineNumber = "308"
             landmarkName = "-registerButtonTapped:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CustomControls/IBActionSheet/IBActionSheet.m"
+            timestampString = "448565918.661223"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "352"
+            endingLineNumber = "352"
+            landmarkName = "-setUpTheActionSheet"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

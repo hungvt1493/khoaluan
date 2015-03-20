@@ -10,6 +10,7 @@
 #import "MyPageHeaderView.h"
 #import "KLNewsContentTableViewCell.h"
 #import "KLPostNewsViewController.h"
+#import "KLNewsDetailViewController.h"
 
 @interface MyPageViewController () <UITableViewDataSource, UITableViewDelegate, MyPageHeaderViewDelegate, KLNewsContentTableViewCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *myPageTableView;
@@ -267,5 +268,17 @@
 #pragma mark - MyPageHeaderDelegate
 - (void)pushToViewControllerUseDelegete:(UIViewController *)viewController withAnimation:(BOOL)animation{
     [self.navigationController pushViewController:viewController animated:animation];
+}
+
+#pragma mark - NewsViewDelegate
+- (void)pushToDetailViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath {
+    int newsId = [[[_fullNewsArr objectAtIndex:indexPath.row-1] objectForKey:@"news_id"] intValue];
+    int type = [[[_fullNewsArr objectAtIndex:indexPath.row-1] objectForKey:@"type"] intValue];
+    
+    KLNewsDetailViewController *detailVC = [[KLNewsDetailViewController alloc] init];
+    //    detailVC.dict = [_fullNewsArr objectAtIndex:indexPath.row];
+    detailVC.newsId = newsId;
+    detailVC.postType = type;
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 @end

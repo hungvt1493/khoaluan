@@ -51,10 +51,10 @@
 - (void)setup
 {
     self.placeholderTextColor = [UIColor lightGrayColor];
-    self.placeholderLabel = [[UILabel alloc] init];
+    self.placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 110, 17)];
     [self addSubview:self.placeholderLabel];
     self.placeholderLabel.hidden = YES;
-    
+    self.placeholderLabel.font = [UIFont systemFontOfSize:16];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewTextDidChange:) name:UITextViewTextDidChangeNotification object:self];
 }
 

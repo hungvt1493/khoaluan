@@ -8,8 +8,8 @@
 
 #import "KLNewsDetailViewController.h"
 #import "KLCommentTableViewCell.h"
-
-@interface KLNewsDetailViewController () <UITableViewDataSource, UITableViewDelegate>
+#import "IBActionSheet.h"
+@interface KLNewsDetailViewController () <UITableViewDataSource, UITableViewDelegate, IBActionSheetDelegate>
 
 @end
 
@@ -18,11 +18,21 @@
     BOOL _haveImages;
     NSArray *_commentArr;
     NSMutableArray *_commentHeightArr;
+    NSIndexPath *_selectedIndexPath;
+    NSString *_stringBeforeEdit;
+    BOOL _willEdit;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.navigationController.navigationBarHidden = NO;
+    [self setBackButtonWithImage:back_bar_button highlightedImage:nil target:self action:@selector(backButtonTapped:)];
+    _willEdit = NO;
+}
+
+- (void)backButtonTapped:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -31,8 +41,6 @@
     [self initUIForContentView];
     
     [self initData];
-    
-    self.navigationController.scrollNavigationBar.scrollView = nil;
     
 //    _commentArr = [[NSMutableArray alloc] initWithCapacity:10];
     _commentHeightArr = [[NSMutableArray alloc] initWithCapacity:10];
@@ -50,9 +58,13 @@
     
     self.inputView = [[SOMessageInputView alloc] init];
     self.inputView.delegate = self;
-    self.inputView.tableView = self.commentTableView;
+    //self.inputView.tableView = self.commentTableView;
     [self.view addSubview:self.inputView];
     [self.inputView adjustPosition];
+}
+
+- (void)removeNavigationBarAnimation {
+    self.navigationController.scrollNavigationBar.scrollView = nil;
 }
 
 - (BOOL)shouldAutorotate
@@ -107,7 +119,7 @@
         }
         
         [_commentTableView reloadData];
-        [self.inputView adjustPosition];
+//        [self.inputView adjustPosition];
         [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -395,14 +407,16 @@
     cell.preservesSuperviewLayoutMargins = NO;
     NSDictionary *comment = [_commentArr objectAtIndex:indexPath.row];
     [cell setContentUIByString:comment];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView  deselectRowAtIndexPath:indexPath animated:YES];
+    _selectedIndexPath = indexPath;
+    [self showActionSheet];
+//    [tableView  deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -455,7 +469,7 @@
         height = requiredHeight.size.height;
     }
     
-    height += 43;
+    height += 61;
     
     return height;
 }
@@ -471,8 +485,9 @@
  * Called when user tap on send button
  */
 - (void)messageInputView:(SOMessageInputView *)inputView didSendMessage:(NSString *)message {
-    
-    if (message.length > 0) {
+    [self.view endEditing:YES];
+    if (message.length > 0 && !_willEdit) {
+        
         [[SWUtil sharedUtil] showLoadingView];
         NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, cmAddComment];
         
@@ -486,7 +501,6 @@
         
         [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-            [[SWUtil sharedUtil] hideLoadingView];
             [self getComment];
             NSLog(@"POST MESSAGE SUCCESS");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -494,8 +508,32 @@
             [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
             [[SWUtil sharedUtil] hideLoadingView];
         }];
+    } else {
+        if (![message isEqualToString:_stringBeforeEdit] && message.length > 0) {
+            
+            [[SWUtil sharedUtil] showLoadingView];
+            NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, cmEditComment];
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+            
+            NSInteger commentId = [[[_commentArr objectAtIndex:_selectedIndexPath.row] objectForKey:kCommentId] integerValue];
+            NSDictionary *parameters = @{kCommentId             : [NSNumber numberWithInteger:commentId],
+                                         kCommentContent        : NULL_IF_NIL(message)};
+            
+            [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                
+                [self getComment];
+                NSLog(@"UPDATE MESSAGE SUCCESS");
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+                [[SWUtil sharedUtil] hideLoadingView];
+                NSLog(@"UPDATE MESSAGE FAILED");
+            }];
+        }
     }
-    
 }
 
 /**
@@ -503,5 +541,69 @@
  */
 - (void)messageInputViewDidSelectMediaButton:(SOMessageInputView *)inputView {
     
+}
+
+- (void)showActionSheet {
+    [[SWUtil appDelegate] hideTabbar:YES];
+    IBActionSheet *actionSheet = [[IBActionSheet alloc] initWithTitle:nil
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Đóng"
+                                               destructiveButtonTitle:nil
+                                               otherButtonTitlesArray:@[@"Sửa", @"Xóa"]];
+    [actionSheet setButtonTextColor:[UIColor redColor] forButtonAtIndex:1];
+    [actionSheet showInView:self.view];
+}
+
+-(void)actionSheet:(IBActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [[SWUtil appDelegate] hideTabbar:NO];
+    [_commentTableView deselectRowAtIndexPath:_selectedIndexPath animated:YES];
+    NSLog(@"INDEX: %d", buttonIndex);
+    switch (buttonIndex) {
+        case 0: // Edit
+        {
+            KLCommentTableViewCell *cell = (KLCommentTableViewCell*)[_commentTableView cellForRowAtIndexPath:_selectedIndexPath];
+            [self.inputView textViewActiveByContent:cell.lblContent.text ];
+            _stringBeforeEdit = cell.lblContent.text;
+            _willEdit = YES;
+        }
+            break;
+        case 1: // Delete
+        {
+            [SWUtil showConfirmAlert:@"" message:@"Bạn có chắc chắn muốn xóa bình luận này?" cancelButton:@"Không" otherButton:@"Có" tag:111 delegate:self];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [self deleteComment];
+    }
+}
+
+- (void)deleteComment {
+    [[SWUtil sharedUtil] showLoadingView];
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, cmDeleteComment];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSInteger commentId = [[[_commentArr objectAtIndex:_selectedIndexPath.row] objectForKey:kCommentId] integerValue];
+    NSDictionary *parameters = @{kCommentId   : [NSNumber numberWithInteger:commentId]};
+    
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [self getComment];
+        NSLog(@"DELETE MESSAGE SUCCESS");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+        NSLog(@"DELETE MESSAGE FAILED");
+    }];
 }
 @end

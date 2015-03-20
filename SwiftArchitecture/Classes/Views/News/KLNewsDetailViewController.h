@@ -38,4 +38,5 @@
 - (IBAction)btnEditTapped:(id)sender;
 - (IBAction)btnDeleteTapped:(id)sender;
 - (IBAction)btnShowToolViewTapped:(id)sender;
+- (void)removeNavigationBarAnimation;
 @end

@@ -30,9 +30,10 @@
 - (void)setContentUIByString:(NSDictionary*)dict {
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     
+    _lblName.text = [dict objectForKey:kName];
+    
     NSString *content = [dict objectForKey:@"content"];
     _lblContent.text = content;
-    [_lblContent sizeToFit];
     
     CGSize textSize = CGSizeMake(_lblContent.frame.size.width  , 9999);
     
@@ -52,18 +53,18 @@
     }
     
     CGRect lblContentFrame = _lblContent.frame;
-    lblContentFrame.origin.y = 0;
-    lblContentFrame.size.height = height+10;
+    lblContentFrame.origin.y = _lblName.frame.origin.y+_lblName.bounds.size.height;
+    lblContentFrame.size.height = height+8;
     _lblContent.frame = lblContentFrame;
     
     CGRect lblToolFrame = _toolView.frame;
-    lblToolFrame.origin.y = height + 12;
+    lblToolFrame.origin.y = _lblName.frame.origin.y+_lblName.bounds.size.height+height+7;
     _toolView.frame = lblToolFrame;
     
     int time = [[dict objectForKey:@"time"] intValue];
     NSDate *date = [SWUtil convertNumberToDate:time];
     
-    NSString *ago = [date timeAgo];//[date timeAgo];
+    NSString *ago = [date timeAgo];
     _lblTime.text = ago;
     
     NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];

@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    AddFriend = 0,
+    Friend
+} FriendState;
+
 @protocol MyPageHeaderViewDelegate <NSObject>
 @optional
 - (void)pushToViewControllerUseDelegete:(UIViewController *)viewController withAnimation:(BOOL)animation;
@@ -29,4 +34,5 @@
 - (IBAction)btnFriendTapped:(id)sender;
 - (IBAction)btnPostNewsTapped:(id)sender;
 - (IBAction)btnShowInfoTapped:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnAddFriend;
 @end

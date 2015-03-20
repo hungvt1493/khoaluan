@@ -116,10 +116,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHideNote:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOrientationDidChandeNote:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     
-    self.textView.placeholderText = NSLocalizedString(@"Viết bình luận...", nil);
+    self.textView.placeholderText = @"Viết bình luận...";
+    self.textView.placeholderTextColor = [UIColor lightGrayColor];
     [self.textView setFont:[UIFont systemFontOfSize:16]];
 //    self.textView.autocorrectionType = UITextAutocorrectionTypeNo;
-    [self.sendButton setTitle:NSLocalizedString(@"Gửi", nil) forState:UIControlStateNormal];
+    [self.sendButton setTitle:@"Gửi" forState:UIControlStateNormal];
     self.sendButton.frame = CGRectMake(0, 0, 70, self.textInitialHeight - self.textTopMargin - self.textBottomMargin);
     
     //[self.mediaButton setImage:[UIImage imageNamed:@"attach.png"] forState:UIControlStateNormal];//origin: attachment.png
@@ -316,6 +317,7 @@
 {
     CGRect rect = [textView caretRectForPosition:textView.selectedTextRange.end];
     rect.size.height += textView.textContainerInset.bottom;
+    rect.origin.y = 3;
     [textView scrollRectToVisible:rect animated:animated];
 }
 
@@ -373,7 +375,7 @@
     keyboardDuration = duration;
     
     CGRect frame = self.frame;
-    frame.origin.y = self.superview.bounds.size.height - frame.size.height;
+    frame.origin.y = self.superview.bounds.size.height - frame.size.height - HEIGHT_TABBAR;
     keyboardFrame = CGRectZero;
     [UIView animateWithDuration:duration animations:^{
         [UIView setAnimationCurve:curve];
@@ -631,6 +633,12 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     return YES;
+}
+
+- (void)textViewActiveByContent:(NSString*)content {
+    self.textView.text = content;
+    [self.textView becomeFirstResponder];
+    [self adjustTextViewSize];
 }
 
 - (void)dealloc

@@ -134,6 +134,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="avatarBgView" destination="u7n-Cb-1tb" id="Anu-B1-ikR"/>
+                <outlet property="btnAddFriend" destination="Ztd-JA-t0K" id="fn4-wZ-h7C"/>
                 <outlet property="btnWriteNewPost" destination="xd5-R7-382" id="9UB-nN-4Tx"/>
                 <outlet property="imgAvatar" destination="hbP-sy-su3" id="eQY-vr-fMT"/>
                 <outlet property="imgBackground" destination="eoE-4Y-JFa" id="hBY-1b-0im"/>

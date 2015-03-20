@@ -59,5 +59,5 @@
 #pragma mark - Methods
 - (void)adjustInputView;
 - (void)adjustPosition;
-
+- (void)textViewActiveByContent:(NSString*)content;
 @end
