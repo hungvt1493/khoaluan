@@ -17,6 +17,8 @@
                 <outlet property="imgAvatar" destination="YdQ-m0-j2j" id="eDY-A4-1ni"/>
                 <outlet property="imgScrollView" destination="QCu-zh-AE6" id="Jp7-7C-nF3"/>
                 <outlet property="lblContent" destination="GWw-9E-Nvi" id="Mu2-tG-01g"/>
+                <outlet property="lblEventLabel" destination="7Ub-3i-ZII" id="wSg-Gf-fnz"/>
+                <outlet property="lblEventTime" destination="WNV-co-GiE" id="v8h-0g-5QT"/>
                 <outlet property="lblName" destination="P2P-si-zWo" id="3eH-nm-inI"/>
                 <outlet property="lblTime" destination="QFi-BJ-EU5" id="VAV-oI-4Jg"/>
                 <outlet property="newsContentView" destination="q3N-zm-5az" id="3kV-tH-d2a"/>
@@ -66,9 +68,9 @@
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="QCu-zh-AE6">
-                                    <rect key="frame" x="0.0" y="63" width="320" height="165"/>
+                                    <rect key="frame" x="0.0" y="63" width="320" height="160"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </scrollView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="v17-1q-MgP">
                                     <rect key="frame" x="269" y="2" width="51" height="27"/>
@@ -121,8 +123,22 @@
                                     <rect key="frame" x="0.0" y="225" width="320" height="124"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7Ub-3i-ZII">
+                                            <rect key="frame" x="5" y="1" width="299" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WNV-co-GiE">
+                                            <rect key="frame" x="5" y="22" width="299" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GWw-9E-Nvi">
-                                            <rect key="frame" x="5" y="0.0" width="310" height="77"/>
+                                            <rect key="frame" x="5" y="51" width="310" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>

@@ -12,6 +12,9 @@
 
 - (void)didDeleteCellAtIndexPath:(NSIndexPath*)indexPath;
 - (void)didChooseEditCellAtIndexPath:(NSIndexPath*)indexPath withData:(NSDictionary*)dict withType:(PostType)type;
+- (void)pushToDetailViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath;
+- (void)pushToUserPageViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath;
+- (void)didChooseImage:(NSArray*)imagesArr AtIndex:(NSInteger)index;
 @end
 
 @interface KLEventContentTableViewCell : UITableViewCell
@@ -43,4 +46,6 @@
 - (IBAction)btnEditTapped:(id)sender;
 - (IBAction)btnDeleteTapped:(id)sender;
 - (IBAction)btnShowToolViewTapped:(id)sender;
+- (IBAction)btnMessageTapped:(id)sender;
+- (IBAction)btnMoreTapped:(id)sender;
 @end

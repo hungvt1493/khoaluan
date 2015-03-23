@@ -25,6 +25,23 @@
 }
 
 - (void)initUI {
+    if (_myPageType == MyPage) {
+        _btnAddFriend.hidden = YES;
+        
+        CGPoint point = _btnImage.center;
+        point.x = self.center.x;
+        _btnImage.center = point;
+    }
+    
+    BOOL hideBackButton = [[NSUserDefaults standardUserDefaults] boolForKey:kHideBackButtonInUserPage];
+    if (hideBackButton) {
+        _btnBack.hidden = YES;
+    } else {
+        _btnBack.hidden = NO;
+        _btnBack.layer.cornerRadius = _btnBack.bounds.size.width/2;
+        _btnBack.clipsToBounds = YES;
+    }
+    
     self.backgroundColor = [UIColor colorWithHex:@"E3E3E3" alpha:1];
     
     _btnWriteNewPost.layer.borderWidth = 0;
@@ -102,10 +119,193 @@
     _lblAge.text = [NSString stringWithFormat:@"%d", (int)age];
 }
 
-- (IBAction)btnChangeTimelineImageTapped:(id)sender {
+- (void)configureAddFriendButton:(int)status {
+
+    switch (status) {
+        case 3:
+        {
+            [_btnAddFriend setImage:[UIImage imageNamed:@"Remove User Filled"] forState:UIControlStateNormal];
+            _btnWriteNewPost.hidden = YES;
+            _btnAddFriend.hidden = NO;
+            _btnReject.hidden = YES;
+            _btnAccept.hidden = YES;
+            _btnImage.frame = CGRectMake(_btnUserInfor.bounds.size.width, 0, _btnImage.bounds.size.width, _btnImage.bounds.size.height);
+            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.bounds.size.width, 222);
+            
+            _friendState = RemoveFriend;
+        }
+            break;
+        case 2:
+        {
+            _friendState = AcceptOrReject;
+            _btnWriteNewPost.hidden = YES;
+            _btnReject.hidden = NO;
+            _btnAccept.hidden = NO;
+            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.bounds.size.width, 292);
+            
+            _btnAddFriend.hidden = YES;
+            
+            CGPoint point = _btnImage.center;
+            point.x = self.center.x;
+            _btnImage.center = point;
+            
+//            CGRect imgBtnFrame = _btnImage.frame;
+//            imgBtnFrame.origin.x = (self.bounds.size.width - imgBtnFrame.size.width)/2;
+//            _btnImage.frame = imgBtnFrame;
+
+        }
+            break;
+        case 1:
+        {
+            _friendState = WaitConfirm;
+            _btnWriteNewPost.hidden = YES;
+            _btnAddFriend.hidden = NO;
+            
+            _btnImage.frame = CGRectMake(_btnUserInfor.bounds.size.width, 0, _btnImage.bounds.size.width, _btnImage.bounds.size.height);
+            [_btnAddFriend setImage:[UIImage imageNamed:@"Add User Filled-Blue"] forState:UIControlStateNormal];
+            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.bounds.size.width, 222);
+        }
+            break;
+        case 0:
+        {
+            _btnReject.hidden = YES;
+            _btnAccept.hidden = YES;
+            if (_myPageType == MyPage) {
+                _btnWriteNewPost.hidden = NO;
+                _btnAddFriend.hidden = YES;
+                
+                CGPoint point = _btnImage.center;
+                point.x = self.center.x;
+                _btnImage.center = point;
+            } else {
+                _friendState = AddFriend;
+                [_btnAddFriend setImage:[UIImage imageNamed:@"Add User Filled"] forState:UIControlStateNormal];
+                _btnWriteNewPost.hidden = YES;
+                
+                _btnAddFriend.hidden = NO;
+                _btnImage.frame = CGRectMake(_btnUserInfor.bounds.size.width, 0, _btnImage.bounds.size.width, _btnImage.bounds.size.height);
+                self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.bounds.size.width, 222);
+            }
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 
-- (IBAction)btnChangeAvatarTapped:(id)sender {
+- (IBAction)btnAddFriendTapped:(id)sender {
+    switch (_friendState) {
+        case AddFriend:
+        {
+            [[SWUtil sharedUtil] showLoadingView];
+            
+            NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uAddFriend];
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            
+            NSString *myId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+            NSDictionary *parameters = @{@"user_id": myId,
+                                         @"friend_id": _fUserId};
+            
+            [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary *userDict = (NSDictionary*)responseObject;
+                [self configureAddFriendButton:1];
+                
+                NSLog(@"Reg JSON: %@", userDict);
+                [[SWUtil sharedUtil] hideLoadingView];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+                [[SWUtil sharedUtil] hideLoadingView];
+            }];
+        }
+            break;
+        case RemoveFriend:
+        {
+            [[SWUtil sharedUtil] showLoadingView];
+            
+            NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uDeleteFriend];
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            
+            NSString *myId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+            NSDictionary *parameters = @{@"user_id": myId,
+                                         @"friend_id": _fUserId};
+            
+            [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary *userDict = (NSDictionary*)responseObject;
+                [self configureAddFriendButton:0];
+                NSLog(@"Reg JSON: %@", userDict);
+                [[SWUtil sharedUtil] hideLoadingView];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+                [[SWUtil sharedUtil] hideLoadingView];
+            }];
+
+        }
+        default:
+            break;
+    }
+}
+
+- (IBAction)btnBackTapped:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(popViewControllerUseDelegate)]) {
+        [self.delegate popViewControllerUseDelegate];
+    }
+}
+
+- (IBAction)btnAcceptTapped:(id)sender {
+    [[SWUtil sharedUtil] showLoadingView];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uAcceptFriend];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *myId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+       NSDictionary *parameters = @{@"user_id": myId,
+                                    @"friend_id": _fUserId};
+   
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *userDict = (NSDictionary*)responseObject;
+        [self configureAddFriendButton:3];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didAcceptOrRejectUser)]) {
+            [self.delegate didAcceptOrRejectUser];
+        }
+        NSLog(@"Reg JSON: %@", userDict);
+        [[SWUtil sharedUtil] hideLoadingView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
+}
+
+- (IBAction)btnRejectTapped:(id)sender {
+    [[SWUtil sharedUtil] showLoadingView];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uDeleteFriend];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *myId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    NSDictionary *parameters = @{@"user_id": myId,
+                                 @"friend_id": _fUserId};
+    
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *userDict = (NSDictionary*)responseObject;
+        [self configureAddFriendButton:0];
+        NSLog(@"Reg JSON: %@", userDict);
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didAcceptOrRejectUser)]) {
+            [self.delegate didAcceptOrRejectUser];
+        }
+        [[SWUtil sharedUtil] hideLoadingView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
 }
 
 - (IBAction)btnFriendTapped:(id)sender {
@@ -131,4 +331,5 @@
         [self.delegate pushToViewControllerUseDelegete:myProfileVC withAnimation:YES];
     }
 }
+
 @end

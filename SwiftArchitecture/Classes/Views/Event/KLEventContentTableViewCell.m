@@ -11,10 +11,14 @@
 @implementation KLEventContentTableViewCell {
     BOOL _isSelected;
     NSDictionary *_cellData;
+    NSMutableArray *_imgContentArr;
+    NSMutableArray *_imgArr;
 }
 
 - (void)awakeFromNib {
     // Initialization code
+    _imgArr = [[NSMutableArray alloc] initWithCapacity:10];
+    _imgContentArr = [[NSMutableArray alloc] initWithCapacity:10];
     [self initUI];
     _isSelected = NO;
 }
@@ -45,6 +49,41 @@
     _toolView.layer.borderColor = [UIColor blackColor].CGColor;
     _toolView.layer.borderWidth = 1;
     _toolView.hidden = YES;
+
+    UITapGestureRecognizer *contentTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailViewControllerForCell)];
+    UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailViewControllerForCell)];
+    UITapGestureRecognizer *timeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailViewControllerForCell)];
+    _lblContent.userInteractionEnabled = YES;
+    _lblEventTitle.userInteractionEnabled = YES;
+    _lblEventTime.userInteractionEnabled = YES;
+    
+    [_lblContent addGestureRecognizer:contentTap];
+    [_lblEventTitle addGestureRecognizer:titleTap];
+    [_lblEventTime addGestureRecognizer:timeTap];
+    
+    UITapGestureRecognizer *userTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showUserPageViewControllerForCell)];
+    userTap.numberOfTapsRequired = 1;
+    userTap.numberOfTouchesRequired = 1;
+    _lblName.userInteractionEnabled = YES;
+    [_lblName addGestureRecognizer:userTap];
+    
+    UITapGestureRecognizer *imgUserTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showUserPageViewControllerForCell)];
+    imgUserTap.numberOfTapsRequired = 1;
+    imgUserTap.numberOfTouchesRequired = 1;
+    _imgAvatar.userInteractionEnabled = YES;
+    [_imgAvatar addGestureRecognizer:imgUserTap];;
+}
+
+- (void)showDetailViewControllerForCell {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pushToDetailViewControllerUserDelegateForCellAtIndexPath:)]) {
+        [self.delegate pushToDetailViewControllerUserDelegateForCellAtIndexPath:_indexPath];
+    }
+}
+
+- (void)showUserPageViewControllerForCell {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pushToUserPageViewControllerUserDelegateForCellAtIndexPath:)]) {
+        [self.delegate pushToUserPageViewControllerUserDelegateForCellAtIndexPath:_indexPath];
+    }
 }
 
 - (void)haveImage:(BOOL)flag {
@@ -76,10 +115,16 @@
     
     if (numberOfImage == 0) {
         [self haveImage:NO];
+    } else {
+        _imgArr = [dict objectForKey:@"images"];
+        
+        if (_imgArr.count > 0) {
+            [self setUIScroll];
+        }
     }
     
     NSString *commentsNumber = [NSString stringWithFormat:@" %@",[dict objectForKey:@"comments"]];
-    self.numberOfLikeInNews = [[dict objectForKey:@"comments"] integerValue];
+    self.numberOfCommentInNews = [[dict objectForKey:@"comments"] integerValue];
     [_btnMessage setTitle:commentsNumber forState:UIControlStateNormal];
     
     [_btnMessage sizeToFit];
@@ -176,6 +221,67 @@
     btnLikeFrame.size.width += 12;
     btnLikeFrame.size.height = 30;
     _btnLike.frame = btnLikeFrame;
+}
+
+- (void)setUIScroll {
+    for (UIView *subview in _scrollView.subviews) {
+        [subview removeFromSuperview];
+    }
+    
+    int xPos = 0;
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"loading" withExtension:@"gif"];
+    
+    for (int i = 0; i < _imgArr.count; i++) {
+        NSDictionary *imgDict = [_imgArr objectAtIndex:i];
+        
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        imgView.contentMode = UIViewContentModeCenter;
+        imgView.clipsToBounds = YES;
+        imgView.tag = i;
+        NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, [imgDict objectForKey:@"link"]];
+        [imgView sd_setImageWithURL:[NSURL URLWithString:imageLink]
+                   placeholderImage:[UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]]
+                          completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                              imgView.contentMode = UIViewContentModeScaleAspectFill;
+                              if (image) {
+                                  if (![_imgContentArr containsObject:image]) {
+                                      [_imgContentArr addObject:image];
+                                  }
+                              } else {
+                                  
+                              }
+                          }];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgToFullScreen:)];
+        tap.delegate = self;
+        [imgView addGestureRecognizer:tap];
+        tap.enabled = YES;
+        tap.numberOfTapsRequired = 1;
+        tap.numberOfTouchesRequired = 1;
+        imgView.userInteractionEnabled = YES;
+        
+        
+        CGRect frame = [imgView frame];
+        frame.origin.x = xPos;
+        frame.size.width = _newsContentView.bounds.size.width;
+        frame.size.height = 160;
+        xPos += frame.size.width;
+        [imgView setFrame:frame];
+        
+        [_scrollView addSubview:imgView];
+    }
+    _scrollView.pagingEnabled = YES;
+    CGSize contentSize = [_scrollView contentSize];
+    contentSize.width=xPos;
+    [_scrollView setContentSize:contentSize];
+}
+
+-(void)imgToFullScreen:(UITapGestureRecognizer*)gestureRecognizer {
+    UIImageView *gestureView = (UIImageView *)[gestureRecognizer view];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didChooseImage:AtIndex:)]) {
+        [self.delegate didChooseImage:_imgContentArr AtIndex:gestureView.tag];
+    }
 }
 
 - (IBAction)btnLikeTapped:(id)sender {
@@ -301,6 +407,14 @@
     } else {
         [self hiddenView:_toolView];
     }
+}
+
+- (IBAction)btnMessageTapped:(id)sender {
+    [self showDetailViewControllerForCell];
+}
+
+- (IBAction)btnMoreTapped:(id)sender {
+    [self showDetailViewControllerForCell];
 }
 
 @end

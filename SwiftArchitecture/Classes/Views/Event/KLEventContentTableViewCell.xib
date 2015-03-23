@@ -46,7 +46,7 @@
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="gn4-r6-1VY">
                             <rect key="frame" x="0.0" y="63" width="304" height="160"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </scrollView>
                         <view contentMode="scaleToFill" id="bZB-hb-W0e">
                             <rect key="frame" x="0.0" y="225" width="304" height="124"/>
@@ -91,6 +91,9 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="btnMessageTapped:" destination="4ld-Nt-a7e" eventType="touchUpInside" id="fzR-5d-p4X"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="thS-zc-4NW">
                                     <rect key="frame" x="224" y="88" width="70" height="30"/>
@@ -99,6 +102,9 @@
                                     <state key="normal" image="More-black.png">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="btnMoreTapped:" destination="4ld-Nt-a7e" eventType="touchUpInside" id="aOZ-eq-yWs"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sMf-9A-Iy4">
                                     <rect key="frame" x="5" y="0.0" width="299" height="21"/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="6X4-tU-zLp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="6X4-tU-zLp">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
         <!--AssetsVC-->
@@ -97,9 +97,9 @@
         <scene sceneID="Fo3-5f-9PL">
             <objects>
                 <navigationController storyboardIdentifier="ImagePickerNC" definesPresentationContext="YES" id="6X4-tU-zLp" customClass="SNImagePickerNC" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" shadowImage="5FEDA718-3928-41CF-B713-723C54A77A08" id="aFw-Lw-wZl">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" shadowImage="3F0E9234-8661-4AC8-A07C-9A79B8F17290" id="aFw-Lw-wZl">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.66274509800000003" green="0.15686274510000001" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.16078431372549021" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -150,7 +150,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="5FEDA718-3928-41CF-B713-723C54A77A08" width="320" height="64">
+        <image name="3F0E9234-8661-4AC8-A07C-9A79B8F17290" width="320" height="64">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISksLzU4VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

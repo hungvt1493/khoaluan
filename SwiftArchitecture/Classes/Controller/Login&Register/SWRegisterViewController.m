@@ -302,7 +302,7 @@
                 NSData *imageData = UIImageJPEGRepresentation(_avatarImage, 0.5);
                 
                 AFHTTPRequestOperation *op = [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                    //do not put image inside parameters dictionary as I did, but append it!
+
                     [formData appendPartWithFileData:imageData name:@"avatar" fileName:avatarImageStr mimeType:@"image/jpeg"];
                 } success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     NSDictionary *userDict = (NSDictionary*)responseObject;

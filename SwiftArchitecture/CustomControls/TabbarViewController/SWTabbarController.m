@@ -92,6 +92,11 @@
             [nav popToRootViewControllerAnimated:NO];
         }
     }
+    
+    if (sender.tabIndex == 2) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHideBackButtonInUserPage];
+    }
+    
     self.oldSelectedIndex = sender.tabIndex;
     [self hoverAtIndex:sender.tabIndex];
 }

@@ -9,9 +9,12 @@
 #import "KLEventsViewController.h"
 #import "KLEventContentTableViewCell.h"
 #import "KLPostNewsViewController.h"
+#import "KLNewsDetailViewController.h"
+#import "KRImageViewer.h"
+#import "MyPageViewController.h"
 
-@interface KLEventsViewController () <UITableViewDataSource, UITableViewDelegate, KLEventContentTableViewCellDelegate>
-
+@interface KLEventsViewController () <UITableViewDataSource, UITableViewDelegate, KLEventContentTableViewCellDelegate,KRImageViewerDelegate>
+@property (nonatomic, strong) KRImageViewer *krImageViewer;
 @property (weak, nonatomic) IBOutlet UITableView *newsTableView;
 @property (nonatomic, strong) PullToRefreshView *pull;
 @property (nonatomic, assign) CGFloat previousScrollViewYOffset;
@@ -32,7 +35,7 @@
     // Do any additional setup after loading the view from its nib.
     
     _oldOffset = 0;
-    _limit = 6;
+    _limit = 5;
     _fullNewsArr = [[NSMutableArray alloc] initWithCapacity:10];
     _endOfRespond = NO;
     _checkNewsPost = 0;
@@ -41,9 +44,35 @@
     self.pull = [[PullToRefreshView alloc] initWithScrollView:(UIScrollView *)_newsTableView];
     [self.pull setDelegate:(id<PullToRefreshViewDelegate>)self];
     [_newsTableView addSubview:self.pull];
+    [self.pull setState:PullToRefreshViewStateLoading];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kDidPostNews];
     
-    self.navigationController.scrollNavigationBar.scrollView = self.newsTableView;
+    self.krImageViewer = [[KRImageViewer alloc] initWithDragMode:krImageViewerModeOfBoth];
+    self.krImageViewer.delegate                    = self;
+    self.krImageViewer.maxConcurrentOperationCount = 1;
+    self.krImageViewer.dragDisapperMode            = krImageViewerDisapperAfterMiddle;
+    self.krImageViewer.allowOperationCaching       = NO;
+    self.krImageViewer.timeout                     = 30.0f;
+    self.krImageViewer.doneButtonTitle             = @"Đóng";
+    //Auto supports the rotations.
+    self.krImageViewer.supportsRotations           = YES;
+    //It'll release caches when caches of image over than X photos, but it'll be holding current image to display on the viewer.
+    self.krImageViewer.overCacheCountRelease       = 200;
+    //Sorting Rule, Default ASC is YES, DESC is NO.
+    self.krImageViewer.sortAsc                     = YES;
+    
+    [self.krImageViewer setBrowsingHandler:^(NSInteger browsingPage)
+     {
+         //Current Browsing Page.
+         //...Do Something.
+     }];
+    
+    [self.krImageViewer setScrollingHandler:^(NSInteger scrollingPage)
+     {
+         //Current Scrolling Page.
+         //...Do Something.
+     }];
+
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
@@ -53,13 +82,15 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationController.scrollNavigationBar.scrollView = self.newsTableView;
     if ([[UIDevice currentDevice].systemVersion floatValue]>=8) {
         [[UINavigationBar appearance] setTranslucent:NO];
         
     } else {
         [self.navigationController.navigationBar setTranslucent:NO];
     }
-    
+    [self.krImageViewer useKeyWindow];
+
     _newsTableView.delegate = self;
     _newsTableView.dataSource = self;
 
@@ -75,7 +106,7 @@
     } else {
         if (_count > 0) {
             _count = 0;
-            _limit = 25;
+            _limit = 10;
             _oldOffset = 0;
             [_fullNewsArr removeAllObjects];
             [self initData];
@@ -94,7 +125,7 @@
     
     [self.pull setState:PullToRefreshViewStateLoading];
     _oldOffset = 0;
-    _limit = 6;
+    _limit = 5;
     [_fullNewsArr removeAllObjects];
     _checkNewsPost++;
     [self initData];
@@ -105,16 +136,17 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNews];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{@"offset": [NSNumber numberWithInt:_oldOffset],
                                  @"limit": [NSNumber numberWithInt:_limit],
-                                 @"type": [NSNumber numberWithInt:1]};
+                                 @"type": [NSNumber numberWithInt:1],
+                                 kUserId : userId};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSArray class]]) {
             
             if (_fullNewsArr.count == 0) {
-                _limit = 6;
+                _limit = 5;
             }
             _newsArr = (NSArray*)responseObject;
             
@@ -141,7 +173,8 @@
         [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        //[SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [self.pull finishedLoading];
         [[SWUtil sharedUtil] hideLoadingView];
     }];
 }
@@ -270,7 +303,9 @@
     PostType postType = type;
     postNewsVC.postType = postType;
     postNewsVC.newsId = [[dict objectForKey:kNewsId] integerValue];
-    
+    postNewsVC.imgArr = [[NSMutableArray alloc] initWithArray:imageArr];
+    postNewsVC.imgNameArr = [[NSMutableArray alloc] initWithArray:imageName];
+
     if (postType == event) {
         NSString *eventTitle = [dict objectForKey:@"news_event_title"];
         postNewsVC.eventTitleStr = eventTitle;
@@ -284,5 +319,47 @@
     postNewsVC.contentStr = content;
     
     [self.navigationController pushViewController:postNewsVC animated:YES];
+}
+
+- (void)pushToDetailViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath {
+    int newsId = [[[_fullNewsArr objectAtIndex:indexPath.row] objectForKey:@"news_id"] intValue];
+    int type = [[[_fullNewsArr objectAtIndex:indexPath.row] objectForKey:@"type"] intValue];
+    
+    KLNewsDetailViewController *detailVC = [[KLNewsDetailViewController alloc] init];
+    detailVC.newsId = newsId;
+    detailVC.postType = type;
+    [self.navigationController pushViewController:detailVC animated:YES];
+    [detailVC removeNavigationBarAnimation];
+}
+
+- (void)pushToUserPageViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath {
+    NSString *newsUserId = [[_fullNewsArr objectAtIndex:indexPath.row] objectForKey:@"user_id"];
+    MyPageViewController *userPageVC = [[MyPageViewController alloc] init];
+    userPageVC.myPageType = UserPage;
+    userPageVC.userId = newsUserId;
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kHideBackButtonInUserPage];
+    [self.navigationController pushViewController:userPageVC animated:YES];
+}
+
+- (void)didChooseImage:(NSArray *)imagesArr AtIndex:(NSInteger)index {
+    
+    [self.krImageViewer browseImages:imagesArr startIndex:index+1];
+}
+
+#pragma KRImageViewerDelegate
+-(void)krImageViewerIsScrollingToPage:(NSInteger)_scrollingPage
+{
+    //The ImageViewer is Scrolling to which page and trigger here.
+    //...
+}
+
+-(BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
 }
 @end

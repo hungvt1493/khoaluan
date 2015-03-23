@@ -48,6 +48,7 @@
     KLEventsViewController *hnueNewsVC = [[KLEventsViewController alloc] init];
     NewsViewController *newsVC = [[NewsViewController alloc] init];
     MyPageViewController *myPageVC = [[MyPageViewController alloc] init];
+    myPageVC.myPageType = MyPage;
     NotificationsViewController *notiVC = [[NotificationsViewController alloc] init];
     MoreViewController *moreVC = [[MoreViewController alloc] init];
     

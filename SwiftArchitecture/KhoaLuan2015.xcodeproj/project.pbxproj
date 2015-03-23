@@ -157,6 +157,12 @@
 		049780D41ABB433600A469F3 /* UINavigationController+Rotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 049780D31ABB433600A469F3 /* UINavigationController+Rotation.m */; };
 		049780DA1ABB4A7D00A469F3 /* inputTextBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 049780D81ABB4A7D00A469F3 /* inputTextBG.png */; };
 		049780DB1ABB4A7D00A469F3 /* inputTextBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 049780D91ABB4A7D00A469F3 /* inputTextBG@2x.png */; };
+		0499AF471ABFB65300CDA6CA /* Approve.png in Resources */ = {isa = PBXBuildFile; fileRef = 0499AF451ABFB65300CDA6CA /* Approve.png */; };
+		0499AF481ABFB65300CDA6CA /* Approve@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0499AF461ABFB65300CDA6CA /* Approve@2x.png */; };
+		0499AF4D1ABFBB3D00CDA6CA /* Checked User Filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 0499AF491ABFBB3D00CDA6CA /* Checked User Filled.png */; };
+		0499AF4E1ABFBB3D00CDA6CA /* Checked User Filled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0499AF4A1ABFBB3D00CDA6CA /* Checked User Filled@2x.png */; };
+		0499AF4F1ABFBB3D00CDA6CA /* Remove User Filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 0499AF4B1ABFBB3D00CDA6CA /* Remove User Filled.png */; };
+		0499AF501ABFBB3D00CDA6CA /* Remove User Filled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0499AF4C1ABFBB3D00CDA6CA /* Remove User Filled@2x.png */; };
 		04B4F59E1ABAD6840015E95E /* Add User Filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F59C1ABAD6840015E95E /* Add User Filled.png */; };
 		04B4F59F1ABAD6840015E95E /* Add User Filled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F59D1ABAD6840015E95E /* Add User Filled@2x.png */; };
 		04B4F5A21ABAD6F80015E95E /* Add User Filled-Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 04B4F5A01ABAD6F80015E95E /* Add User Filled-Blue.png */; };
@@ -222,6 +228,12 @@
 		04DC2BBC1AB0421C00565689 /* README.textile in Resources */ = {isa = PBXBuildFile; fileRef = 04DC2B9A1AB0421C00565689 /* README.textile */; };
 		04DC2BBD1AB0421C00565689 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC2B9E1AB0421C00565689 /* UIScrollView+SVInfiniteScrolling.m */; };
 		04DC2BBE1AB0421C00565689 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DC2BA01AB0421C00565689 /* UIScrollView+SVPullToRefresh.m */; };
+		04DED9821ABDF2A0006431C0 /* Screenshot-grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DED9801ABDF2A0006431C0 /* Screenshot-grey.png */; };
+		04DED9831ABDF2A0006431C0 /* Screenshot-grey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DED9811ABDF2A0006431C0 /* Screenshot-grey@2x.png */; };
+		04DED9861ABDF3A1006431C0 /* KLImageViewInPostContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DED9851ABDF3A1006431C0 /* KLImageViewInPostContent.m */; };
+		04DED9881ABDF3AC006431C0 /* KLImageViewInPostContent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DED9871ABDF3AC006431C0 /* KLImageViewInPostContent.xib */; };
+		04DED98B1ABDF477006431C0 /* Cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DED9891ABDF477006431C0 /* Cancel.png */; };
+		04DED98C1ABDF477006431C0 /* Cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DED98A1ABDF477006431C0 /* Cancel@2x.png */; };
 		04EEBC931AB727330092A011 /* KLEventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EEBC911AB727330092A011 /* KLEventsViewController.m */; };
 		04EEBC941AB727330092A011 /* KLEventsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04EEBC921AB727330092A011 /* KLEventsViewController.xib */; };
 		04EEBC991AB727D30092A011 /* KLEventContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EEBC971AB727D30092A011 /* KLEventContentTableViewCell.m */; };
@@ -235,6 +247,14 @@
 		04F0F27F1AB1E9280087F8BB /* PullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F0F27E1AB1E9280087F8BB /* PullToRefreshView.m */; };
 		04F0F2821AB207890087F8BB /* Bandage.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F0F2801AB207890087F8BB /* Bandage.png */; };
 		04F0F2831AB207890087F8BB /* Bandage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F0F2811AB207890087F8BB /* Bandage@2x.png */; };
+		04F2BDC11ABF0F8700749A04 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 04F2BDC01ABF0F8700749A04 /* loading.gif */; };
+		04F2BDC41ABF1C8900749A04 /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2BDC31ABF1C8900749A04 /* UIImage+animatedGIF.m */; };
+		04F2BDFD1ABF221D00749A04 /* KRImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2BDF81ABF221D00749A04 /* KRImageOperation.m */; };
+		04F2BDFE1ABF221D00749A04 /* KRImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2BDFA1ABF221D00749A04 /* KRImageScrollView.m */; };
+		04F2BDFF1ABF221D00749A04 /* KRImageViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F2BDFC1ABF221D00749A04 /* KRImageViewer.m */; };
+		04F2BE011ABF2A2F00749A04 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F2BE001ABF2A2F00749A04 /* QuartzCore.framework */; };
+		04F2BE041ABF39C300749A04 /* News Filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F2BE021ABF39C300749A04 /* News Filled.png */; };
+		04F2BE051ABF39C300749A04 /* News Filled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04F2BE031ABF39C300749A04 /* News Filled@2x.png */; };
 		915C4B3A1952A58200A592AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915C4B391952A58200A592AD /* Foundation.framework */; };
 		915C4B3C1952A58200A592AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915C4B3B1952A58200A592AD /* CoreGraphics.framework */; };
 		915C4B3E1952A58200A592AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915C4B3D1952A58200A592AD /* UIKit.framework */; };
@@ -500,6 +520,12 @@
 		049780D31ABB433600A469F3 /* UINavigationController+Rotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Rotation.m"; sourceTree = "<group>"; };
 		049780D81ABB4A7D00A469F3 /* inputTextBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inputTextBG.png; sourceTree = "<group>"; };
 		049780D91ABB4A7D00A469F3 /* inputTextBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inputTextBG@2x.png"; sourceTree = "<group>"; };
+		0499AF451ABFB65300CDA6CA /* Approve.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Approve.png; sourceTree = "<group>"; };
+		0499AF461ABFB65300CDA6CA /* Approve@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Approve@2x.png"; sourceTree = "<group>"; };
+		0499AF491ABFBB3D00CDA6CA /* Checked User Filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checked User Filled.png"; sourceTree = "<group>"; };
+		0499AF4A1ABFBB3D00CDA6CA /* Checked User Filled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checked User Filled@2x.png"; sourceTree = "<group>"; };
+		0499AF4B1ABFBB3D00CDA6CA /* Remove User Filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Remove User Filled.png"; sourceTree = "<group>"; };
+		0499AF4C1ABFBB3D00CDA6CA /* Remove User Filled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Remove User Filled@2x.png"; sourceTree = "<group>"; };
 		04B4F59C1ABAD6840015E95E /* Add User Filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add User Filled.png"; sourceTree = "<group>"; };
 		04B4F59D1ABAD6840015E95E /* Add User Filled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add User Filled@2x.png"; sourceTree = "<group>"; };
 		04B4F5A01ABAD6F80015E95E /* Add User Filled-Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Add User Filled-Blue.png"; sourceTree = "<group>"; };
@@ -605,6 +631,13 @@
 		04DC2B9E1AB0421C00565689 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
 		04DC2B9F1AB0421C00565689 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
 		04DC2BA01AB0421C00565689 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		04DED9801ABDF2A0006431C0 /* Screenshot-grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screenshot-grey.png"; sourceTree = "<group>"; };
+		04DED9811ABDF2A0006431C0 /* Screenshot-grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screenshot-grey@2x.png"; sourceTree = "<group>"; };
+		04DED9841ABDF3A1006431C0 /* KLImageViewInPostContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLImageViewInPostContent.h; sourceTree = "<group>"; };
+		04DED9851ABDF3A1006431C0 /* KLImageViewInPostContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLImageViewInPostContent.m; sourceTree = "<group>"; };
+		04DED9871ABDF3AC006431C0 /* KLImageViewInPostContent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLImageViewInPostContent.xib; sourceTree = "<group>"; };
+		04DED9891ABDF477006431C0 /* Cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cancel.png; sourceTree = "<group>"; };
+		04DED98A1ABDF477006431C0 /* Cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cancel@2x.png"; sourceTree = "<group>"; };
 		04EEBC901AB727330092A011 /* KLEventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLEventsViewController.h; sourceTree = "<group>"; };
 		04EEBC911AB727330092A011 /* KLEventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLEventsViewController.m; sourceTree = "<group>"; };
 		04EEBC921AB727330092A011 /* KLEventsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLEventsViewController.xib; sourceTree = "<group>"; };
@@ -622,6 +655,18 @@
 		04F0F27E1AB1E9280087F8BB /* PullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshView.m; sourceTree = "<group>"; };
 		04F0F2801AB207890087F8BB /* Bandage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bandage.png; sourceTree = "<group>"; };
 		04F0F2811AB207890087F8BB /* Bandage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bandage@2x.png"; sourceTree = "<group>"; };
+		04F2BDC01ABF0F8700749A04 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
+		04F2BDC21ABF1C8900749A04 /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+animatedGIF.h"; sourceTree = "<group>"; };
+		04F2BDC31ABF1C8900749A04 /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+animatedGIF.m"; sourceTree = "<group>"; };
+		04F2BDF71ABF221D00749A04 /* KRImageOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRImageOperation.h; sourceTree = "<group>"; };
+		04F2BDF81ABF221D00749A04 /* KRImageOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KRImageOperation.m; sourceTree = "<group>"; };
+		04F2BDF91ABF221D00749A04 /* KRImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRImageScrollView.h; sourceTree = "<group>"; };
+		04F2BDFA1ABF221D00749A04 /* KRImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KRImageScrollView.m; sourceTree = "<group>"; };
+		04F2BDFB1ABF221D00749A04 /* KRImageViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KRImageViewer.h; sourceTree = "<group>"; };
+		04F2BDFC1ABF221D00749A04 /* KRImageViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KRImageViewer.m; sourceTree = "<group>"; };
+		04F2BE001ABF2A2F00749A04 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		04F2BE021ABF39C300749A04 /* News Filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "News Filled.png"; sourceTree = "<group>"; };
+		04F2BE031ABF39C300749A04 /* News Filled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "News Filled@2x.png"; sourceTree = "<group>"; };
 		04F7BA2E1AB47AE600D15548 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04F7BA2F1AB47AE600D15548 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		915C4B361952A58200A592AD /* KhoaLuan2015.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KhoaLuan2015.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -763,6 +808,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F2BE011ABF2A2F00749A04 /* QuartzCore.framework in Frameworks */,
 				04C38C301AB0894100F9F54B /* AssetsLibrary.framework in Frameworks */,
 				91B4C64C19552864008F0686 /* CoreData.framework in Frameworks */,
 				915C4B3C1952A58200A592AD /* CoreGraphics.framework in Frameworks */,
@@ -909,6 +955,9 @@
 				04591A0F1ABB20A3007FC9A7 /* KLCommentTableViewCell.h */,
 				04591A101ABB20A3007FC9A7 /* KLCommentTableViewCell.m */,
 				04591A111ABB20A3007FC9A7 /* KLCommentTableViewCell.xib */,
+				04DED9841ABDF3A1006431C0 /* KLImageViewInPostContent.h */,
+				04DED9851ABDF3A1006431C0 /* KLImageViewInPostContent.m */,
+				04DED9871ABDF3AC006431C0 /* KLImageViewInPostContent.xib */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -916,12 +965,24 @@
 		042846841AA848F30003CA26 /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				0499AF491ABFBB3D00CDA6CA /* Checked User Filled.png */,
+				0499AF4A1ABFBB3D00CDA6CA /* Checked User Filled@2x.png */,
+				0499AF4B1ABFBB3D00CDA6CA /* Remove User Filled.png */,
+				0499AF4C1ABFBB3D00CDA6CA /* Remove User Filled@2x.png */,
+				04DED9891ABDF477006431C0 /* Cancel.png */,
+				04DED98A1ABDF477006431C0 /* Cancel@2x.png */,
+				04DED9801ABDF2A0006431C0 /* Screenshot-grey.png */,
+				04DED9811ABDF2A0006431C0 /* Screenshot-grey@2x.png */,
 				0473DC571ABC7B7500751001 /* Meeting.png */,
 				0473DC581ABC7B7500751001 /* Meeting@2x.png */,
 				04B4F5A41ABADC090015E95E /* Image File.png */,
 				04B4F5A51ABADC090015E95E /* Image File@2x.png */,
+				0499AF451ABFB65300CDA6CA /* Approve.png */,
+				0499AF461ABFB65300CDA6CA /* Approve@2x.png */,
 				04B4F5A01ABAD6F80015E95E /* Add User Filled-Blue.png */,
 				04B4F5A11ABAD6F80015E95E /* Add User Filled-Blue@2x.png */,
+				04F2BE021ABF39C300749A04 /* News Filled.png */,
+				04F2BE031ABF39C300749A04 /* News Filled@2x.png */,
 				04599B8F1AB97D0700B51A53 /* BlueBack.png */,
 				04599B901AB97D0700B51A53 /* BlueBack@2x.png */,
 				04B4F59C1ABAD6840015E95E /* Add User Filled.png */,
@@ -1347,6 +1408,19 @@
 			path = PullToRefresh;
 			sourceTree = "<group>";
 		};
+		04F2BDF61ABF221D00749A04 /* ZoomImage */ = {
+			isa = PBXGroup;
+			children = (
+				04F2BDF71ABF221D00749A04 /* KRImageOperation.h */,
+				04F2BDF81ABF221D00749A04 /* KRImageOperation.m */,
+				04F2BDF91ABF221D00749A04 /* KRImageScrollView.h */,
+				04F2BDFA1ABF221D00749A04 /* KRImageScrollView.m */,
+				04F2BDFB1ABF221D00749A04 /* KRImageViewer.h */,
+				04F2BDFC1ABF221D00749A04 /* KRImageViewer.m */,
+			);
+			path = ZoomImage;
+			sourceTree = "<group>";
+		};
 		915C4B2D1952A58200A592AD = {
 			isa = PBXGroup;
 			children = (
@@ -1377,6 +1451,7 @@
 		915C4B381952A58200A592AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04F2BE001ABF2A2F00749A04 /* QuartzCore.framework */,
 				04C38C2F1AB0894100F9F54B /* AssetsLibrary.framework */,
 				91B4C64B19552864008F0686 /* CoreData.framework */,
 				915C4B391952A58200A592AD /* Foundation.framework */,
@@ -1440,6 +1515,7 @@
 		915C4B6A1952AF4700A592AD /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				04F2BDC01ABF0F8700749A04 /* loading.gif */,
 				915C4B6C1952AF9300A592AD /* Images */,
 				915C4B6D1952AF9300A592AD /* MediaFiles */,
 			);
@@ -1473,6 +1549,7 @@
 		915C4B7F1952B18F00A592AD /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
+				04F2BDF61ABF221D00749A04 /* ZoomImage */,
 				0473DC5B1ABC8D9F00751001 /* IBActionSheet */,
 				049780CA1ABB424500A469F3 /* CustomInputView */,
 				04F03B101AB5F31B005827D2 /* GTScrollNavigationBar */,
@@ -1690,6 +1767,8 @@
 		91B4C5AC1955249C008F0686 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				04F2BDC21ABF1C8900749A04 /* UIImage+animatedGIF.h */,
+				04F2BDC31ABF1C8900749A04 /* UIImage+animatedGIF.m */,
 				91B4C5AD1955249C008F0686 /* Base64Transcoder.c */,
 				91B4C5AE1955249C008F0686 /* Base64Transcoder.h */,
 				91B4C5AF1955249C008F0686 /* Def.h */,
@@ -1817,6 +1896,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F2BE051ABF39C300749A04 /* News Filled@2x.png in Resources */,
 				04F03B2D1AB60410005827D2 /* arrow_refresh_up.png in Resources */,
 				04BF6C4C1AB168D600F0F42D /* KLNewsContentTableViewCell.xib in Resources */,
 				04422ECA1AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png in Resources */,
@@ -1830,16 +1910,19 @@
 				042846D21AA848F30003CA26 /* News-blue.png in Resources */,
 				042846771AA848D70003CA26 /* MoreViewController.xib in Resources */,
 				04F03B2E1AB60410005827D2 /* arrow_refresh_up@2x.png in Resources */,
+				04DED9821ABDF2A0006431C0 /* Screenshot-grey.png in Resources */,
 				04B4F59F1ABAD6840015E95E /* Add User Filled@2x.png in Resources */,
 				04422EC51AA8854F008E4015 /* Lock@2x.png in Resources */,
 				04B4F5AC1ABADD280015E95E /* Female-Blue.png in Resources */,
 				04B4F5A21ABAD6F80015E95E /* Add User Filled-Blue.png in Resources */,
 				04422EBD1AA8854F008E4015 /* checked-login.png in Resources */,
 				042846D81AA848F30003CA26 /* News-hnue-grey.png in Resources */,
+				0499AF4E1ABFBB3D00CDA6CA /* Checked User Filled@2x.png in Resources */,
 				0445757E1AB88ED300C7B6E4 /* User Female@2x.png in Resources */,
 				04B4F59E1ABAD6840015E95E /* Add User Filled.png in Resources */,
 				04B4F5A61ABADC090015E95E /* Image File.png in Resources */,
 				042846D71AA848F30003CA26 /* News-hnue-blue@2x.png in Resources */,
+				04DED9881ABDF3AC006431C0 /* KLImageViewInPostContent.xib in Resources */,
 				042846E91AA848FC0003CA26 /* images.jpeg in Resources */,
 				044575681AB88CAA00C7B6E4 /* KLMyProfileViewController.xib in Resources */,
 				0428472D1AA849260003CA26 /* nav_ios7.png in Resources */,
@@ -1882,7 +1965,10 @@
 				04EEBC9A1AB727D30092A011 /* KLEventContentTableViewCell.xib in Resources */,
 				042846811AA848D70003CA26 /* MyPageHeaderView.xib in Resources */,
 				042846CB1AA848F30003CA26 /* LikeOutline@2x.png in Resources */,
+				04DED98B1ABDF477006431C0 /* Cancel.png in Resources */,
 				044575841AB893EB00C7B6E4 /* Undo@2x.png in Resources */,
+				0499AF4D1ABFBB3D00CDA6CA /* Checked User Filled.png in Resources */,
+				04F2BDC11ABF0F8700749A04 /* loading.gif in Resources */,
 				042847281AA849260003CA26 /* icon_unselect@2x.png in Resources */,
 				042846D91AA848F30003CA26 /* News-hnue-grey@2x.png in Resources */,
 				04DC2B611AB039AF00565689 /* default-avatar.png in Resources */,
@@ -1892,6 +1978,7 @@
 				0473DC5A1ABC7B7500751001 /* Meeting@2x.png in Resources */,
 				044575801AB88ED300C7B6E4 /* User Male@2x.png in Resources */,
 				042846791AA848D70003CA26 /* MyPageViewController.xib in Resources */,
+				04F2BE041ABF39C300749A04 /* News Filled.png in Resources */,
 				04422EC31AA8854F008E4015 /* Email@2x.png in Resources */,
 				042846BA1AA848F30003CA26 /* Clock.png in Resources */,
 				042846C91AA848F30003CA26 /* Like@2x.png in Resources */,
@@ -1912,12 +1999,14 @@
 				044575771AB88ED300C7B6E4 /* Info.png in Resources */,
 				042846D51AA848F30003CA26 /* News-grey@2x.png in Resources */,
 				0445757F1AB88ED300C7B6E4 /* User Male.png in Resources */,
+				0499AF471ABFB65300CDA6CA /* Approve.png in Resources */,
 				0428471A1AA849260003CA26 /* FontAwesome.ttf in Resources */,
 				915C4B4C1952A58200A592AD /* Images.xcassets in Resources */,
 				04422EC01AA8854F008E4015 /* edit_green.png in Resources */,
 				042846DE1AA848F30003CA26 /* Screenshot@2x.png in Resources */,
 				042846D41AA848F30003CA26 /* News-grey.png in Resources */,
 				042846C81AA848F30003CA26 /* Like.png in Resources */,
+				04DED98C1ABDF477006431C0 /* Cancel@2x.png in Resources */,
 				04DC2BB91AB0421C00565689 /* SNPicker.storyboard in Resources */,
 				042846E11AA848F30003CA26 /* SpeechBubble.png in Resources */,
 				04F0F2831AB207890087F8BB /* Bandage@2x.png in Resources */,
@@ -1937,8 +2026,11 @@
 				042846DD1AA848F30003CA26 /* Screenshot.png in Resources */,
 				042846E01AA848F30003CA26 /* Settings@2x.png in Resources */,
 				042846BB1AA848F30003CA26 /* Clock@2x.png in Resources */,
+				0499AF481ABFB65300CDA6CA /* Approve@2x.png in Resources */,
+				0499AF501ABFBB3D00CDA6CA /* Remove User Filled@2x.png in Resources */,
 				042846CF1AA848F30003CA26 /* More-blue@2x.png in Resources */,
 				04599B951AB97D0700B51A53 /* BlueEdit.png in Resources */,
+				04DED9831ABDF2A0006431C0 /* Screenshot-grey@2x.png in Resources */,
 				04DC2BBA1AB0421C00565689 /* SNPicker~ipad.storyboard in Resources */,
 				042846C21AA848F30003CA26 /* HomeFilled-blue.png in Resources */,
 				04B4F5AE1ABADD280015E95E /* Male-Blue.png in Resources */,
@@ -1968,6 +2060,7 @@
 				04F03B2B1AB60410005827D2 /* arrow_refresh_down.png in Resources */,
 				04C38C2D1AB076E300F9F54B /* Question.png in Resources */,
 				04422EC61AA8854F008E4015 /* Login.png in Resources */,
+				0499AF4F1ABFBB3D00CDA6CA /* Remove User Filled.png in Resources */,
 				042846CD1AA848F30003CA26 /* More-black@2x.png in Resources */,
 				049780DA1ABB4A7D00A469F3 /* inputTextBG.png in Resources */,
 				04C38C2E1AB076E300F9F54B /* Question@2x.png in Resources */,
@@ -2025,6 +2118,7 @@
 				91646C90196F9F0400C3BBBE /* UIImage+Ext.m in Sources */,
 				04591A121ABB20A3007FC9A7 /* KLCommentTableViewCell.m in Sources */,
 				91B4C5DD1955249C008F0686 /* NSDate+Additions.m in Sources */,
+				04F2BDC41ABF1C8900749A04 /* UIImage+animatedGIF.m in Sources */,
 				04DC2BA41AB0421C00565689 /* SDWebImageCompat.m in Sources */,
 				9193C37019617E4B00ADD198 /* NSManagedObject+MagicalRecord.m in Sources */,
 				042847321AA849260003CA26 /* StarRatingControl.m in Sources */,
@@ -2056,6 +2150,7 @@
 				042847211AA849260003CA26 /* MBProgressHUD.m in Sources */,
 				042847331AA849260003CA26 /* SWTabbarController.m in Sources */,
 				9193C36F19617E4B00ADD198 /* NSManagedObject+MagicalFinders.m in Sources */,
+				04F2BDFD1ABF221D00749A04 /* KRImageOperation.m in Sources */,
 				9193C36419617E4B00ADD198 /* GCDispatchQueue.m in Sources */,
 				91B4C5E01955249C008F0686 /* NSManagedObject+Ext.m in Sources */,
 				049780CD1ABB424500A469F3 /* SOMessageInputView.m in Sources */,
@@ -2073,6 +2168,7 @@
 				91B4C5E31955249C008F0686 /* NSObject+Extension.m in Sources */,
 				0428471B1AA849260003CA26 /* NSString+FontAwesome.m in Sources */,
 				917AB633197068100012002A /* SWUtil.m in Sources */,
+				04F2BDFF1ABF221D00749A04 /* KRImageViewer.m in Sources */,
 				9186F5171970E49F00E910E0 /* UIImageView+Ext.m in Sources */,
 				04C38C1F1AB06FB000F9F54B /* AFHTTPRequestOperationManager.m in Sources */,
 				91B4C5D91955249C008F0686 /* Base64Transcoder.c in Sources */,
@@ -2089,8 +2185,10 @@
 				042846761AA848D70003CA26 /* MoreViewController.m in Sources */,
 				042846731AA848D70003CA26 /* SWBaseViewController.m in Sources */,
 				91B4C5DB1955249C008F0686 /* GTMNSString+HTML.m in Sources */,
+				04DED9861ABDF3A1006431C0 /* KLImageViewInPostContent.m in Sources */,
 				04DC2BBE1AB0421C00565689 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				9193C38019617E4B00ADD198 /* NSArray+Accessors.m in Sources */,
+				04F2BDFE1ABF221D00749A04 /* KRImageScrollView.m in Sources */,
 				04DC2BBD1AB0421C00565689 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				042847311AA849260003CA26 /* SWNavigationViewController.m in Sources */,
 				91646C8D196F9CC300C3BBBE /* UIFont+Ext.m in Sources */,

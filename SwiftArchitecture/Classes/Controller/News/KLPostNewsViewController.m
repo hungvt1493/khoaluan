@@ -7,9 +7,15 @@
 //
 
 #import "KLPostNewsViewController.h"
+#import "KLImageViewInPostContent.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "SNAlbumTVC.h"
+#import "SNImagePickerNC.h"
+#import "AFURLSessionManager.h"
 
-@interface KLPostNewsViewController ()
+@interface KLPostNewsViewController () <SNImagePickerDelegate, KLImageViewInPostContentDelegate, UIScrollViewDelegate>
 @property (strong, nonatomic)NSDate *selectedDate;
+@property (weak, nonatomic) IBOutlet UIView *viewType;
 
 - (IBAction)btnChooseDateTapped:(id)sender;
 - (IBAction)hiddenDatePickerButtonTapped:(id)sender;
@@ -21,7 +27,9 @@
 @end
 
 @implementation KLPostNewsViewController {
-    
+    UIView *inputAccView;
+    UIButton *btnCamera;
+    SNImagePickerNC *imagePickerNavigationController;
 }
 
 - (void)viewDidLoad {
@@ -49,24 +57,193 @@
     
     [[SWUtil appDelegate] hideTabbar:YES];
     
-    BOOL isAdmin = [[NSUserDefaults standardUserDefaults] valueForKey:kIsAdmin];
+    BOOL isAdmin = [[NSUserDefaults standardUserDefaults] boolForKey:kIsAdmin];
     _btnChoosePostType.enabled = isAdmin;
     
     [self setType:_postType];
     _tvContent.text = _contentStr;
     _lblTime.text = _timeStr;
     _tfEventTitle.text = _eventTitleStr;
+    _imgScrollView.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    self.navigationController.scrollNavigationBar.scrollView = nil;
+    [[SWUtil appDelegate] hideTabbar:YES];
+    if (_imgArr.count > 0) {
+        [self initScrollUI];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
     [[SWUtil appDelegate] hideTabbar:NO];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    CGRect keyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect frame = self.tvContent.frame;
+    if (_imgArr.count == 0) {
+        if (_postType == status) {
+            frame.size.height = SCREEN_HEIGHT_PORTRAIT - HEIGHT_STATUSBAR - HEIGHT_NAVBAR - _viewType.bounds.size.height - keyboardRect.size.height;
+        } else {
+            frame.size.height = SCREEN_HEIGHT_PORTRAIT - HEIGHT_STATUSBAR - HEIGHT_NAVBAR - _viewType.bounds.size.height - _viewEventOption.bounds.size.height - keyboardRect.size.height;
+        }
+    } else {
+        frame.size.height = 80;
+    }
+    self.tvContent.frame = frame;
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    CGRect frame = self.tvContent.frame;
+    if (_imgArr.count == 0) {
+        if (_postType == status) {
+            frame.size.height = SCREEN_HEIGHT_PORTRAIT - HEIGHT_STATUSBAR - HEIGHT_NAVBAR - _viewType.bounds.size.height;
+        } else {
+            frame.size.height = SCREEN_HEIGHT_PORTRAIT - HEIGHT_STATUSBAR - HEIGHT_NAVBAR - _viewType.bounds.size.height - _viewEventOption.bounds.size.height;
+        }
+    } else {
+        frame.size.height = 80;
+    }
+    
+    self.tvContent.frame = frame;
+}
+
+-(UIView *)inputAccessoryView{
+    if (!inputAccView) {
+        inputAccView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, SCREEN_WIDTH_PORTRAIT, 40.0)];
+        [inputAccView setBackgroundColor:UIColorFromRGB(0xf7f8f6)];
+        [inputAccView setAlpha: 1.0f];
+        
+        
+        
+        btnCamera = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btnCamera setFrame:CGRectMake(0, 0.0f, 60.0f, 40.0f)];
+        [btnCamera setImage:[UIImage imageNamed:@"Screenshot-grey"] forState:UIControlStateNormal];
+        [btnCamera addTarget:self action:@selector(choosePhotoFromLibrary) forControlEvents:UIControlEventTouchUpInside];
+        
+        [inputAccView addSubview:btnCamera];
+        
+    }
+    
+    return inputAccView;
+}
+
+- (void)choosePhotoFromLibrary
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"SNPicker" bundle:nil];
+    imagePickerNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"ImagePickerNC"];
+    [imagePickerNavigationController setModalPresentationStyle:UIModalPresentationFullScreen];
+    imagePickerNavigationController.imagePickerDelegate = self;
+    imagePickerNavigationController.pickerType = kPickerTypePhoto;
+    [self.navigationController presentViewController:imagePickerNavigationController animated:YES completion:^{ }];
+
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - SNImageDelegate
+- (void)imagePicker:(SNImagePickerNC *)imagePicker didFinishPickingWithMediaInfo:(NSMutableArray *)info
+{
+    if (!_imgArr) {
+        _imgArr = [[NSMutableArray alloc] initWithCapacity:10];
+    }
+    if (!_imgNameArr) {
+        _imgNameArr = [[NSMutableArray alloc] initWithCapacity:10];
+    }
+    
+    for (int i = 0; i < info.count; i++) {
+        ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
+        [assetLibrary assetForURL:[info objectAtIndex:i]
+                      resultBlock:^(ALAsset *imageAsset) {
+                          ALAssetRepresentation *imageRep = [imageAsset defaultRepresentation];
+                          UIImage *image = [UIImage imageWithCGImage:[imageAsset aspectRatioThumbnail]];
+                          NSString *imageName = [imageRep filename];
+                          if (![_imgArr containsObject:image]) {
+                              [_imgArr addObject:image];
+                          }
+                          if (![_imgNameArr containsObject:imageName]) {
+                              [_imgNameArr addObject:imageName];
+                          }
+                          if (i == info.count-1) {
+                              [self initScrollUI];
+                          }
+                      } failureBlock:^(NSError *error) {     }];
+        
+    }
+    
+}
+
+- (void)imagePickerDidCancel:(SNImagePickerNC *)imagePicker
+{
+    [_tvContent becomeFirstResponder];
+}
+
+- (void)initScrollUI {
+    for (KLImageViewInPostContent *subview in _imgScrollView.subviews) {
+        [subview removeFromSuperview];
+    }
+    if (_imgArr.count > 0) {
+        [_tvContent resignFirstResponder];
+        _imgScrollView.hidden = NO;
+        
+        CGRect frame = _tvContent.frame;
+        frame.size.height = 80;
+        _tvContent.frame = frame;
+        
+        CGRect scrollFrame = _imgScrollView.frame;
+        scrollFrame.origin.y = frame.origin.y + frame.size.height;
+        scrollFrame.size.height = self.view.bounds.size.height - frame.origin.y - frame.size.height - 3;
+        _imgScrollView.frame = scrollFrame;
+        
+        int yPos = 0;
+        
+        for (int i = 0; i < _imgArr.count; i++) {
+            
+            KLImageViewInPostContent *itemView = [[KLImageViewInPostContent alloc] initWithFrame:CGRectZero];
+            itemView.index = i;
+            itemView.imgView.image = [_imgArr objectAtIndex:i];
+            CGRect frame = [itemView frame];
+            frame.origin.y = yPos;
+            yPos += frame.size.height;
+            frame.size.width = SCREEN_WIDTH_PORTRAIT;
+            [itemView setFrame:frame];
+            
+            [_imgScrollView addSubview:itemView];
+            itemView.delegate = self;
+        }
+        _imgScrollView.delegate = self;
+        CGSize contentSize = [_imgScrollView contentSize];
+        contentSize.height= yPos+ 10;
+        [_imgScrollView setContentSize:contentSize];
+    } else {
+        [_tvContent becomeFirstResponder];
+        _imgScrollView.hidden = YES;
+    }
+    
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+}
+
+#pragma mark - KLImageViewInPostContentDelegate
+- (void)didDeleteImageAtIndex:(NSInteger)index {
+    [_imgArr removeObjectAtIndex:index];
+    [_imgNameArr removeObjectAtIndex:index];
+    [self initScrollUI];
 }
 
 - (void)backBarButtonTapped {
@@ -106,19 +283,25 @@
     [[SWUtil sharedUtil] showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nPostNews];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    //AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    //manager.requestSerializer = [AFJSONRequestSerializer serializer];
     //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{@"content"             : NULL_IF_NIL(_tvContent.text),
                                  @"user_id"             : userId,
-                                 @"number_of_image"     : [NSNumber numberWithInteger:0],
                                  @"news_event_title"    : NULL_IF_NIL(_tfEventTitle.text),
                                  @"type"                : [NSNumber numberWithInteger:_postType],
                                  @"event_time"          : ((_postType == event) ? [SWUtil convertDateToNumber:_selectedDate] : [NSNumber numberWithInteger:0])};
-    
-    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:url]];
+
+    AFHTTPRequestOperation *op = [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        for (int i = 0; i<_imgArr.count; i++) {
+            NSData *imageData = UIImageJPEGRepresentation([_imgArr objectAtIndex:i], 1);
+            [formData appendPartWithFileData:imageData name:@"images[]" fileName:[_imgNameArr objectAtIndex:i] mimeType:@"image/jpeg"];
+        }
+    }
+    success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *dict = (NSDictionary*)responseObject;
          [[SWUtil sharedUtil] hideLoadingView];
         [[SWUtil sharedUtil] showLoadingViewWithTitle:Post_News_Success_Title];
@@ -133,6 +316,7 @@
         [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
         [[SWUtil sharedUtil] hideLoadingView];
     }];
+    [op start];
 }
 
 - (void)btnEditNewsTapped {
@@ -170,8 +354,13 @@
                                  @"type"                : [NSNumber numberWithInteger:_postType],
                                  @"event_time"          : ((_postType == event) ? [SWUtil convertDateToNumber:_selectedDate] : [NSNumber numberWithInteger:0])};
     
-    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+    AFHTTPRequestOperation *op = [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        for (int i = 0; i<_imgArr.count; i++) {
+            NSData *imageData = UIImageJPEGRepresentation([_imgArr objectAtIndex:i], 1);
+            [formData appendPartWithFileData:imageData name:@"images[]" fileName:[_imgNameArr objectAtIndex:i] mimeType:@"image/jpeg"];
+        }
+    }
+    success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[SWUtil sharedUtil] hideLoadingView];
         [[SWUtil sharedUtil] showLoadingViewWithTitle:Edit_News_Success_Title];
         
@@ -187,6 +376,7 @@
         [[SWUtil sharedUtil] hideLoadingView];
         NSLog(@"Edit News Id: %d faild", (int)_newsId);
     }];
+    [op start];
 }
 
 - (void)postSuccessAction {

@@ -26,6 +26,9 @@
 
 #define uGetFriend @"users/api_getFriend"
 #define uAddFriend @"users/api_addFriend"
+#define uFriendState @"users/api_getFriendState"
+#define uAcceptFriend @"users/api_acceptFriend"
+#define uDeleteFriend @"users/api_deleteFriend"
 
 #define uUpdateTimelineImage @"users/api_updateTimelineImage"
 #define uUpdatePassword @"users/api_updateUserPassword"
@@ -34,17 +37,21 @@
 #define nGetNewsWithUserId @"news/api_getNewsByUserIdWithOffset"
 #define nGetNewsWithNewsId @"news/api_getNewsWithNewsId"
 
-#define nLikeNews @"news/api_insertLike"
-#define nDeleteLikeNews @"news/api_deleteLike"
+#define nLikeNews @"news/api_insertLikeNews"
+#define nLikeComment @"news/api_insertLikeComment"
+#define nDeleteLikeNews @"news/api_deleteLikeNews"
+#define nDeleteLikeComment @"news/api_deleteLikeComment"
 #define nPostNews @"news/api_insertNews"
 #define nDeleteNews @"news/api_deleteNews"
 #define nEditNews @"news/api_updateNews"
+#define nCountCommentInNews @"news/api_getNumberOfComments"
 
 #define cmGetComment @"comments/api_getComments"
 #define cmAddComment @"comments/api_insertComment"
 #define cmEditComment @"comments/api_updateComment"
 #define cmDeleteComment @"comments/api_deleteComment"
-#define cmLikeComment @"comments/api_deleteComment"
+#define cmLikeComment @"comments/api_insertLike"
+#define cmDeleteLikeComment @"comments/api_deleteLike"
 //Key
 #define kCode @"code"
 #define kMessage @"message"
@@ -92,6 +99,11 @@ typedef enum {
     add = 0,
     edit
 }PageType;
+
+typedef enum {
+    MyPage = 0,
+    UserPage
+}MyPageType;
 
 #define DATE_FORMAT @"dd/MM/yyyy"
 #define FULL_DATE_FORMAT @"dd/MM/yyyy HH:mm"
@@ -167,4 +179,5 @@ typedef enum {
 
 #define kDidPostNews @"kDidPostNews"
 #define kDidPostMyPage @"kDidPostMyPage"
+#define kHideBackButtonInUserPage @"kHideBackButtonInUserPage"
 #endif

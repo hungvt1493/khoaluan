@@ -9,9 +9,11 @@
             <connections>
                 <outlet property="avatarBgView" destination="CAa-cT-IaL" id="gHx-fh-q5O"/>
                 <outlet property="btnBack" destination="ujV-Ol-Dqp" id="cjS-gO-uN5"/>
+                <outlet property="btnChangeTimeLine" destination="KWM-7f-Kir" id="rR5-VD-Y5D"/>
                 <outlet property="btnSetting" destination="hzT-Hb-kMr" id="nGP-1U-27O"/>
                 <outlet property="imgAvatar" destination="ge3-vk-oIt" id="k0K-H2-j5d"/>
                 <outlet property="imgBackground" destination="x7k-xA-4fi" id="O18-Z0-wTL"/>
+                <outlet property="imgFile" destination="599-R7-ZEJ" id="Bk5-Mj-89Q"/>
                 <outlet property="imgGender" destination="XsM-5z-bU9" id="MVb-Xo-swF"/>
                 <outlet property="lblAge" destination="lTg-5Q-JRA" id="YPl-dJ-xGt"/>
                 <outlet property="lblBirthday" destination="FeG-EF-mnB" id="Yu3-ki-gRx"/>
@@ -50,7 +52,7 @@
                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KWM-7f-Kir">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="184"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="222"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <state key="normal">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

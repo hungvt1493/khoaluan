@@ -12,6 +12,8 @@
 
 @interface KLMyProfileViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *toolView;
+@property (weak, nonatomic) IBOutlet UIButton *btnChangeTimeLine;
+@property (weak, nonatomic) IBOutlet UIImageView *imgFile;
 
 - (IBAction)btnChangePasswordTapped:(id)sender;
 - (IBAction)btnEditInfoTapped:(id)sender;
@@ -35,6 +37,17 @@
 
 - (void)initUI {
     _toolView.hidden = YES;
+    
+    BOOL hideBackButton = [[NSUserDefaults standardUserDefaults] boolForKey:kHideBackButtonInUserPage];
+    if (hideBackButton) {
+        _btnSetting.hidden = NO;
+        _btnChangeTimeLine.hidden = NO;
+        _imgFile.hidden = NO;
+    } else {
+        _btnSetting.hidden = YES;
+        _btnChangeTimeLine.hidden = YES;
+        _imgFile.hidden = YES;
+    }
     
     for (UIView *view in _imgIcons) {
         UIImageView *imageView = (UIImageView*)view;

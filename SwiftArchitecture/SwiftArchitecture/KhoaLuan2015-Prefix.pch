@@ -37,7 +37,7 @@
 #import "UIImageView+WebCache.h"
 #import "PullToRefreshView.h"
 #import "GTScrollNavigationBar.h"
-
+#import "UIImage+animatedGIF.h"
 //AFNetworking
 #import "AFHTTPRequestOperationManager.h"
 #endif

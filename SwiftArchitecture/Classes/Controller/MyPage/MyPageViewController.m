@@ -11,15 +11,17 @@
 #import "KLNewsContentTableViewCell.h"
 #import "KLPostNewsViewController.h"
 #import "KLNewsDetailViewController.h"
+#import "KRImageViewer.h"
 
-@interface MyPageViewController () <UITableViewDataSource, UITableViewDelegate, MyPageHeaderViewDelegate, KLNewsContentTableViewCellDelegate>
+@interface MyPageViewController () <UITableViewDataSource, UITableViewDelegate, MyPageHeaderViewDelegate, KLNewsContentTableViewCellDelegate, KRImageViewerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *myPageTableView;
-
+@property (nonatomic, strong) KRImageViewer *krImageViewer;
 @end
 
 @implementation MyPageViewController {
     NSArray *_newsArr;
     NSMutableArray *_fullNewsArr;
+    NSDictionary *_friendState;
     int _oldOffset;
     BOOL _endOfRespond;
     int _count;
@@ -38,19 +40,47 @@
     _count = 0;
     _limit = 6;
     _checkNewsPost = 0;
-    [self initData];
+    [self getFriendState];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kDidPostMyPage];
     
     self.edgesForExtendedLayout=UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars=NO;
     self.automaticallyAdjustsScrollViewInsets=NO;
+    
+    self.krImageViewer = [[KRImageViewer alloc] initWithDragMode:krImageViewerModeOfBoth];
+    self.krImageViewer.delegate                    = self;
+    self.krImageViewer.maxConcurrentOperationCount = 1;
+    self.krImageViewer.dragDisapperMode            = krImageViewerDisapperAfterMiddle;
+    self.krImageViewer.allowOperationCaching       = NO;
+    self.krImageViewer.timeout                     = 30.0f;
+    self.krImageViewer.doneButtonTitle             = @"Đóng";
+    //Auto supports the rotations.
+    self.krImageViewer.supportsRotations           = YES;
+    //It'll release caches when caches of image over than X photos, but it'll be holding current image to display on the viewer.
+    self.krImageViewer.overCacheCountRelease       = 200;
+    //Sorting Rule, Default ASC is YES, DESC is NO.
+    self.krImageViewer.sortAsc                     = YES;
+    
+    [self.krImageViewer setBrowsingHandler:^(NSInteger browsingPage)
+     {
+         //Current Browsing Page.
+         //...Do Something.
+     }];
+    
+    [self.krImageViewer setScrollingHandler:^(NSInteger scrollingPage)
+     {
+         //Current Scrolling Page.
+         //...Do Something.
+     }];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
     _myPageTableView.delegate = self;
     _myPageTableView.dataSource = self;
-    
+    [self.krImageViewer useKeyWindow];
     BOOL didPostNews = [[NSUserDefaults standardUserDefaults] boolForKey:kDidPostMyPage];
     if (didPostNews) {
         _oldOffset = 0;
@@ -77,15 +107,56 @@
     _myPageTableView.dataSource = nil;
 }
 
+- (void)getFriendState {
+    /*
+     state = 1; Dang cho accpet cho nguoi gui loi moi ket ban
+     state = 2; Dang cho accpet cho nguoi nhan loi moi ket ban
+     state = 3; Da la ban be
+     */
+    NSString *myId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    if (_userId) {
+        if ([myId isEqualToString:_userId]) {
+            _myPageType = MyPage;
+            _userId = myId;
+        } else {
+            _myPageType = UserPage;
+        }
+    } else {
+        _myPageType = MyPage;
+        _userId = myId;
+    }
+    
+    
+    [[SWUtil sharedUtil] showLoadingView];
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uFriendState];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
+    NSDictionary *parameters = @{kUserId: myId,
+                                 @"friend_id": _userId};
+    
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            _friendState = (NSDictionary*)responseObject;
+        }
+        [[SWUtil sharedUtil] hideLoadingView];
+        [self initData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
+}
+
 - (void)initData {
     [[SWUtil sharedUtil] showLoadingView];
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNewsWithUserId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSDictionary *parameters = @{@"offset": [NSNumber numberWithInt:_oldOffset],
-                                 @"user_id": userId,
+                                 @"user_id": _userId,
                                  @"limit": [NSNumber numberWithInt:_limit],
                                  @"type": [NSNumber numberWithInt:0]};
     
@@ -144,9 +215,20 @@
             cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
+            cell.myPageType = _myPageType;
+        }
+        cell.fUserId = _userId;
+        [cell initUI];
+        int code = [[_friendState objectForKey:kCode] intValue];
+        if (code == 3) {
+            [cell configureAddFriendButton:0];
+        } else {
+            int state = [[_friendState objectForKey:@"state"] intValue];
+            [cell configureAddFriendButton:state];
         }
         return cell;
     }
+    
     if (!_endOfRespond && indexPath.row == (_fullNewsArr.count + 1)) {
         static NSString *cellIdentifier = @"CELL";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -179,7 +261,6 @@
     cell.delegate = self;
     [cell setData:dict];
     return cell;
-    
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -201,7 +282,21 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        return 292;
+        if (_myPageType == MyPage) {
+            return 292;
+        } else {
+            int code = [[_friendState objectForKey:kCode] intValue];
+            if (code == 3) {
+                return 222;
+            } else {
+                int state = [[_friendState objectForKey:@"state"] intValue];
+                if (state == 2) {
+                    return 292;
+                }
+                return 222;
+            }
+        }
+        
     }
     if (_fullNewsArr.count == 0) {
         return 44;
@@ -217,6 +312,9 @@
     
 }
 
+- (void)popViewControllerUseDelegate {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (NSInteger)calculateHeightOfCellByString:(NSString*)str andNumberOfImage:(NSInteger)numberOfImage {
     CGFloat height;
@@ -243,13 +341,15 @@
     [_myPageTableView reloadData];
 }
 
-- (void)didChooseEditCellAtIndexPath:(NSIndexPath *)indexPath withData:(NSDictionary *)dict withType:(PostType)type{
+- (void)didChooseEditCellAtIndexPath:(NSIndexPath *)indexPath withData:(NSDictionary *)dict withType:(PostType)type withImage:(NSArray *)imageArr withImageName:(NSArray *)imageNameArr{
     KLPostNewsViewController *postNewsVC = [[KLPostNewsViewController alloc] init];
     postNewsVC.pageType = edit;
     PostType postType = type;
     postNewsVC.postType = postType;
     postNewsVC.newsId = [[dict objectForKey:kNewsId] integerValue];
-    
+    postNewsVC.imgArr = [[NSMutableArray alloc] initWithArray:imageArr];
+    postNewsVC.imgNameArr = [[NSMutableArray alloc] initWithArray:imageName];
+
     if (postType == event) {
         NSString *eventTitle = [dict objectForKey:@"news_event_title"];
         postNewsVC.eventTitleStr = eventTitle;
@@ -270,6 +370,10 @@
     [self.navigationController pushViewController:viewController animated:animation];
 }
 
+- (void)didAcceptOrRejectUser {
+    [self getFriendState];
+}
+
 #pragma mark - NewsViewDelegate
 - (void)pushToDetailViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath {
     int newsId = [[[_fullNewsArr objectAtIndex:indexPath.row-1] objectForKey:@"news_id"] intValue];
@@ -280,5 +384,31 @@
     detailVC.newsId = newsId;
     detailVC.postType = type;
     [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+- (void)pushToUserPageViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath *)indexPath {
+    //Do Nothing
+}
+
+- (void)didChooseImage:(NSArray *)imagesArr AtIndex:(NSInteger)index {
+    
+    [self.krImageViewer browseImages:imagesArr startIndex:index+1];
+}
+
+#pragma KRImageViewerDelegate
+-(void)krImageViewerIsScrollingToPage:(NSInteger)_scrollingPage
+{
+    //The ImageViewer is Scrolling to which page and trigger here.
+    //...
+}
+
+-(BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
 }
 @end

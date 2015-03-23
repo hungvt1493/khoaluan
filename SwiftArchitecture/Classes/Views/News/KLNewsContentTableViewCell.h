@@ -11,8 +11,10 @@
 @protocol KLNewsContentTableViewCellDelegate <NSObject>
 
 - (void)didDeleteCellAtIndexPath:(NSIndexPath*)indexPath;
-- (void)didChooseEditCellAtIndexPath:(NSIndexPath*)indexPath withData:(NSDictionary*)dict withType:(PostType)type;
+- (void)didChooseEditCellAtIndexPath:(NSIndexPath*)indexPath withData:(NSDictionary*)dict withType:(PostType)type withImage:(NSArray*)imageArr withImageName:(NSArray*)imageNameArr;
 - (void)pushToDetailViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath;
+- (void)pushToUserPageViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath;
+- (void)didChooseImage:(NSArray*)imagesArr AtIndex:(NSInteger)index;
 @end
 
 @interface KLNewsContentTableViewCell : UITableViewCell
@@ -44,4 +46,6 @@
 - (IBAction)btnEditTapped:(id)sender;
 - (IBAction)btnDeleteTapped:(id)sender;
 - (IBAction)btnShowToolViewTapped:(id)sender;
+- (IBAction)btnMessageTapped:(id)sender;
+- (IBAction)btnMoreTapped:(id)sender;
 @end

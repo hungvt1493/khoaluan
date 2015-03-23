@@ -27,18 +27,18 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    if ([[UIDevice currentDevice].systemVersion floatValue]>=8) {
-        [[UINavigationBar appearance] setHidden:NO];
+    if (SYSTEM_VERSION >= 8) {
         [[UINavigationBar appearance] setTranslucent:NO];
-        [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
-        
+        [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithHex:Blue_Color alpha:1]];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     } else {
-        [self.navigationController.navigationBar setHidden:NO];
         [self.navigationController.navigationBar setTranslucent:NO];
-        [self.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
-//        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navi_bg.png"] forBarMetrics:UIBarMetricsDefault];
+        self.navigationBar.barTintColor = [UIColor colorWithHex:Blue_Color alpha:1];
+        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+        [self.navigationController.navigationBar
+         setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     }
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navi_bg.png"] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (BOOL)shouldAutorotate

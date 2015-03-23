@@ -25,6 +25,9 @@
 @property (strong, nonatomic) NSString *contentStr;
 @property (strong, nonatomic) NSString *eventTitleStr;
 @property (strong, nonatomic) NSString *timeStr;
+@property (strong, nonatomic) NSMutableArray *imgArr;
+@property (strong, nonatomic) NSMutableArray *imgNameArr;
+@property (weak, nonatomic) IBOutlet UIScrollView *imgScrollView;
 
 - (void)setType:(PostType)type ;
 @end

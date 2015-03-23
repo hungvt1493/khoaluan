@@ -8,6 +8,7 @@
 
 #import "FriendsViewController.h"
 #import "FriendTableViewCell.h"
+#import "MyPageViewController.h"
 
 @interface FriendsViewController ()  <UITableViewDataSource, UITableViewDelegate>
 
@@ -21,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setBackButtonWithImage:back_bar_button title:Back_Bar_Title highlightedImage:nil target:self action:@selector(backBarButtonTapped)];
-    self.navigationController.navigationBarHidden = NO;
+    
     self.title = Friend_Title;
     _tbFriend.delegate = self;
     _tbFriend.dataSource = self;
@@ -33,6 +34,7 @@
     [super viewWillAppear:animated];
     [[SWUtil appDelegate] hideTabbar:YES];
     [self initData];
+    self.navigationController.navigationBarHidden = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -73,7 +75,6 @@
     }];
 }
 
-
 - (void)backBarButtonTapped {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -102,7 +103,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    NSString *newsUserId = [[_friendArr objectAtIndex:indexPath.row] objectForKey:@"user_id"];
+    MyPageViewController *userPageVC = [[MyPageViewController alloc] init];
+    userPageVC.myPageType = UserPage;
+    userPageVC.userId = newsUserId;
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kHideBackButtonInUserPage];
+    [self.navigationController pushViewController:userPageVC animated:YES];
     [tableView  deselectRowAtIndexPath:indexPath animated:YES];
 }
 

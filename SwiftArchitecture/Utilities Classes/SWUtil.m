@@ -34,7 +34,7 @@
         if (IS_IPAD()) {
             _progressView.minSize = CGSizeMake(200.0f, 200.0f);
         }
-        
+
         _progressView.animationType = MBProgressHUDAnimationFade;
         _progressView.dimBackground = NO;
         [[SWUtil appDelegate].window addSubview:_progressView];

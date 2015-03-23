@@ -32,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet UIView *footerNewsView;
 @property (weak, nonatomic) IBOutlet UITableView *commentTableView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UILabel *lblEventLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lblEventTime;
 @property (strong, nonatomic) SOMessageInputView *inputView;
 - (IBAction)btnLikeTapped:(id)sender;
 - (void)haveImage:(BOOL)flag;

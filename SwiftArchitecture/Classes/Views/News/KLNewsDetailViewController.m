@@ -9,8 +9,13 @@
 #import "KLNewsDetailViewController.h"
 #import "KLCommentTableViewCell.h"
 #import "IBActionSheet.h"
-@interface KLNewsDetailViewController () <UITableViewDataSource, UITableViewDelegate, IBActionSheetDelegate>
+#import "KRImageViewer.h"
 
+NSMutableArray *_imgContentArr;
+NSMutableArray *_imgArr;
+
+@interface KLNewsDetailViewController () <UITableViewDataSource, UITableViewDelegate, IBActionSheetDelegate, KRImageViewerDelegate>
+@property (nonatomic, strong) KRImageViewer *krImageViewer;
 @end
 
 @implementation KLNewsDetailViewController {
@@ -21,14 +26,43 @@
     NSIndexPath *_selectedIndexPath;
     NSString *_stringBeforeEdit;
     BOOL _willEdit;
+    NSMutableArray *_imgArr;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.navigationController.navigationBarHidden = NO;
+    _imgArr = [[NSMutableArray alloc] initWithCapacity:10];
+    _imgContentArr = [[NSMutableArray alloc] initWithCapacity:10];
     [self setBackButtonWithImage:back_bar_button highlightedImage:nil target:self action:@selector(backButtonTapped:)];
     _willEdit = NO;
+    
+    self.krImageViewer = [[KRImageViewer alloc] initWithDragMode:krImageViewerModeOfBoth];
+    self.krImageViewer.delegate                    = self;
+    self.krImageViewer.maxConcurrentOperationCount = 1;
+    self.krImageViewer.dragDisapperMode            = krImageViewerDisapperAfterMiddle;
+    self.krImageViewer.allowOperationCaching       = NO;
+    self.krImageViewer.timeout                     = 30.0f;
+    self.krImageViewer.doneButtonTitle             = @"Đóng";
+    //Auto supports the rotations.
+    self.krImageViewer.supportsRotations           = YES;
+    //It'll release caches when caches of image over than X photos, but it'll be holding current image to display on the viewer.
+    self.krImageViewer.overCacheCountRelease       = 200;
+    //Sorting Rule, Default ASC is YES, DESC is NO.
+    self.krImageViewer.sortAsc                     = YES;
+    
+    [self.krImageViewer setBrowsingHandler:^(NSInteger browsingPage)
+     {
+         //Current Browsing Page.
+         //...Do Something.
+     }];
+    
+    [self.krImageViewer setScrollingHandler:^(NSInteger scrollingPage)
+     {
+         //Current Scrolling Page.
+         //...Do Something.
+     }];
 }
 
 - (void)backButtonTapped:(id)sender{
@@ -39,19 +73,11 @@
     [super viewWillAppear:animated];
     
     [self initUIForContentView];
-    
+    [self.krImageViewer useKeyWindow];
+
     [self initData];
     
-//    _commentArr = [[NSMutableArray alloc] initWithCapacity:10];
     _commentHeightArr = [[NSMutableArray alloc] initWithCapacity:10];
-    
-//    [_commentArr addObject:@"Test1"];
-//    [_commentArr addObject:@"Test2\n.\n.\n."];
-//    [_commentArr addObject:@"Test3 ansdakjnsdkajsdakjsdalkjsdbkasljbdkajsbdasdkbasdlkjbaslkdjbalskdjbalksjbdalksbd"];
-//    [_commentArr addObject:@"Test4"];
-//    [_commentArr addObject:@"Test5"];
-//    [_commentArr addObject:@"Test6"];
-//    [_commentArr addObject:@"Test7"];
     
     _commentTableView.delegate = self;
     _commentTableView.dataSource = self;
@@ -119,6 +145,7 @@
         }
         
         [_commentTableView reloadData];
+        [self getNumberOfCommentFromServer];
 //        [self.inputView adjustPosition];
         [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -126,7 +153,37 @@
         [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
         [[SWUtil sharedUtil] hideLoadingView];
     }];
+}
 
+- (void)getNumberOfCommentFromServer {
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nCountCommentInNews];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    NSDictionary *parameters = @{@"news_id": [NSNumber numberWithInt:_newsId]};
+    
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *dict = (NSDictionary*)responseObject;
+        int code = [[dict objectForKey:@"code"] intValue];
+        NSString *commentsNumber = @" 0";
+        if (code != 1) {
+            commentsNumber = [NSString stringWithFormat:@" %@",[dict objectForKey:@"comments"]];
+        }
+        self.numberOfCommentInNews = [[dict objectForKey:@"comments"] integerValue];
+        [_btnMessage setTitle:commentsNumber forState:UIControlStateNormal];
+        
+        [_btnMessage sizeToFit];
+        CGRect btnMessFrame = _btnMessage.frame;
+        btnMessFrame.size.width += 12;
+        btnMessFrame.size.height = 30;
+        _btnMessage.frame = btnMessFrame;
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
 }
 
 - (void)haveImage:(BOOL)flag {
@@ -160,7 +217,30 @@
 
 - (void)initDataForContentView {
     
-    _postType = [[_dict objectForKey:@"type"] intValue];
+    if (_postType == event) {
+        _lblEventLabel.hidden = NO;
+        _lblEventTime.hidden = NO;
+        
+        NSString *eventTitle = [_dict objectForKey:@"news_event_title"];
+        _lblEventLabel.text = eventTitle;
+        [_lblEventLabel sizeToFit];
+        
+        CGRect lblEventTitleFrame = _lblEventLabel.frame;
+        
+        if ([_dict objectForKey:@"event_time"] != [NSNull null]) {
+            int eventTime = [[_dict objectForKey:@"event_time"] intValue];
+            NSString *eventTimeStr = [SWUtil convert:eventTime toDateStringWithFormat:FULL_DATE_FORMAT];
+            _lblEventTime.text = eventTimeStr;
+            [_lblEventTime sizeToFit];
+        }
+        
+        CGRect lblEventTimeFrame = _lblEventTime.frame;
+        lblEventTimeFrame.origin.y = lblEventTitleFrame.origin.y + lblEventTitleFrame.size.height;
+        _lblEventTime.frame = lblEventTimeFrame;
+    } else {
+        _lblEventLabel.hidden = YES;
+        _lblEventTime.hidden = YES;
+    }
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSString *newsUserId = [_dict objectForKey:@"user_id"];
@@ -176,10 +256,16 @@
     
     if (numberOfImage == 0) {
         [self haveImage:NO];
+    } else {
+        _imgArr = [_dict objectForKey:@"images"];
+        
+        if (_imgArr.count > 0) {
+            [self setUIScroll];
+        }
     }
     
     NSString *commentsNumber = [NSString stringWithFormat:@" %@",[_dict objectForKey:@"comments"]];
-    self.numberOfLikeInNews = [[_dict objectForKey:@"comments"] integerValue];
+    self.numberOfCommentInNews = [[_dict objectForKey:@"comments"] integerValue];
     [_btnMessage setTitle:commentsNumber forState:UIControlStateNormal];
     
     [_btnMessage sizeToFit];
@@ -200,14 +286,19 @@
     NSString *content = [_dict objectForKey:@"content"];
     _lblContent.text = content;
 
-    CGSize  textSize = { 320, 10000.0 };
+    CGSize  textSize = { 310, 10000.0 };
     
     CGSize size = [content sizeWithFont:[UIFont systemFontOfSize:14]
                       constrainedToSize:textSize
                           lineBreakMode:NSLineBreakByWordWrapping];
     
     CGRect lblContentFrame = _lblContent.frame;
-    lblContentFrame.origin.y = -7;
+    if (_postType == status) {
+        lblContentFrame.origin.y = -7;
+    } else {
+        lblContentFrame.origin.y = _lblEventTime.frame.origin.y + _lblEventTime.bounds.size.height;
+    }
+    
     lblContentFrame.size.height = size.height+20;
     _lblContent.frame = lblContentFrame;
     
@@ -219,7 +310,7 @@
     } else {
         newsFrame.origin.y = 233;
     }
-    newsFrame.size.height = size.height + 20 + lblFooterNewsViewFrame.size.height;
+    newsFrame.size.height = lblContentFrame.origin.y + lblContentFrame.size.height + lblFooterNewsViewFrame.size.height;
     _newsContentView.frame = newsFrame;
     
     lblFooterNewsViewFrame.origin.y = newsFrame.size.height - lblFooterNewsViewFrame.size.height;
@@ -263,7 +354,80 @@
     btnLikeFrame.size.width += 12;
     btnLikeFrame.size.height = 30;
     _btnLike.frame = btnLikeFrame;
+}
+
+- (void)setUIScroll {
+    for (UIView *subview in _imgScrollView.subviews) {
+        [subview removeFromSuperview];
+    }
     
+    int xPos = 0;
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"loading" withExtension:@"gif"];
+    
+    for (int i = 0; i < _imgArr.count; i++) {
+        NSDictionary *imgDict = [_imgArr objectAtIndex:i];
+        
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        imgView.contentMode = UIViewContentModeCenter;
+        imgView.clipsToBounds = YES;
+        imgView.tag = i;
+        NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, [imgDict objectForKey:@"link"]];
+        [imgView sd_setImageWithURL:[NSURL URLWithString:imageLink]
+                   placeholderImage:[UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]]
+                          completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                              imgView.contentMode = UIViewContentModeScaleAspectFill;
+                              if (image) {
+                                  if (![_imgContentArr containsObject:image]) {
+                                      [_imgContentArr addObject:image];
+                                  }
+                              } else {
+                                  
+                              }
+                          }];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imgToFullScreen:)];
+        [imgView addGestureRecognizer:tap];
+        tap.enabled = YES;
+        tap.numberOfTapsRequired = 1;
+        tap.numberOfTouchesRequired = 1;
+        imgView.userInteractionEnabled = YES;
+        
+        
+        CGRect frame = [imgView frame];
+        frame.origin.x = xPos;
+        frame.size.width = _newsContentView.bounds.size.width;
+        frame.size.height = 160;
+        xPos += frame.size.width;
+        [imgView setFrame:frame];
+        
+        [_imgScrollView addSubview:imgView];
+    }
+    _imgScrollView.pagingEnabled = YES;
+    CGSize contentSize = [_imgScrollView contentSize];
+    contentSize.width=xPos;
+    [_imgScrollView setContentSize:contentSize];
+}
+
+-(void)imgToFullScreen:(UITapGestureRecognizer*)gestureRecognizer {
+    UIImageView *gestureView = (UIImageView *)[gestureRecognizer view];
+    [self didChooseImage:_imgContentArr AtIndex:gestureView.tag];
+}
+
+- (void)didChooseImage:(NSArray *)imagesArr AtIndex:(NSInteger)index {
+    
+    [self.krImageViewer browseImages:imagesArr startIndex:index+1];
+}
+
+#pragma KRImageViewerDelegate
+-(void)krImageViewerIsScrollingToPage:(NSInteger)_scrollingPage
+{
+    //The ImageViewer is Scrolling to which page and trigger here.
+    //...
+}
+
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (IBAction)btnLikeTapped:(id)sender {
@@ -500,8 +664,8 @@
                                      @"user_id"        : userId};
         
         [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
             [self getComment];
+            
             NSLog(@"POST MESSAGE SUCCESS");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
@@ -523,7 +687,6 @@
                                          kCommentContent        : NULL_IF_NIL(message)};
             
             [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                
                 [self getComment];
                 NSLog(@"UPDATE MESSAGE SUCCESS");
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -557,7 +720,7 @@
 -(void)actionSheet:(IBActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     [[SWUtil appDelegate] hideTabbar:NO];
     [_commentTableView deselectRowAtIndexPath:_selectedIndexPath animated:YES];
-    NSLog(@"INDEX: %d", buttonIndex);
+
     switch (buttonIndex) {
         case 0: // Edit
         {
@@ -596,7 +759,6 @@
     NSDictionary *parameters = @{kCommentId   : [NSNumber numberWithInteger:commentId]};
     
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
         [self getComment];
         NSLog(@"DELETE MESSAGE SUCCESS");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

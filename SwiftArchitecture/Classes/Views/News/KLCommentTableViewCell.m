@@ -10,6 +10,7 @@
 
 @implementation KLCommentTableViewCell {
     BOOL _isSelected;
+    NSInteger _commentId;
 }
 
 - (void)awakeFromNib {
@@ -25,10 +26,67 @@
 }
 
 - (IBAction)btnLikeTapped:(id)sender {
+    _isSelected = !_isSelected;
+    [self didLike:_isSelected];
+    
+    if (_isSelected) {
+        self.numberOfLikeInNews++;
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, cmLikeComment];
+        NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        
+        NSDictionary *parameters = @{@"user_id": userId,
+                                     @"comment_id": [NSNumber numberWithInteger:_commentId]};
+        
+        [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"like sucess - user: %@ - like _commentId: %d", userId, (int)_commentId);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            NSLog(@"like faild - user: %@ - like _commentId: %d", userId, (int)_commentId);
+        }];
+        NSString *likesNumber = [NSString stringWithFormat:@" %d",(int)self.numberOfLikeInNews];
+        [_btnLike setTitle:likesNumber forState:UIControlStateNormal];
+    } else {
+        if (self.numberOfLikeInNews > 0) {
+            self.numberOfLikeInNews--;
+            NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, cmDeleteLikeComment];
+            NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+            
+            NSDictionary *parameters = @{@"user_id": userId,
+                                         @"comment_id": [NSNumber numberWithInteger:_commentId]};
+            
+            [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"delete like sucess - user: %@ - like _commentId: %d", userId, (int)_commentId);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                NSLog(@"delete like faild - user: %@ - like _commentId: %d", userId, (int)_commentId);
+            }];
+            NSString *likesNumber = [NSString stringWithFormat:@" %d",(int)self.numberOfLikeInNews];
+            [_btnLike setTitle:likesNumber forState:UIControlStateNormal];
+        }
+        
+    }
+}
+
+- (void)didLike:(BOOL)flag {
+    if (flag) {
+        _btnLike.backgroundColor = [UIColor colorWithHex:Blue_Color alpha:1];
+    } else {
+        _btnLike.backgroundColor = [UIColor colorWithHex:Like_Button_color alpha:1];
+    }
 }
 
 - (void)setContentUIByString:(NSDictionary*)dict {
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    _commentId = [[dict objectForKey:@"comment_id"] integerValue];
     
     _lblName.text = [dict objectForKey:kName];
     
@@ -107,11 +165,4 @@
 
 }
 
-- (void)didLike:(BOOL)flag {
-    if (flag) {
-        _btnLike.backgroundColor = [UIColor colorWithHex:Blue_Color alpha:1];
-    } else {
-        _btnLike.backgroundColor = [UIColor colorWithHex:Like_Button_color alpha:1];
-    }
-}
 @end

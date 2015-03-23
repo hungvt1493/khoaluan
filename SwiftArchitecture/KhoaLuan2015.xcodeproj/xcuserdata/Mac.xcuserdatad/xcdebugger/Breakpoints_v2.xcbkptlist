@@ -6,22 +6,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Classes/Controller/News/NewsViewController.m"
-            timestampString = "448469749.617393"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -57,59 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Classes/Controller/Login&amp;Register/SWRegisterViewController.m"
-            timestampString = "448394079.211615"
+            filePath = "Classes/Controller/News/NewsViewController.m"
+            timestampString = "448770590.893332"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
-            landmarkName = "-registerButtonTapped:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SWRegisterViewController registerButtonTapped:]"
-                  moduleName = "KhoaLuan2015"
-                  urlString = "file:///Users/Mac/Desktop/KhoaLuan/SwiftArchitecture/Classes/Controller/Login&amp;Register/SWRegisterViewController.m"
-                  timestampString = "448566021.166163"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "372"
-                  endingLineNumber = "372"
-                  offsetFromSymbolStart = "8151">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__49-[SWRegisterViewController registerButtonTapped:]_block_invoke_2318"
-                  moduleName = "KhoaLuan2015"
-                  urlString = "file:///Users/Mac/Desktop/KhoaLuan/SwiftArchitecture/Classes/Controller/Login&amp;Register/SWRegisterViewController.m"
-                  timestampString = "448566021.166388"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "372"
-                  endingLineNumber = "372"
-                  offsetFromSymbolStart = "98">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Classes/Controller/Login&amp;Register/SWRegisterViewController.m"
-            timestampString = "448394079.211615"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
-            landmarkName = "-registerButtonTapped:"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -119,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Classes/Controller/Login&amp;Register/SWRegisterViewController.m"
-            timestampString = "448394079.211615"
+            filePath = "Classes/Controller/News/NewsViewController.m"
+            timestampString = "448770590.893332"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
-            landmarkName = "-registerButtonTapped:"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -135,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Classes/Controller/Login&amp;Register/SWRegisterViewController.m"
-            timestampString = "448393284.216785"
+            filePath = "Classes/Controller/News/NewsViewController.m"
+            timestampString = "448784094.238851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
-            landmarkName = "-registerButtonTapped:"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "-scrollViewDidScrollToTop:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -151,13 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Classes/Controller/Login&amp;Register/SWRegisterViewController.m"
-            timestampString = "448393332.941812"
+            filePath = "Classes/Views/News/KLNewsDetailViewController.m"
+            timestampString = "448784729.748113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "292"
-            endingLineNumber = "292"
-            landmarkName = "-registerButtonTapped:"
+            startingLineNumber = "433"
+            endingLineNumber = "433"
+            landmarkName = "-btnLikeTapped:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -167,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Classes/Controller/Login&amp;Register/SWRegisterViewController.m"
-            timestampString = "448393332.941812"
+            filePath = "Classes/Views/News/KLNewsDetailViewController.m"
+            timestampString = "448784812.030874"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
-            landmarkName = "-registerButtonTapped:"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "-getNumberOfCommentFromServer"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -183,29 +121,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Classes/Controller/Login&amp;Register/SWRegisterViewController.m"
-            timestampString = "448393332.941812"
+            filePath = "Classes/Views/News/KLNewsDetailViewController.m"
+            timestampString = "448784824.728092"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
-            landmarkName = "-registerButtonTapped:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CustomControls/IBActionSheet/IBActionSheet.m"
-            timestampString = "448565918.661223"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "352"
-            endingLineNumber = "352"
-            landmarkName = "-setUpTheActionSheet"
+            startingLineNumber = "335"
+            endingLineNumber = "335"
+            landmarkName = "-initDataForContentView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
