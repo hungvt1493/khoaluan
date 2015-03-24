@@ -10,6 +10,9 @@
 #import "SOMessageInputView.h"
 
 @interface KLNewsDetailViewController : SWBaseViewController <SOMessagingDelegate>
+@property (weak, nonatomic) IBOutlet UIView *rateContentView;
+@property (weak, nonatomic) IBOutlet UIView *ratebgView;
+@property (weak, nonatomic) IBOutlet UIButton *btnShowRateView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
@@ -35,10 +38,22 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblEventLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lblEventTime;
 @property (strong, nonatomic) SOMessageInputView *inputView;
+@property (weak, nonatomic) IBOutlet UIButton *btnRateFine;
+@property (weak, nonatomic) IBOutlet UIButton *btnRateBad;
+@property (weak, nonatomic) IBOutlet UIButton *btnRateGood;
+@property (weak, nonatomic) IBOutlet UIImageView *imgRateChecked;
+@property (weak, nonatomic) IBOutlet UILabel *lblRateBad;
+@property (weak, nonatomic) IBOutlet UILabel *lblRateFine;
+@property (weak, nonatomic) IBOutlet UILabel *lblRateGood;
+
 - (IBAction)btnLikeTapped:(id)sender;
 - (void)haveImage:(BOOL)flag;
 - (IBAction)btnEditTapped:(id)sender;
 - (IBAction)btnDeleteTapped:(id)sender;
 - (IBAction)btnShowToolViewTapped:(id)sender;
 - (void)removeNavigationBarAnimation;
+- (IBAction)btnShowRateViewTapped:(id)sender;
+- (IBAction)btnRateBadTapped:(id)sender;
+- (IBAction)btnRateFineTapped:(id)sender;
+- (IBAction)btnRateGoodTapped:(id)sender;
 @end

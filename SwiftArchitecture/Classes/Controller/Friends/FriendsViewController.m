@@ -26,8 +26,6 @@
     self.title = Friend_Title;
     _tbFriend.delegate = self;
     _tbFriend.dataSource = self;
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -48,11 +46,12 @@
      state = 2; Dang cho accpet cho nguoi nhan loi moi ket ban
      state = 3; Da la ban be
      */
+    [[SWUtil sharedUtil] showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uGetFriend];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-    NSDictionary *parameters = @{kUserId: userId};
+
+    NSDictionary *parameters = @{kUserId: _userId};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSArray class]]) {

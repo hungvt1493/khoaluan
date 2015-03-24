@@ -92,7 +92,7 @@
     if (imgTimelinePath.length > 0) {
         NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgTimelinePath];
         [self.imgBackground sd_setImageWithURL:[NSURL URLWithString:imageLink]
-                              placeholderImage:[UIImage imageNamed:@"images.jpg"]
+                              placeholderImage:[UIImage imageNamed:@"images.jpeg"]
                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                          if (image) {
                                              
@@ -238,14 +238,40 @@
         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.imgBackground.image = [info objectForKey:UIImagePickerControllerEditedImage];
             
+            //NSDictionary *userDict = (NSDictionary*)responseObject;
+            //[[NSUserDefaults standardUserDefaults] setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kTimelineImage]) forKey:kTimelineImage];
+            [[SWUtil sharedUtil] hideLoadingView];
+            NSLog(@"upload succes");
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            //[SWUtil showConfirmAlertWithMessage:@"Lỗi!" delegate:nil];
+            [[SWUtil sharedUtil] hideLoadingView];
+        }];
+        
+        [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.imgBackground.image = [info objectForKey:UIImagePickerControllerEditedImage];
+            
             NSDictionary *userDict = (NSDictionary*)responseObject;
             [[NSUserDefaults standardUserDefaults] setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kTimelineImage]) forKey:kTimelineImage];
             [[SWUtil sharedUtil] hideLoadingView];
+            NSLog(@"upload succes");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [SWUtil showConfirmAlertWithMessage:@"Lỗi!" delegate:nil];
-            [[SWUtil sharedUtil] showLoadingView];
+            [SWUtil showConfirmAlertWithMessage:[error localizedDescription] delegate:nil];
+            [[SWUtil sharedUtil] hideLoadingView];
+            NSLog(@"upload failed");
         }];
-
+        
+        [op setUploadProgressBlock:^(NSUInteger __unused bytesWritten,
+                                            long long totalBytesWritten,
+                                            long long totalBytesExpectedToWrite) {
+            //NSLog(@"Wrote %lld/%lld", totalBytesWritten, totalBytesExpectedToWrite);
+            float progress = ((float)totalBytesWritten) / totalBytesExpectedToWrite * 100;
+            [[SWUtil sharedUtil] showLoadingViewWithTitle:[NSString stringWithFormat:@"Tải lên %.2f%%", progress]];
+            
+            if (progress == 100.00) {
+                [[SWUtil sharedUtil] hideLoadingView];
+            }
+        }];
+        [op start];
     };
     
     // get the asset library and fetch the asset based on the ref url (pass in block above)

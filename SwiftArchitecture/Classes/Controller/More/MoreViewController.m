@@ -7,8 +7,10 @@
 //
 
 #import "MoreViewController.h"
+#import "KLEventManagerViewController.h"
 
-#define ARRAY @[@"Đăng xuất"];
+#define NORMAL_ARRAY @[@"Đăng xuất"];
+#define ADMIN_ARRAY @[@"Quản lý sự kiện",@"Đăng xuất"];
 
 @interface MoreViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tbMore;
@@ -24,7 +26,19 @@
     // Do any additional setup after loading the view from its nib.
     _tbMore.delegate = self;
     _tbMore.dataSource = self;
-    _dataArr = ARRAY;
+    
+    NSInteger isAdmin = [[NSUserDefaults standardUserDefaults] integerForKey:kIsAdmin];
+    
+    if (isAdmin == 0) {
+        _dataArr = NORMAL_ARRAY;
+    } else {
+        _dataArr = ADMIN_ARRAY;
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[SWUtil appDelegate] hideTabbar:NO];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -55,7 +69,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[SWUtil appDelegate] logoutFunction];
+    if (indexPath.row == _dataArr.count-1) {
+        [[SWUtil appDelegate] logoutFunction];
+    } else {
+        KLEventManagerViewController *eventManagerVC = [[KLEventManagerViewController alloc] init];
+        [self.navigationController pushViewController:eventManagerVC animated:YES];
+    }
+    
     [tableView  deselectRowAtIndexPath:indexPath animated:YES];
 }
 

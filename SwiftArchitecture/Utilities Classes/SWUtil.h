@@ -14,7 +14,7 @@
 
 
 @interface SWUtil : NSObject
-@property (atomic, readwrite) NSInteger loadingViewCount;
+
 @property (strong, nonatomic) MBProgressHUD *progressView;
 
 + (SWUtil *)sharedUtil;

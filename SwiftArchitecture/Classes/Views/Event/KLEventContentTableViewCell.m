@@ -13,12 +13,18 @@
     NSDictionary *_cellData;
     NSMutableArray *_imgContentArr;
     NSMutableArray *_imgArr;
+    NSMutableArray *_imgName;
+    BOOL _isShow;
+    int _bad;
+    int _fine;
+    int _good;
 }
 
 - (void)awakeFromNib {
     // Initialization code
     _imgArr = [[NSMutableArray alloc] initWithCapacity:10];
     _imgContentArr = [[NSMutableArray alloc] initWithCapacity:10];
+    _imgName = [[NSMutableArray alloc] initWithCapacity:10];
     [self initUI];
     _isSelected = NO;
 }
@@ -30,8 +36,18 @@
 }
 
 - (void)initUI {
+    _imgRateChecked.hidden = YES;
+    self.clipsToBounds = YES;
+    
     _bgView.layer.cornerRadius = 3;
     _bgView.clipsToBounds = YES;
+    
+    _rateContentView.layer.borderColor = [UIColor colorWithHex:Blue_Color alpha:1].CGColor;
+    _rateContentView.layer.borderWidth = 1;
+    _rateContentView.layer.cornerRadius = 5;
+    [_btnShowRateView setImage:[UIImage imageNamed:@"Down Circular"] forState:UIControlStateNormal];
+    _isShow = NO;
+    [_ratebgView setFrame:CGRectMake(_ratebgView.frame.origin.x, -_ratebgView.bounds.size.height+26, _ratebgView.bounds.size.width, _ratebgView.bounds.size.height)];
     
     _btnLike.layer.borderWidth = 0;
     _btnLike.layer.cornerRadius = 5;
@@ -153,6 +169,15 @@
         NSString *eventTimeStr = [SWUtil convert:eventTime toDateStringWithFormat:FULL_DATE_FORMAT];
         _lblEventTime.text = eventTimeStr;
         [_lblEventTime sizeToFit];
+        
+        NSDate *currentDate = [NSDate date];
+        int now = [[SWUtil convertDateToNumber:currentDate] intValue];
+        
+        if (now > eventTime) {
+            _ratebgView.hidden = NO;
+        } else {
+            _ratebgView.hidden = YES;
+        }
     }
     
     CGRect lblEventTimeFrame = _lblEventTime.frame;
@@ -239,11 +264,16 @@
         imgView.clipsToBounds = YES;
         imgView.tag = i;
         NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, [imgDict objectForKey:@"link"]];
+        NSString *imageName = [imageLink lastPathComponent];
+        if (![_imgName containsObject:imageName]) {
+            [_imgName addObject:imageName];
+        }
         [imgView sd_setImageWithURL:[NSURL URLWithString:imageLink]
                    placeholderImage:[UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]]
                           completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                              imgView.contentMode = UIViewContentModeScaleAspectFill;
+
                               if (image) {
+                                  imgView.contentMode = UIViewContentModeScaleAspectFill;
                                   if (![_imgContentArr containsObject:image]) {
                                       [_imgContentArr addObject:image];
                                   }
@@ -370,8 +400,8 @@
 }
 
 - (IBAction)btnEditTapped:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didChooseEditCellAtIndexPath:withData:withType:)]) {
-        [self.delegate didChooseEditCellAtIndexPath:_indexPath withData:_cellData withType:_postType];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didChooseEditCellAtIndexPath:withData:withType:withImage:withImageName:)]) {
+        [self.delegate didChooseEditCellAtIndexPath:_indexPath withData:_cellData withType:_postType withImage:_imgContentArr withImageName:_imgName];
     }
 }
 
@@ -404,6 +434,8 @@
 - (IBAction)btnShowToolViewTapped:(id)sender {
     if (_toolView.hidden) {
         [self showView:_toolView];
+        _isShow = NO;
+        [self showRateView:NO];
     } else {
         [self hiddenView:_toolView];
     }
@@ -417,4 +449,165 @@
     [self showDetailViewControllerForCell];
 }
 
+- (IBAction)btnShowRateViewTapped:(id)sender {
+    _isShow = !_isShow;
+    
+    if (_isShow) {
+        [self getRateInfo];
+    } else {
+        [self showRateView:_isShow];
+    }
+    
+}
+
+- (void)showRateView:(BOOL)show {
+    
+    if (show) {
+        if (!_toolView.hidden) {
+            [self hiddenView:_toolView];
+        }
+        [_ratebgView setFrame:CGRectMake(_ratebgView.frame.origin.x, -_ratebgView.bounds.size.height+26, _ratebgView.bounds.size.width, _ratebgView.bounds.size.height)];
+
+        [UIView animateWithDuration:0.3f
+                         animations:^{
+                             [_ratebgView setFrame:CGRectMake(_ratebgView.frame.origin.x, -2, _ratebgView.bounds.size.width, _ratebgView.bounds.size.height)];
+                         }
+                         completion:^(BOOL finished) {
+                             [_btnShowRateView setImage:[UIImage imageNamed:@"Up Circular"] forState:UIControlStateNormal];
+                         }];
+        
+    } else {
+        [_ratebgView setFrame:CGRectMake(_ratebgView.frame.origin.x, -2, _ratebgView.bounds.size.width, _ratebgView.bounds.size.height)];
+        
+        [UIView animateWithDuration:0.3f
+                         animations:^{
+                             
+                             [_ratebgView setFrame:CGRectMake(_ratebgView.frame.origin.x, -_ratebgView.bounds.size.height+26, _ratebgView.bounds.size.width, _ratebgView.bounds.size.height)];
+                         }
+                         completion:^(BOOL finished) {
+                             [_btnShowRateView setImage:[UIImage imageNamed:@"Down Circular"] forState:UIControlStateNormal];
+                         }];
+    }
+}
+
+- (IBAction)btnRateBadTapped:(id)sender {
+    [self rate:Bad];
+    _imgRateChecked.hidden = NO;
+    _imgRateChecked.frame = _btnRateBad.frame;
+}
+
+- (IBAction)btnRateFineTapped:(id)sender {
+    [self rate:Fine];
+    _imgRateChecked.hidden = NO;
+    _imgRateChecked.frame = _btnRateFine.frame;
+}
+
+- (IBAction)btnRateGoodTapped:(id)sender {
+    [self rate:Good];
+    _imgRateChecked.hidden = NO;
+    _imgRateChecked.frame = _btnRateGood.frame;
+}
+
+
+- (void)getRateInfo {
+    [[SWUtil sharedUtil] showLoadingView];
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetRate];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSInteger userId = [[NSUserDefaults standardUserDefaults] integerForKey:kUserId];
+    NSDictionary *parameters = @{kNewsId    : [NSNumber numberWithInt:_newsId],
+                                 kUserId    : [NSNumber numberWithInteger:userId]};
+    
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dict = (NSDictionary*)responseObject;
+            
+            _bad = [[dict objectForKey:@"status 1"] intValue];
+            _lblRateBad.text = [NSString stringWithFormat:@"%d", _bad];
+            
+            _fine = [[dict objectForKey:@"status 2"] intValue];
+            _lblRateFine.text = [NSString stringWithFormat:@"%d", _fine];
+            
+            _good = [[dict objectForKey:@"status 3"] intValue];
+            _lblRateGood.text = [NSString stringWithFormat:@"%d", _good];
+            
+            NSArray *didRate = [dict objectForKey:@"did_rate"];
+            if (didRate.count > 0) {
+                NSDictionary *didRateDict = [didRate objectAtIndex:0];
+                int status = [[didRateDict objectForKey:@"status"] intValue];
+                _imgRateChecked.hidden = NO;
+                switch (status) {
+                    case Bad:
+                        _imgRateChecked.frame = _btnRateBad.frame;
+                        break;
+                    case Fine:
+                        _imgRateChecked.frame = _btnRateFine.frame;
+                        break;
+                    case Good:
+                        _imgRateChecked.frame = _btnRateGood.frame;
+                        break;
+                    default:
+                        break;
+                }
+                
+                _btnRateBad.enabled = NO;
+                _btnRateFine.enabled = NO;
+                _btnRateGood.enabled = NO;
+                
+                [self showRateView:_isShow];
+            } else {
+                _imgRateChecked.hidden = YES;
+                _btnRateBad.enabled = YES;
+                _btnRateFine.enabled = YES;
+                _btnRateGood.enabled = YES;
+            }
+        }
+        [[SWUtil sharedUtil] hideLoadingView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Get Rate Error: %@", error);
+        [SWUtil showConfirmAlert:[error localizedDescription] message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
+}
+
+- (void)rate:(RateStaus)rate {
+    _btnRateBad.enabled = NO;
+    _btnRateFine.enabled = NO;
+    _btnRateGood.enabled = NO;
+    
+    switch (rate) {
+        case Bad:
+            _bad++;
+            _lblRateBad.text = [NSString stringWithFormat:@"%d", _bad];
+            break;
+        case Fine:
+            _fine++;
+            _lblRateFine.text = [NSString stringWithFormat:@"%d", _fine];
+            break;
+        case Good:
+            _good++;
+            _lblRateGood.text = [NSString stringWithFormat:@"%d", _good];
+            break;
+        default:
+            break;
+    }
+    
+    NSInteger userId = [[NSUserDefaults standardUserDefaults] integerForKey:kUserId];
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nInsertRate];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSDictionary *parameters = @{kUserId   : [NSNumber numberWithInteger:userId],
+                                 kNewsId   : [NSNumber numberWithInteger:_newsId],
+                                 @"status" : [NSNumber numberWithInteger:rate]};
+    
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"rate post success: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"rate post success error: %@", error);
+    }];
+}
 @end

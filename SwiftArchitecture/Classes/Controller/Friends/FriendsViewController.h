@@ -10,5 +10,5 @@
 
 @interface FriendsViewController : SWBaseViewController
 @property (weak, nonatomic) IBOutlet UITableView *tbFriend;
-
+@property (strong, nonatomic) NSString *userId;
 @end

@@ -90,43 +90,4 @@
                                     }
                                 }];
 }
-
-/*
-- (void)wrappedString:(NSString*)str {
-    CGRect rect=CGRectMake(51, 16, 257, 0);
-    _lblContent.text = str;
-    CGSize size=[str sizeWithFont:self.lblContent.font constrainedToSize:CGSizeMake(257, 3000) lineBreakMode:self.lblContent.lineBreakMode];
-    int lines=(size.height/self.lblContent.font.pointSize);
-    self.lblContent.numberOfLines=lines;
-    rect.size=size;
-    if(lines>2)
-    {
-        if(lines==3 &&[str length]>66)
-        {
-            str=[str substringToIndex:66];
-            str=[str stringByAppendingString:@"...Read More"];
-            size=[str sizeWithFont:self.lblContent.font constrainedToSize:CGSizeMake(257, 67) lineBreakMode:self.lblContent.lineBreakMode];
-            
-            int lines=(size.height/self.lblContent.font.pointSize);
-            self.lblContent.numberOfLines=lines;
-            
-            rect.size=CGSizeMake(257, 67);
-        }
-        else if(lines>3)
-        {
-            str=[str stringByAppendingString:@"...Read More"];
-            size=[str sizeWithFont:self.lblContent.font constrainedToSize:CGSizeMake(257, 67) lineBreakMode:self.lblContent.lineBreakMode];
-            
-            int lines=(size.height/self.lblContent.font.pointSize);
-            self.lblContent.numberOfLines=lines;
-            
-            rect.size=CGSizeMake(257, 67);
-        }
-        
-        //self.lblQuestion.lineBreakMode=NSLineBreakByTruncatingHead;
-    }
-    _lblContent.text = str;
-    NSLog(@"TEXT: %@", _lblContent.text);
-}
- */
 @end

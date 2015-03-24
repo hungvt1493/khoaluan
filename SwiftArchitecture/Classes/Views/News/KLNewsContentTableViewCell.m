@@ -229,8 +229,9 @@
         [imgView sd_setImageWithURL:[NSURL URLWithString:imageLink]
                           placeholderImage:[UIImage animatedImageWithAnimatedGIFData:[NSData dataWithContentsOfURL:url]]
                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                     imgView.contentMode = UIViewContentModeScaleAspectFill;
+                                     
                                      if (image) {
+                                         imgView.contentMode = UIViewContentModeScaleAspectFill;
                                          if (![_imgContentArr containsObject:image]) {
                                              [_imgContentArr addObject:image];
                                          }

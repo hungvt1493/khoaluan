@@ -339,7 +339,7 @@
                     NSLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     NSLog(@"Error: %@ ***** %@", operation.responseString, error);
-                    [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+                    [SWUtil showConfirmAlert:[error localizedDescription] message:[error localizedDescription] delegate:nil];
                     [[SWUtil sharedUtil] hideLoadingView];
                 }];
                 [op start];
@@ -404,7 +404,7 @@
                     
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     NSLog(@"Error: %@", error);
-                    [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+                    [SWUtil showConfirmAlert:[error localizedDescription] message:[error localizedDescription] delegate:nil];
                     [[SWUtil sharedUtil] hideLoadingView];
                 }];
                 

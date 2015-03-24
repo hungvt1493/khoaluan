@@ -170,6 +170,109 @@
                             </subviews>
                             <color key="backgroundColor" red="0.97723327019999995" green="0.97723327019999995" blue="0.97723327019999995" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
+                        <view contentMode="scaleToFill" id="9mq-8p-jh2">
+                            <rect key="frame" x="31" y="0.0" width="242" height="120"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" id="GXQ-Ur-kT7">
+                                    <rect key="frame" x="0.0" y="0.0" width="242" height="97"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.98044902146464641" green="0.98044902146464641" blue="0.98044902146464641" alpha="1" colorSpace="calibratedRGB"/>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="h0a-Y8-c7L">
+                                    <rect key="frame" x="18" y="-2" width="38" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="Thumbs Down.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnRateBadTapped:" destination="4ld-Nt-a7e" eventType="touchUpInside" id="07U-YF-iCH"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="V8b-Vo-jJz">
+                                    <rect key="frame" x="104" y="-2" width="38" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="So-So.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnRateFineTapped:" destination="4ld-Nt-a7e" eventType="touchUpInside" id="HNO-9Z-WBB"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pNJ-PY-WPr">
+                                    <rect key="frame" x="191" y="0.0" width="38" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="Thumbs Up.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnRateGoodTapped:" destination="4ld-Nt-a7e" eventType="touchUpInside" id="JfW-8c-I5c"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chán" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EYk-cG-raW">
+                                    <rect key="frame" x="18" y="38" width="42" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.90196078431372551" green="0.49411764705882355" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ổn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Nzg-wp-0Og">
+                                    <rect key="frame" x="100" y="38" width="42" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.1803921568627451" green="0.80000000000000004" blue="0.44313725490196076" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hay" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jsB-8G-leL">
+                                    <rect key="frame" x="189" y="38" width="42" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UuE-Tw-W6n">
+                                    <rect key="frame" x="0.0" y="67" width="74" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.90196078430000004" green="0.4941176471" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="725-IB-GtN">
+                                    <rect key="frame" x="82" y="67" width="78" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aH8-Ip-YeJ">
+                                    <rect key="frame" x="179" y="67" width="57" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" id="wCf-Zm-Y4T">
+                                    <rect key="frame" x="113" y="91" width="16" height="16"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </view>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checked 2.png" id="a9D-aJ-SFc">
+                                    <rect key="frame" x="18" y="-2" width="38" height="38"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ymK-0i-upe">
+                                    <rect key="frame" x="81" y="84" width="81" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="Up Circular.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="btnShowRateViewTapped:" destination="4ld-Nt-a7e" eventType="touchUpInside" id="Sow-0X-DDk"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -181,15 +284,25 @@
                 <outlet property="bgView" destination="3UR-OY-PqF" id="rda-ti-i44"/>
                 <outlet property="btnLike" destination="hX6-sN-4ik" id="oOt-cI-eVS"/>
                 <outlet property="btnMessage" destination="Tez-qy-huW" id="Yur-6H-yz6"/>
+                <outlet property="btnRateBad" destination="h0a-Y8-c7L" id="YSN-1p-Cbu"/>
+                <outlet property="btnRateFine" destination="V8b-Vo-jJz" id="JG7-W6-AUu"/>
+                <outlet property="btnRateGood" destination="pNJ-PY-WPr" id="lbb-X5-Tf4"/>
                 <outlet property="btnShowMore" destination="thS-zc-4NW" id="6ou-6A-Zy9"/>
+                <outlet property="btnShowRateView" destination="ymK-0i-upe" id="BJv-TI-WUl"/>
                 <outlet property="btnShowTool" destination="GCT-91-hdX" id="Yaq-uQ-bu7"/>
                 <outlet property="imgAvatar" destination="8ns-3N-5ou" id="KVL-gB-pAp"/>
+                <outlet property="imgRateChecked" destination="a9D-aJ-SFc" id="PCu-vr-2CT"/>
                 <outlet property="lblContent" destination="5cV-po-0Ma" id="e7I-t1-gka"/>
                 <outlet property="lblEventTime" destination="RaM-SX-B2L" id="4Qg-pA-xl0"/>
                 <outlet property="lblEventTitle" destination="sMf-9A-Iy4" id="bp7-yK-bzL"/>
                 <outlet property="lblName" destination="eH4-91-dlg" id="Ihj-gI-72w"/>
+                <outlet property="lblRateBad" destination="UuE-Tw-W6n" id="451-RE-iBO"/>
+                <outlet property="lblRateFine" destination="725-IB-GtN" id="jbc-rd-EVv"/>
+                <outlet property="lblRateGood" destination="aH8-Ip-YeJ" id="e6l-Cb-g6e"/>
                 <outlet property="lblTime" destination="Hmy-fs-ZGb" id="emJ-oO-zG8"/>
                 <outlet property="newsContentView" destination="bZB-hb-W0e" id="MII-cJ-mvq"/>
+                <outlet property="rateContentView" destination="GXQ-Ur-kT7" id="dQy-q5-dmR"/>
+                <outlet property="ratebgView" destination="9mq-8p-jh2" id="rbE-f4-0Kc"/>
                 <outlet property="scrollView" destination="gn4-r6-1VY" id="Ib8-TS-Or6"/>
                 <outlet property="toolView" destination="vyg-aV-NOq" id="c8e-0I-t9L"/>
             </connections>
@@ -198,10 +311,15 @@
     </objects>
     <resources>
         <image name="Bandage.png" width="24" height="24"/>
+        <image name="Checked 2.png" width="24" height="24"/>
         <image name="Clock.png" width="24" height="24"/>
         <image name="LikeOutline.png" width="26" height="26"/>
         <image name="More-black.png" width="26" height="26"/>
+        <image name="So-So.png" width="24" height="24"/>
         <image name="SpeechBubble.png" width="25" height="25"/>
+        <image name="Thumbs Down.png" width="26" height="26"/>
+        <image name="Thumbs Up.png" width="26" height="26"/>
+        <image name="Up Circular.png" width="26" height="26"/>
         <image name="User.png" width="24" height="24"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

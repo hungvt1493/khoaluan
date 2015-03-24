@@ -297,14 +297,14 @@
     [_newsTableView reloadData];
 }
 
-- (void)didChooseEditCellAtIndexPath:(NSIndexPath *)indexPath withData:(NSDictionary *)dict withType:(PostType)type{
+- (void)didChooseEditCellAtIndexPath:(NSIndexPath *)indexPath withData:(NSDictionary *)dict withType:(PostType)type withImage:(NSArray *)imageArr withImageName:(NSArray *)imageNameArr {
     KLPostNewsViewController *postNewsVC = [[KLPostNewsViewController alloc] init];
     postNewsVC.pageType = edit;
     PostType postType = type;
     postNewsVC.postType = postType;
     postNewsVC.newsId = [[dict objectForKey:kNewsId] integerValue];
     postNewsVC.imgArr = [[NSMutableArray alloc] initWithArray:imageArr];
-    postNewsVC.imgNameArr = [[NSMutableArray alloc] initWithArray:imageName];
+    postNewsVC.imgNameArr = [[NSMutableArray alloc] initWithArray:imageNameArr];
 
     if (postType == event) {
         NSString *eventTitle = [dict objectForKey:@"news_event_title"];

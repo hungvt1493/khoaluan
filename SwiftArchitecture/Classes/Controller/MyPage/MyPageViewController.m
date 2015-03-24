@@ -348,7 +348,7 @@
     postNewsVC.postType = postType;
     postNewsVC.newsId = [[dict objectForKey:kNewsId] integerValue];
     postNewsVC.imgArr = [[NSMutableArray alloc] initWithArray:imageArr];
-    postNewsVC.imgNameArr = [[NSMutableArray alloc] initWithArray:imageName];
+    postNewsVC.imgNameArr = [[NSMutableArray alloc] initWithArray:imageNameArr];
 
     if (postType == event) {
         NSString *eventTitle = [dict objectForKey:@"news_event_title"];

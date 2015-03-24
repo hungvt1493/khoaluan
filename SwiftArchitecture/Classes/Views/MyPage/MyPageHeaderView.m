@@ -74,7 +74,7 @@
     if (imgTimelinePath.length > 0) {
         NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgTimelinePath];
         [self.imgBackground sd_setImageWithURL:[NSURL URLWithString:imageLink]
-                          placeholderImage:[UIImage imageNamed:@"images.jpg"]
+                          placeholderImage:[UIImage imageNamed:@"images.jpeg"]
                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                      if (image) {
                                          
@@ -311,6 +311,7 @@
 - (IBAction)btnFriendTapped:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(pushToViewControllerUseDelegete:withAnimation:)]) {
         FriendsViewController *friendVC = [[FriendsViewController alloc] init];
+        friendVC.userId = _fUserId;
         [self.delegate pushToViewControllerUseDelegete:friendVC withAnimation:YES];
     }
 }

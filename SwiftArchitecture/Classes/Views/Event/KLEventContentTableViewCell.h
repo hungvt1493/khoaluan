@@ -11,7 +11,7 @@
 @protocol KLEventContentTableViewCellDelegate <NSObject>
 
 - (void)didDeleteCellAtIndexPath:(NSIndexPath*)indexPath;
-- (void)didChooseEditCellAtIndexPath:(NSIndexPath*)indexPath withData:(NSDictionary*)dict withType:(PostType)type;
+- (void)didChooseEditCellAtIndexPath:(NSIndexPath*)indexPath withData:(NSDictionary*)dict withType:(PostType)type withImage:(NSArray*)imageArr withImageName:(NSArray*)imageNameArr;
 - (void)pushToDetailViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath;
 - (void)pushToUserPageViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath;
 - (void)didChooseImage:(NSArray*)imagesArr AtIndex:(NSInteger)index;
@@ -19,7 +19,9 @@
 
 @interface KLEventContentTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIView *rateContentView;
 @property (weak, nonatomic) id<KLEventContentTableViewCellDelegate>delegate;
+@property (weak, nonatomic) IBOutlet UIView *ratebgView;
 @property (weak, nonatomic) IBOutlet UILabel *lblEventTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lblEventTime;
 @property (assign, nonatomic) PostType postType;
@@ -39,6 +41,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnShowTool;
 @property (weak, nonatomic) IBOutlet UIView *toolView;
 @property (strong, nonatomic) NSIndexPath *indexPath;
+@property (weak, nonatomic) IBOutlet UIButton *btnShowRateView;
+@property (weak, nonatomic) IBOutlet UILabel *lblRateBad;
+@property (weak, nonatomic) IBOutlet UILabel *lblRateFine;
+@property (weak, nonatomic) IBOutlet UILabel *lblRateGood;
+@property (weak, nonatomic) IBOutlet UIButton *btnRateFine;
+@property (weak, nonatomic) IBOutlet UIButton *btnRateBad;
+@property (weak, nonatomic) IBOutlet UIButton *btnRateGood;
+@property (weak, nonatomic) IBOutlet UIImageView *imgRateChecked;
 
 - (void)setData:(NSDictionary*)dict;
 - (IBAction)btnLikeTapped:(id)sender;
@@ -48,4 +58,8 @@
 - (IBAction)btnShowToolViewTapped:(id)sender;
 - (IBAction)btnMessageTapped:(id)sender;
 - (IBAction)btnMoreTapped:(id)sender;
+- (IBAction)btnShowRateViewTapped:(id)sender;
+- (IBAction)btnRateBadTapped:(id)sender;
+- (IBAction)btnRateFineTapped:(id)sender;
+- (IBAction)btnRateGoodTapped:(id)sender;
 @end

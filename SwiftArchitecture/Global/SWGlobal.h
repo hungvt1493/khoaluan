@@ -15,9 +15,15 @@
 
 #define kKeyChain @"KhoaLuan2015AppLogin"
 
-#define URL_BASE @"http://localhost/restserver/index.php/api/"
+//#define URL_BASE @"http://localhost/restserver/index.php/api/"
 
-#define URL_IMG_BASE @"http://localhost/restserver/"
+//#define URL_IMG_BASE @"http://localhost/restserver/"
+
+#define URL_BASE @"http://khoaluan615105028.esy.es/index.php/api/"
+
+#define URL_IMG_BASE @"http://khoaluan615105028.esy.es/"
+
+#define kDeviceToken @"DeviceToken"
 
 #define uLogin @"users/api_login"
 #define uLogout @"users/api_logout"
@@ -45,6 +51,8 @@
 #define nDeleteNews @"news/api_deleteNews"
 #define nEditNews @"news/api_updateNews"
 #define nCountCommentInNews @"news/api_getNumberOfComments"
+#define nInsertRate @"news/api_insertRate"
+#define nGetRate @"news/api_getEventRate"
 
 #define cmGetComment @"comments/api_getComments"
 #define cmAddComment @"comments/api_insertComment"
@@ -105,6 +113,12 @@ typedef enum {
     UserPage
 }MyPageType;
 
+typedef enum {
+    Bad = 1,
+    Fine = 2,
+    Good = 3
+} RateStaus;
+
 #define DATE_FORMAT @"dd/MM/yyyy"
 #define FULL_DATE_FORMAT @"dd/MM/yyyy HH:mm"
 #define PULL_DOWN_DATE                                       @"MM/dd , HH:mm"
@@ -127,6 +141,7 @@ typedef enum {
 #define Edit_News_Title @"Sửa"
 #define Post_News_Success_Title @"Đăng thành công"
 #define Edit_News_Success_Title @"Sửa thành công"
+#define Event_Manager_Title @"Quản lý sự kiện"
 /*TEXT*/
 #define Avatar_Message @"Không thể chọn ảnh!"
 #define Name_Message @"Bạn chưa nhập tên!"
