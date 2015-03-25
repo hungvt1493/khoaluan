@@ -73,7 +73,7 @@
     self.navigationController.navigationBarHidden = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    self.navigationController.scrollNavigationBar.scrollView = nil;
+    
     [[SWUtil appDelegate] hideTabbar:YES];
     if (_imgArr.count > 0) {
         [self initScrollUI];
@@ -86,6 +86,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     
     [[SWUtil appDelegate] hideTabbar:NO];
+}
+
+- (void)removeNavigationBarAnimation {
+    self.navigationController.scrollNavigationBar.scrollView = nil;
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {

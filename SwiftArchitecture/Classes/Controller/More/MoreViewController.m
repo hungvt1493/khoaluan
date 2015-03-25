@@ -8,9 +8,10 @@
 
 #import "MoreViewController.h"
 #import "KLEventManagerViewController.h"
+#import "KLUserManagerViewController.h"
 
 #define NORMAL_ARRAY @[@"Đăng xuất"];
-#define ADMIN_ARRAY @[@"Quản lý sự kiện",@"Đăng xuất"];
+#define ADMIN_ARRAY @[@"Quản lý tài khoản",@"Quản lý sự kiện",@"Đăng xuất"];
 
 @interface MoreViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tbMore;
@@ -69,11 +70,32 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == _dataArr.count-1) {
+    NSInteger isAdmin = [[NSUserDefaults standardUserDefaults] integerForKey:kIsAdmin];
+    
+    if (isAdmin == 0) {
         [[SWUtil appDelegate] logoutFunction];
     } else {
-        KLEventManagerViewController *eventManagerVC = [[KLEventManagerViewController alloc] init];
-        [self.navigationController pushViewController:eventManagerVC animated:YES];
+        switch (indexPath.row) {
+            case 0:
+            {
+                KLUserManagerViewController *userManager = [[KLUserManagerViewController alloc] init];
+                [self.navigationController pushViewController:userManager animated:YES];
+            }
+                break;
+            case 1:
+            {
+                KLEventManagerViewController *eventManagerVC = [[KLEventManagerViewController alloc] init];
+                [self.navigationController pushViewController:eventManagerVC animated:YES];
+            }
+                break;
+            case 2:
+            {
+                [[SWUtil appDelegate] logoutFunction];
+            }
+                break;
+            default:
+                break;
+        }
     }
     
     [tableView  deselectRowAtIndexPath:indexPath animated:YES];

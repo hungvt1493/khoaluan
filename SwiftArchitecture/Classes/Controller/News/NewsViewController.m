@@ -28,7 +28,7 @@
     BOOL _endOfRespond;
     int _checkNewsPost;
     int _count;
-    
+    BOOL _isRefresh;
     BOOL _pullToRefresh;
 }
 
@@ -75,7 +75,7 @@
          //...Do Something.
      }];
     
-    _newsTableView.frame = CGRectMake(0, 0, _newsTableView.bounds.size.width, SCREEN_HEIGHT_PORTRAIT - HEIGHT_NAVBAR - HEIGHT_TABBAR - HEIGHT_STATUSBAR);
+    _newsTableView.frame = CGRectMake(0, 0, _newsTableView.bounds.size.width, SCREEN_HEIGHT_PORTRAIT - HEIGHT_TABBAR - HEIGHT_STATUSBAR);
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
@@ -246,6 +246,7 @@
         if (!_endOfRespond) {
             [[SWUtil sharedUtil] showLoadingView];
             [self initData];
+            _newsTableView.frame = CGRectMake(0, 0, _newsTableView.bounds.size.width, SCREEN_HEIGHT_PORTRAIT - HEIGHT_TABBAR - HEIGHT_STATUSBAR);
         }
     }
 }
@@ -299,6 +300,7 @@
 
 - (void)didChooseEditCellAtIndexPath:(NSIndexPath *)indexPath withData:(NSDictionary *)dict withType:(PostType)type withImage:(NSArray*)imageArr withImageName:(NSArray*)imageName{
     KLPostNewsViewController *postNewsVC = [[KLPostNewsViewController alloc] init];
+    [postNewsVC removeNavigationBarAnimation];
     postNewsVC.pageType = edit;
     PostType postType = type;
     postNewsVC.postType = postType;
@@ -334,12 +336,31 @@
 }
 
 - (void)pushToUserPageViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath {
-    NSString *newsUserId = [[_fullNewsArr objectAtIndex:indexPath.row] objectForKey:@"user_id"];
-    MyPageViewController *userPageVC = [[MyPageViewController alloc] init];
-    userPageVC.myPageType = UserPage;
-    userPageVC.userId = newsUserId;
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kHideBackButtonInUserPage];
-    [self.navigationController pushViewController:userPageVC animated:YES];
+    NSString *newsUserId = [[_fullNewsArr objectAtIndex:indexPath.row] objectForKey:kUserId];
+    
+    [[SWUtil sharedUtil] showLoadingView];
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uGetUserByUserId];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    NSDictionary *parameters = @{kUserId: newsUserId};
+    
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        MyPageViewController *userPageVC = [[MyPageViewController alloc] init];
+        userPageVC.myPageType = UserPage;
+        userPageVC.userId = newsUserId;
+        userPageVC.userDict = (NSDictionary*)responseObject;
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kHideBackButtonInUserPage];
+        [self.navigationController pushViewController:userPageVC animated:YES];
+        
+        [[SWUtil sharedUtil] hideLoadingView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
 }
 
 - (void)didChooseImage:(NSArray *)imagesArr AtIndex:(NSInteger)index {

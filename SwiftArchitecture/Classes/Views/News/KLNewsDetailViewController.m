@@ -15,6 +15,7 @@ NSMutableArray *_imgContentArr;
 NSMutableArray *_imgArr;
 
 @interface KLNewsDetailViewController () <UITableViewDataSource, UITableViewDelegate, IBActionSheetDelegate, KRImageViewerDelegate>
+@property (weak, nonatomic) IBOutlet UIImageView *imgAdmin;
 @property (nonatomic, strong) KRImageViewer *krImageViewer;
 @end
 
@@ -67,6 +68,10 @@ NSMutableArray *_imgArr;
          //Current Scrolling Page.
          //...Do Something.
      }];
+    
+    if (_postType == status) {
+        _ratebgView.hidden = YES;
+    }
 }
 
 - (void)backButtonTapped:(id)sender{
@@ -230,6 +235,13 @@ NSMutableArray *_imgArr;
 }
 
 - (void)initDataForContentView {
+    
+    int isAdmin = [[_dict objectForKey:kIsAdmin] intValue];
+    if (isAdmin == 0) {
+        _imgAdmin.hidden = YES;
+    } else {
+        _imgAdmin.hidden = NO;
+    }
     
     if (_postType == event) {
         _lblEventLabel.hidden = NO;
@@ -542,8 +554,10 @@ NSMutableArray *_imgArr;
 - (IBAction)btnShowToolViewTapped:(id)sender {
     if (_toolView.hidden) {
         [self showView:_toolView];
-        _isShow = NO;
-        [self showRateView:NO];
+        if (_isShow) {
+            _isShow = NO;
+            [self showRateView:NO];
+        }
     } else {
         [self hiddenView:_toolView];
     }
@@ -799,8 +813,9 @@ NSMutableArray *_imgArr;
     _isShow = !_isShow;
     if (_isShow) {
         [self getRateInfo];
+    } else {
+        [self showRateView:_isShow];
     }
-    [self showRateView:_isShow];
 }
 
 - (void)showRateView:(BOOL)show {
@@ -860,7 +875,7 @@ NSMutableArray *_imgArr;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSInteger userId = [[NSUserDefaults standardUserDefaults] integerForKey:kUserId];
-    NSDictionary *parameters = @{kNewsId    : [NSNumber numberWithInt:_newsId],
+    NSDictionary *parameters = @{kNewsId    : [NSNumber numberWithInteger:_newsId],
                                  kUserId    : [NSNumber numberWithInteger:userId]};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -905,6 +920,7 @@ NSMutableArray *_imgArr;
                 _btnRateGood.enabled = YES;
             }
         }
+        [self showRateView:_isShow];
         [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get Rate Error: %@", error);

@@ -29,5 +29,6 @@
 @property (strong, nonatomic) NSMutableArray *imgNameArr;
 @property (weak, nonatomic) IBOutlet UIScrollView *imgScrollView;
 
+- (void)removeNavigationBarAnimation;
 - (void)setType:(PostType)type ;
 @end

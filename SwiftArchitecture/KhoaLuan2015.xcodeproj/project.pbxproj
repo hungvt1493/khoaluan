@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041E6E221AC2576000123867 /* KLUserManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E6E201AC2576000123867 /* KLUserManagerViewController.m */; };
+		041E6E231AC2576000123867 /* KLUserManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E6E211AC2576000123867 /* KLUserManagerViewController.xib */; };
+		041E6E251AC2621500123867 /* admin-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 041E6E241AC2621500123867 /* admin-icon.png */; };
 		042846731AA848D70003CA26 /* SWBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042846501AA848D70003CA26 /* SWBaseViewController.m */; };
 		042846741AA848D70003CA26 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042846541AA848D70003CA26 /* FriendsViewController.m */; };
 		042846751AA848D70003CA26 /* FriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042846551AA848D70003CA26 /* FriendsViewController.xib */; };
@@ -353,6 +356,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041E6E1F1AC2576000123867 /* KLUserManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLUserManagerViewController.h; sourceTree = "<group>"; };
+		041E6E201AC2576000123867 /* KLUserManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLUserManagerViewController.m; sourceTree = "<group>"; };
+		041E6E211AC2576000123867 /* KLUserManagerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLUserManagerViewController.xib; sourceTree = "<group>"; };
+		041E6E241AC2621500123867 /* admin-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "admin-icon.png"; sourceTree = "<group>"; };
 		0428464F1AA848D70003CA26 /* SWBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWBaseViewController.h; sourceTree = "<group>"; };
 		042846501AA848D70003CA26 /* SWBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWBaseViewController.m; sourceTree = "<group>"; };
 		042846531AA848D70003CA26 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
@@ -903,6 +910,9 @@
 				042846571AA848D70003CA26 /* MoreViewController.h */,
 				042846581AA848D70003CA26 /* MoreViewController.m */,
 				042846591AA848D70003CA26 /* MoreViewController.xib */,
+				041E6E1F1AC2576000123867 /* KLUserManagerViewController.h */,
+				041E6E201AC2576000123867 /* KLUserManagerViewController.m */,
+				041E6E211AC2576000123867 /* KLUserManagerViewController.xib */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -1169,6 +1179,7 @@
 		04AFB7AC1AC084BC001EB71B /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				041E6E241AC2621500123867 /* admin-icon.png */,
 				04AFB7AD1AC084BC001EB71B /* Add User Filled-Blue.png */,
 				04AFB7AE1AC084BC001EB71B /* Add User Filled-Blue@2x.png */,
 				04AFB7AF1AC084BC001EB71B /* Add User Filled.png */,
@@ -2045,7 +2056,9 @@
 				04AFB85D1AC084BD001EB71B /* Globe-grey.png in Resources */,
 				04AFB88C1AC084BD001EB71B /* Price Tag.png in Resources */,
 				04AFB82E1AC084BD001EB71B /* Add User Filled-Blue@2x.png in Resources */,
+				041E6E231AC2576000123867 /* KLUserManagerViewController.xib in Resources */,
 				04AFB8561AC084BD001EB71B /* Email@2x.png in Resources */,
+				041E6E251AC2621500123867 /* admin-icon.png in Resources */,
 				04AFB8361AC084BD001EB71B /* arrow_refresh_down@2x.png in Resources */,
 				04F2BDC11ABF0F8700749A04 /* loading.gif in Resources */,
 				04AFB86E1AC084BD001EB71B /* LikeOutline@2x.png in Resources */,
@@ -2242,6 +2255,7 @@
 				91B4C5E11955249C008F0686 /* NSMutableArray+Queue.m in Sources */,
 				0428471C1AA849260003CA26 /* SWAwesomeTableViewController.m in Sources */,
 				91B4C5E71955249C008F0686 /* NSUserDefaults+Convenience.m in Sources */,
+				041E6E221AC2576000123867 /* KLUserManagerViewController.m in Sources */,
 				91B4C5E31955249C008F0686 /* NSObject+Extension.m in Sources */,
 				0428471B1AA849260003CA26 /* NSString+FontAwesome.m in Sources */,
 				917AB633197068100012002A /* SWUtil.m in Sources */,

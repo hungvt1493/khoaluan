@@ -38,6 +38,13 @@
         [self setOnline:NO];
     }
     
+    int isAdmin = [[dict objectForKey:kIsAdmin] intValue];
+    if (isAdmin == 0) {
+        _imgAdmin.hidden = YES;
+    } else {
+        _imgAdmin.hidden = NO;
+    }
+    
     int gender = [[[NSUserDefaults standardUserDefaults] objectForKey:kGender] intValue];
     if (gender == 0) {
         _imgGender.image = [UIImage imageNamed:female_blue];
@@ -45,7 +52,7 @@
         _imgGender.image = [UIImage imageNamed:male_blue];
     }
     
-    _lblName.text = [dict objectForKey:kName];
+    _lblName.text = EMPTY_IF_NULL_OR_NIL([dict objectForKey:kName]);
     
     int birthdayInt = [[[NSUserDefaults standardUserDefaults] objectForKey:kBirthDay] intValue];
     
@@ -58,9 +65,13 @@
                                        toDate:now
                                        options:0];
     NSInteger age = [ageComponents year];
-    _lblAge.text = [NSString stringWithFormat:@"%d", (int)age];
+    if (birthday == 0) {
+        _lblAge.text = @"";
+    } else {
+        _lblAge.text = [NSString stringWithFormat:@"%d", (int)age];
+    }
 
-    _lblAboutMe.text = [dict objectForKey:kAboutMe];
+    _lblAboutMe.text = EMPTY_IF_NULL_OR_NIL([dict objectForKey:kAboutMe]);
     
     NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];
     if (imgAvatarPath.length > 0) {

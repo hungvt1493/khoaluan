@@ -57,4 +57,6 @@
  */
 
 + (NSString *)currentDateTime;
+
++ (NSString*)changeToUnsign:(NSString*)text;
 @end

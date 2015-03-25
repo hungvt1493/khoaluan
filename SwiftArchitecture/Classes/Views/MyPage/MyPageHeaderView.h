@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FriendsViewController.h"
 
 typedef enum {
     AddFriend = 0,
@@ -22,7 +23,7 @@ typedef enum {
 - (void)didAcceptOrRejectUser;
 @end
 
-@interface MyPageHeaderView : UITableViewCell
+@interface MyPageHeaderView : UITableViewCell <FriendsViewControllerDelegate>
 @property (nonatomic, weak) id <MyPageHeaderViewDelegate> delegate;
 @property (assign, nonatomic) MyPageType myPageType;
 @property (assign, nonatomic) FriendState friendState;
@@ -40,6 +41,8 @@ typedef enum {
 @property (weak, nonatomic) IBOutlet UIButton *btnUserInfor;
 @property (weak, nonatomic) IBOutlet UIButton *btnReject;
 @property (weak, nonatomic) IBOutlet UIButton *btnAccept;
+
+@property (strong, nonatomic) NSDictionary *userDict;
 
 - (IBAction)btnFriendTapped:(id)sender;
 - (IBAction)btnPostNewsTapped:(id)sender;

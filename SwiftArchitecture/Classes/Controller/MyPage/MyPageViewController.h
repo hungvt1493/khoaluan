@@ -11,4 +11,5 @@
 @interface MyPageViewController : SWBaseViewController
 @property (assign, nonatomic) MyPageType myPageType;
 @property (strong, nonatomic) NSString *userId;
+@property (strong, nonatomic) NSDictionary *userDict;
 @end

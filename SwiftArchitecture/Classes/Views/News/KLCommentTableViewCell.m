@@ -162,7 +162,6 @@
     btnLikeFrame.size.width += 8;
     btnLikeFrame.size.height = 25;
     _btnLike.frame = btnLikeFrame;
-
 }
 
 @end

@@ -15,7 +15,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblAge;
 @property (weak, nonatomic) IBOutlet UILabel *lblAboutMe;
 @property (weak, nonatomic) IBOutlet UIImageView *imgGender;
-
+@property (weak, nonatomic) IBOutlet UIImageView *imgAdmin;
+@property (strong, nonatomic) NSString *userId;
+@property (weak, nonatomic) IBOutlet UIImageView *imgCheck;
 - (void)setOnline:(BOOL)flag;
 - (void)setDateForCell:(NSDictionary*)dict;
 @end

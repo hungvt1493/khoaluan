@@ -47,7 +47,7 @@
     _rateContentView.layer.cornerRadius = 5;
     [_btnShowRateView setImage:[UIImage imageNamed:@"Down Circular"] forState:UIControlStateNormal];
     _isShow = NO;
-    [_ratebgView setFrame:CGRectMake(_ratebgView.frame.origin.x, -_ratebgView.bounds.size.height+26, _ratebgView.bounds.size.width, _ratebgView.bounds.size.height)];
+    [_ratebgView setFrame:CGRectMake(_ratebgView.frame.origin.x, -_ratebgView.bounds.size.height+20, _ratebgView.bounds.size.width, _ratebgView.bounds.size.height)];
     
     _btnLike.layer.borderWidth = 0;
     _btnLike.layer.cornerRadius = 5;
@@ -114,6 +114,14 @@
 - (void)setData:(NSDictionary*)dict {
     _cellData = dict;
     _postType = [[dict objectForKey:@"type"] intValue];
+    
+    int isAdmin = [[dict objectForKey:kIsAdmin] intValue];
+
+    if (isAdmin == 0) {
+        _imgAdmin.hidden = YES;
+    } else {
+        _imgAdmin.hidden = NO;
+    }
     
     self.backgroundColor = [UIColor colorWithHex:@"E3E3E3" alpha:1];
     
@@ -402,6 +410,7 @@
 - (IBAction)btnEditTapped:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(didChooseEditCellAtIndexPath:withData:withType:withImage:withImageName:)]) {
         [self.delegate didChooseEditCellAtIndexPath:_indexPath withData:_cellData withType:_postType withImage:_imgContentArr withImageName:_imgName];
+        [self hiddenView:_toolView];
     }
 }
 
@@ -421,6 +430,7 @@
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(didDeleteCellAtIndexPath:)]) {
             [self.delegate didDeleteCellAtIndexPath:_indexPath];
+            [self hiddenView:_toolView];
             NSLog(@"Delete cell at index %d success - news_id: %d", (int)_indexPath.row, (int)_newsId);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -434,8 +444,10 @@
 - (IBAction)btnShowToolViewTapped:(id)sender {
     if (_toolView.hidden) {
         [self showView:_toolView];
-        _isShow = NO;
-        [self showRateView:NO];
+        if (_isShow) {
+            _isShow = NO;
+            [self showRateView:NO];
+        }
     } else {
         [self hiddenView:_toolView];
     }
@@ -466,7 +478,7 @@
         if (!_toolView.hidden) {
             [self hiddenView:_toolView];
         }
-        [_ratebgView setFrame:CGRectMake(_ratebgView.frame.origin.x, -_ratebgView.bounds.size.height+26, _ratebgView.bounds.size.width, _ratebgView.bounds.size.height)];
+        [_ratebgView setFrame:CGRectMake(_ratebgView.frame.origin.x, -_ratebgView.bounds.size.height+20, _ratebgView.bounds.size.width, _ratebgView.bounds.size.height)];
 
         [UIView animateWithDuration:0.3f
                          animations:^{
@@ -482,7 +494,7 @@
         [UIView animateWithDuration:0.3f
                          animations:^{
                              
-                             [_ratebgView setFrame:CGRectMake(_ratebgView.frame.origin.x, -_ratebgView.bounds.size.height+26, _ratebgView.bounds.size.width, _ratebgView.bounds.size.height)];
+                             [_ratebgView setFrame:CGRectMake(_ratebgView.frame.origin.x, -_ratebgView.bounds.size.height+20, _ratebgView.bounds.size.width, _ratebgView.bounds.size.height)];
                          }
                          completion:^(BOOL finished) {
                              [_btnShowRateView setImage:[UIImage imageNamed:@"Down Circular"] forState:UIControlStateNormal];
@@ -516,7 +528,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSInteger userId = [[NSUserDefaults standardUserDefaults] integerForKey:kUserId];
-    NSDictionary *parameters = @{kNewsId    : [NSNumber numberWithInt:_newsId],
+    NSDictionary *parameters = @{kNewsId    : [NSNumber numberWithInteger:_newsId],
                                  kUserId    : [NSNumber numberWithInteger:userId]};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -554,8 +566,6 @@
                 _btnRateBad.enabled = NO;
                 _btnRateFine.enabled = NO;
                 _btnRateGood.enabled = NO;
-                
-                [self showRateView:_isShow];
             } else {
                 _imgRateChecked.hidden = YES;
                 _btnRateBad.enabled = YES;
@@ -563,6 +573,7 @@
                 _btnRateGood.enabled = YES;
             }
         }
+        [self showRateView:_isShow];
         [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get Rate Error: %@", error);

@@ -22,6 +22,7 @@
 @property (weak, nonatomic) id<KLNewsContentTableViewCellDelegate>delegate;
 
 @property (assign, nonatomic) PostType postType;
+@property (weak, nonatomic) IBOutlet UIImageView *imgAdmin;
 
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;

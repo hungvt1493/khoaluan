@@ -42,10 +42,18 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Male-Blue.png" translatesAutoresizingMaskIntoConstraints="NO" id="6nb-ZM-RIy">
                         <rect key="frame" x="291" y="3" width="25" height="25"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="admin-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="XYe-D8-EeS">
+                        <rect key="frame" x="15" y="65" width="46" height="14"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="check.png" translatesAutoresizingMaskIntoConstraints="NO" id="YNw-tT-gsD">
+                        <rect key="frame" x="291" y="30" width="20" height="20"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="imgAdmin" destination="XYe-D8-EeS" id="9ym-ur-WXE"/>
                 <outlet property="imgAvatar" destination="oKN-is-jA6" id="ZDM-zf-OyT"/>
+                <outlet property="imgCheck" destination="YNw-tT-gsD" id="D7o-6K-oWf"/>
                 <outlet property="imgGender" destination="6nb-ZM-RIy" id="VRw-cj-JaA"/>
                 <outlet property="lblAboutMe" destination="SUR-r4-kSu" id="JLD-zp-9Ds"/>
                 <outlet property="lblAge" destination="1Pu-bq-6WD" id="1FN-Zc-HkF"/>
@@ -58,5 +66,7 @@
     <resources>
         <image name="Male-Blue.png" width="26" height="26"/>
         <image name="User.png" width="24" height="24"/>
+        <image name="admin-icon.png" width="92" height="28"/>
+        <image name="check.png" width="16" height="16"/>
     </resources>
 </document>

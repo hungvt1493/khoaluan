@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FriendsViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KLUserManagerViewController">
             <connections>
-                <outlet property="searchBar" destination="3sl-v1-OzT" id="3V7-Lw-Xgc"/>
-                <outlet property="tbFriend" destination="VdV-5S-Iha" id="kYD-Vl-LC9"/>
+                <outlet property="searchBar" destination="49R-8a-X2A" id="yFp-dY-Iod"/>
+                <outlet property="tbUserManager" destination="R7z-07-X65" id="9rO-A8-b6O"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -17,14 +17,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="VdV-5S-Iha">
-                    <rect key="frame" x="0.0" y="44" width="320" height="460"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </tableView>
-                <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Tìm kiếm" translatesAutoresizingMaskIntoConstraints="NO" id="3sl-v1-OzT">
+                <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Tìm kiếm" translatesAutoresizingMaskIntoConstraints="NO" id="49R-8a-X2A">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="R7z-07-X65">
+                    <rect key="frame" x="0.0" y="42" width="320" height="462"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>

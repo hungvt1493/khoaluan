@@ -15,13 +15,16 @@
 
 #define kKeyChain @"KhoaLuan2015AppLogin"
 
-//#define URL_BASE @"http://localhost/restserver/index.php/api/"
+#define URL_BASE @"http://localhost/restserver/index.php/api/"
 
-//#define URL_IMG_BASE @"http://localhost/restserver/"
+#define URL_IMG_BASE @"http://localhost/restserver/"
 
-#define URL_BASE @"http://khoaluan615105028.esy.es/index.php/api/"
+//#define URL_BASE @"http://khoaluan615105028.esy.es/index.php/api/"
 
-#define URL_IMG_BASE @"http://khoaluan615105028.esy.es/"
+//#define URL_IMG_BASE @"http://khoaluan615105028.esy.es/"
+
+//#define RequireInternet @"YES"
+#define RequireInternet @"NO"
 
 #define kDeviceToken @"DeviceToken"
 
@@ -29,12 +32,15 @@
 #define uLogout @"users/api_logout"
 #define uReg @"users/api_register"
 #define uUpdate @"users/api_updateUser"
+#define uGetUserByUserId @"users/api_getUserInfoByUserId"
 
 #define uGetFriend @"users/api_getFriend"
 #define uAddFriend @"users/api_addFriend"
 #define uFriendState @"users/api_getFriendState"
 #define uAcceptFriend @"users/api_acceptFriend"
 #define uDeleteFriend @"users/api_deleteFriend"
+#define uUpdateIsAdmin @"users/api_updateUserIsAdmin"
+#define uGetAllUser @"users/api_getAllUsersInfo"
 
 #define uUpdateTimelineImage @"users/api_updateTimelineImage"
 #define uUpdatePassword @"users/api_updateUserPassword"

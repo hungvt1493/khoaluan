@@ -32,6 +32,7 @@
 }
 
 - (void)initUI {
+
     _bgView.layer.cornerRadius = 3;
     _bgView.clipsToBounds = YES;
     
@@ -95,6 +96,14 @@
 - (void)setData:(NSDictionary*)dict {
     _cellData = dict;
     _postType = [[dict objectForKey:@"type"] intValue];
+    
+    int isAdmin = [[dict objectForKey:kIsAdmin] intValue];
+    
+    if (isAdmin == 0) {
+        _imgAdmin.hidden = YES;
+    } else {
+        _imgAdmin.hidden = NO;
+    }
     
     self.backgroundColor = [UIColor colorWithHex:@"E3E3E3" alpha:1];
     

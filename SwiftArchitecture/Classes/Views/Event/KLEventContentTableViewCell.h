@@ -20,6 +20,7 @@
 @interface KLEventContentTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *rateContentView;
+@property (weak, nonatomic) IBOutlet UIImageView *imgAdmin;
 @property (weak, nonatomic) id<KLEventContentTableViewCellDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UIView *ratebgView;
 @property (weak, nonatomic) IBOutlet UILabel *lblEventTitle;
