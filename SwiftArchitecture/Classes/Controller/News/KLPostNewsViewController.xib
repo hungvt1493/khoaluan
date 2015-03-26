@@ -86,7 +86,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </scrollView>
                 <view contentMode="scaleToFill" id="eSk-MV-erx">
-                    <rect key="frame" x="58" y="41" width="262" height="67"/>
+                    <rect key="frame" x="58" y="41" width="262" height="106"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RLn-YG-bD6">
@@ -100,7 +100,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Cd8-s3-06p">
-                            <rect key="frame" x="8" y="34" width="262" height="35"/>
+                            <rect key="frame" x="8" y="35" width="262" height="35"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Sự kiện">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -109,18 +109,33 @@
                                 <action selector="btnEventPostTapped:" destination="-1" eventType="touchUpInside" id="MOJ-U6-nBi"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="FLd-WV-5pi">
+                            <rect key="frame" x="8" y="70" width="262" height="35"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Thông báo">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnNotiTapped:" destination="-1" eventType="touchUpInside" id="yNM-uR-Zel"/>
+                            </connections>
+                        </button>
                         <view contentMode="scaleToFill" id="FWr-ah-tNm">
                             <rect key="frame" x="0.0" y="35" width="262" height="1"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="2WO-Up-4fV">
-                            <rect key="frame" x="0.0" y="65" width="262" height="1"/>
+                            <rect key="frame" x="0.0" y="70" width="262" height="1"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="xer-x4-tuh">
+                            <rect key="frame" x="0.0" y="105" width="262" height="1"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="Ztb-1u-Old">
-                            <rect key="frame" x="0.0" y="0.0" width="1" height="66"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1" height="105"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </view>

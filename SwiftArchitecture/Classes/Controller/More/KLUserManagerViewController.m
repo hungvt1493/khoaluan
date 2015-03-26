@@ -159,8 +159,9 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uGetAllUser];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    NSDictionary *parameters = @{kUserId: userId};
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSArray class]]) {
             _userArr = (NSArray*)responseObject;
         }

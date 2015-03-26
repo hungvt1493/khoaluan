@@ -104,7 +104,7 @@
         _checkNewsPost++;
         _limit = (int)_fullNewsArr.count;
         [_fullNewsArr removeAllObjects];
-        [self initData];
+        [self getNewsHaveMaxFollow];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kDidPostNews];
     } else {
         if (_count > 0) {
@@ -112,7 +112,7 @@
             _limit = 10;
             _oldOffset = 0;
             [_fullNewsArr removeAllObjects];
-            [self initData];
+            [self getNewsHaveMaxFollow];
         }
     }
 }
@@ -132,7 +132,58 @@
     _endOfRespond = YES;
     _checkNewsPost++;
     _isRefresh = YES;
-    [self initData];
+    [self getNewsHaveMaxFollow];
+}
+
+- (void)getNewsHaveMaxFollow {
+    [[SWUtil sharedUtil] showLoadingView];
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNewsWithMaxFollow];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (_isRefresh) {
+            [_fullNewsArr removeAllObjects];
+            _isRefresh = NO;
+        }
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dict = (NSDictionary*)responseObject;
+            if (![_fullNewsArr containsObject:dict]) {
+                [_fullNewsArr addObject:dict];
+            }
+        }
+        [self getNewsHaveMaxGoodRate];
+        [[SWUtil sharedUtil] hideLoadingView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
+}
+
+- (void)getNewsHaveMaxGoodRate {
+    [[SWUtil sharedUtil] showLoadingView];
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNewsWithMaxGoodRate];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dict = (NSDictionary*)responseObject;
+            if (![_fullNewsArr containsObject:dict]) {
+                [_fullNewsArr addObject:dict];
+            }
+        }
+        [self initData];
+        [[SWUtil sharedUtil] hideLoadingView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
 }
 
 - (void)initData {
@@ -148,11 +199,6 @@
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject isKindOfClass:[NSArray class]]) {
-            
-            if (_isRefresh) {
-                [_fullNewsArr removeAllObjects];
-                _isRefresh = NO;
-            }
             
             if (_fullNewsArr.count == 0) {
                 _limit = 5;
@@ -242,7 +288,7 @@
         // This is the last cell
         if (!_endOfRespond) {
             [[SWUtil sharedUtil] showLoadingView];
-            [self initData];
+            [self getNewsHaveMaxFollow];
             _newsTableView.frame = CGRectMake(0, 0, _newsTableView.bounds.size.width, SCREEN_HEIGHT_PORTRAIT - HEIGHT_TABBAR - HEIGHT_STATUSBAR);
         }
     }

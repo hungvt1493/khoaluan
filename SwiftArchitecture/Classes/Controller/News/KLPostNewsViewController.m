@@ -287,10 +287,6 @@
     [[SWUtil sharedUtil] showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nPostNews];
     
-    //AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{@"content"             : NULL_IF_NIL(_tvContent.text),
                                  @"user_id"             : userId,
@@ -325,6 +321,17 @@
 
 - (void)btnEditNewsTapped {
     if (_postType == event) {
+        if (_tfEventTitle.text.length == 0) {
+            [SWUtil showConfirmAlertWithMessage:Post_Event_No_Title_Error delegate:nil];
+            return;
+        }
+        if (_lblTime.text.length == 0) {
+            [SWUtil showConfirmAlertWithMessage:Post_Event_No_Time_Error delegate:nil];
+            return;
+        }
+    }
+    
+    if (_postType == notifi) {
         if (_tfEventTitle.text.length == 0) {
             [SWUtil showConfirmAlertWithMessage:Post_Event_No_Title_Error delegate:nil];
             return;
@@ -459,6 +466,7 @@
 - (IBAction)btnEventPostTapped:(id)sender {
     _postType = event;
     self.title = Create_Event_Title;
+    _tfEventTitle.placeholder = @"Tên sự kiện";
     UIButton *button = (UIButton*)sender;
     self.lblPostType.text = button.titleLabel.text;
     
@@ -473,6 +481,27 @@
                          _viewChoosePostType.hidden = YES;
                      }];
     [self setType:_postType];
+}
+
+- (IBAction)btnNotiTapped:(id)sender {
+    _postType = notifi;
+    self.title = Create_Noti_Title;
+    _tfEventTitle.placeholder = @"Thông báo";
+    UIButton *button = (UIButton*)sender;
+    self.lblPostType.text = button.titleLabel.text;
+    
+    [_viewChoosePostType setFrame:CGRectMake(_viewChoosePostType.frame.origin.x, 41, _viewChoosePostType.frame.size.width, _viewChoosePostType.frame.size.height)];
+    
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         
+                         [_viewChoosePostType setFrame:CGRectMake(_viewChoosePostType.frame.origin.x, 41 - _viewChoosePostType.frame.size.height, _viewChoosePostType.frame.size.width, _viewChoosePostType.frame.size.height)];
+                     }
+                     completion:^(BOOL finished) {
+                         _viewChoosePostType.hidden = YES;
+                     }];
+    [self setType:_postType];
+
 }
 
 - (IBAction)btnChoosePostTypeTapped:(id)sender {
@@ -513,6 +542,14 @@
         }
             break;
         case event:
+        {
+            _viewEventOption.hidden = NO;
+            CGRect tvFrame = _tvContent.frame;
+            tvFrame.origin.y = _viewEventOption.frame.origin.y + _viewEventOption.frame.size.height + 2;
+            _tvContent.frame = tvFrame;
+        }
+            break;
+        case notifi:
         {
             _viewEventOption.hidden = NO;
             CGRect tvFrame = _tvContent.frame;

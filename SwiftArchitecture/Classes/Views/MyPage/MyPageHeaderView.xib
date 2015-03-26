@@ -69,23 +69,6 @@
                                 <action selector="btnShowInfoTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="aSZ-bw-7fx"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8fH-Xg-bZr">
-                            <rect key="frame" x="80" y="0.0" width="80" height="36"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="Screenshot.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ztd-JA-t0K">
-                            <rect key="frame" x="160" y="0.0" width="80" height="36"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" image="Add User Filled.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="btnAddFriendTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="OZY-8W-mAo"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PbY-Ix-1cJ">
                             <rect key="frame" x="240" y="0.0" width="80" height="36"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
@@ -94,6 +77,16 @@
                             </state>
                             <connections>
                                 <action selector="btnFriendTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="7ar-4N-PC1"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ztd-JA-t0K">
+                            <rect key="frame" x="125" y="0.0" width="80" height="36"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" image="Add User Filled.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnAddFriendTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="OZY-8W-mAo"/>
                             </connections>
                         </button>
                     </subviews>
@@ -153,7 +146,6 @@
                 <outlet property="btnAccept" destination="mE0-ND-rkU" id="VUz-2V-Beo"/>
                 <outlet property="btnAddFriend" destination="Ztd-JA-t0K" id="fn4-wZ-h7C"/>
                 <outlet property="btnBack" destination="BRu-dz-MhE" id="xq1-Vy-9bz"/>
-                <outlet property="btnImage" destination="8fH-Xg-bZr" id="R0C-lg-6Mw"/>
                 <outlet property="btnReject" destination="hHK-54-kTP" id="lfT-Hq-d1p"/>
                 <outlet property="btnUserInfor" destination="BGc-rK-5NN" id="Tol-QL-EQT"/>
                 <outlet property="btnWriteNewPost" destination="xd5-R7-382" id="9UB-nN-4Tx"/>
@@ -174,7 +166,6 @@
         <image name="Male.png" width="18" height="18"/>
         <image name="Pencil.png" width="24" height="24"/>
         <image name="Remove User Filled.png" width="25" height="25"/>
-        <image name="Screenshot.png" width="26" height="26"/>
         <image name="Undo.png" width="26" height="26"/>
         <image name="User.png" width="24" height="24"/>
         <image name="images.jpeg" width="284" height="177"/>

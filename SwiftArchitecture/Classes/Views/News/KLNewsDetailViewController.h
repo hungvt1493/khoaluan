@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *imgScrollView;
 @property (weak, nonatomic) IBOutlet UIButton *btnLike;
 @property (weak, nonatomic) IBOutlet UIButton *btnMessage;
-@property (weak, nonatomic) IBOutlet UIButton *btnShowMore;
+@property (weak, nonatomic) IBOutlet UIButton *btnFollow;
 @property (weak, nonatomic) IBOutlet UIView *newsContentView;
 @property (weak, nonatomic) IBOutlet UILabel *lblContent;
 @property (assign, nonatomic) NSInteger newsId;
@@ -45,6 +45,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblRateBad;
 @property (weak, nonatomic) IBOutlet UILabel *lblRateFine;
 @property (weak, nonatomic) IBOutlet UILabel *lblRateGood;
+@property (weak, nonatomic) IBOutlet UILabel *lblNumberOfFollowers;
+@property (assign, nonatomic) NSInteger numberOfFollowInNews;
 
 - (IBAction)btnLikeTapped:(id)sender;
 - (void)haveImage:(BOOL)flag;
@@ -56,4 +58,5 @@
 - (IBAction)btnRateBadTapped:(id)sender;
 - (IBAction)btnRateFineTapped:(id)sender;
 - (IBAction)btnRateGoodTapped:(id)sender;
+- (IBAction)btnFollowTapped:(id)sender;
 @end

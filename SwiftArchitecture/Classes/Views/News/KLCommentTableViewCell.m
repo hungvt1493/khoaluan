@@ -43,6 +43,24 @@
                                      @"comment_id": [NSNumber numberWithInteger:_commentId]};
         
         [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            if (![userId isEqualToString:_commentUserId]) {
+                NSArray *contentArr = [_lblContent.text componentsSeparatedByString:@" "];
+                NSMutableArray *shortContentArr = [[NSMutableArray alloc] initWithCapacity:10];
+                int count = 10;
+                if (contentArr.count < count) {
+                    count = (int)contentArr.count;
+                }
+                for (int i = 0; i < count; i++) {
+                    [shortContentArr addObject:[contentArr objectAtIndex:i]];
+                }
+                
+                NSString *shortContent = @" đã thích bình luận: ";
+                NSString *str = [shortContentArr componentsJoinedByString:@" "];
+                shortContent = [shortContent stringByAppendingString:str];
+                [SWUtil postNotification:shortContent forUser:_commentUserId type:0];
+            }
+            
             NSLog(@"like sucess - user: %@ - like _commentId: %d", userId, (int)_commentId);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
@@ -72,7 +90,6 @@
             NSString *likesNumber = [NSString stringWithFormat:@" %d",(int)self.numberOfLikeInNews];
             [_btnLike setTitle:likesNumber forState:UIControlStateNormal];
         }
-        
     }
 }
 
@@ -85,6 +102,8 @@
 }
 
 - (void)setContentUIByString:(NSDictionary*)dict {
+    _commentUserId = [dict objectForKey:kUserId];
+    
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     _commentId = [[dict objectForKey:@"comment_id"] integerValue];
     
@@ -125,7 +144,7 @@
     NSString *ago = [date timeAgo];
     _lblTime.text = ago;
     
-    NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];
+    NSString *imgAvatarPath = EMPTY_IF_NULL_OR_NIL([dict objectForKey:kAvatar]);
     if (imgAvatarPath.length > 0) {
         NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgAvatarPath];
         [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]

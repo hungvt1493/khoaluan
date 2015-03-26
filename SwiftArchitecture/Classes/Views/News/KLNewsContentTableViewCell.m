@@ -94,6 +94,9 @@
 }
 
 - (void)setData:(NSDictionary*)dict {
+    
+    _newsUserId = [dict objectForKey:kUserId];
+    
     _cellData = dict;
     _postType = [[dict objectForKey:@"type"] intValue];
     
@@ -299,6 +302,24 @@
                                      @"news_id": [NSNumber numberWithInteger:_newsId]};
         
         [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            if (![userId isEqualToString:_newsUserId]) {
+                NSArray *contentArr = [_lblContent.text componentsSeparatedByString:@" "];
+                NSMutableArray *shortContentArr = [[NSMutableArray alloc] initWithCapacity:10];
+                int count = 10;
+                if (contentArr.count < count) {
+                    count = (int)contentArr.count;
+                }
+                for (int i = 0; i < count; i++) {
+                    [shortContentArr addObject:[contentArr objectAtIndex:i]];
+                }
+                
+                NSString *shortContent = @" đã thích bài viết: ";
+                NSString *str = [shortContentArr componentsJoinedByString:@" "];
+                shortContent = [shortContent stringByAppendingString:str];
+                [SWUtil postNotification:shortContent forUser:_newsUserId type:0];
+            }
+            
             NSLog(@"like sucess - user: %@ - like news_id: %d", userId, (int)_newsId);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);

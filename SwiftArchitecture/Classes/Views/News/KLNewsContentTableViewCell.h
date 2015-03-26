@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIView *newsContentView;
 @property (weak, nonatomic) IBOutlet UILabel *lblContent;
 @property (assign, nonatomic) NSInteger newsId;
+@property (strong, nonatomic) NSString *newsUserId;
 @property (assign, nonatomic) NSInteger numberOfLikeInNews;
 @property (assign, nonatomic) NSInteger numberOfCommentInNews;
 @property (weak, nonatomic) IBOutlet UIButton *btnShowTool;

@@ -59,4 +59,6 @@
 + (NSString *)currentDateTime;
 
 + (NSString*)changeToUnsign:(NSString*)text;
+
++ (void)postNotification:(NSString*)content forUser:(NSString*)userReceive type:(int)type;
 @end

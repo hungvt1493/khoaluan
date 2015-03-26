@@ -273,6 +273,9 @@
                 NSDictionary *userDict = (NSDictionary*)responseObject;
                 [self configureAddFriendButton:1];
                 
+                NSString *content = @" đã gửi lời mời kết bạn";
+                [SWUtil postNotification:content forUser:_fUserId type:1];
+
                 NSLog(@"Reg JSON: %@", userDict);
                 [[SWUtil sharedUtil] hideLoadingView];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -297,6 +300,8 @@
             [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSDictionary *userDict = (NSDictionary*)responseObject;
                 [self configureAddFriendButton:0];
+                NSString *content = @" đã từ chối lời mời kết bạn";
+                [SWUtil postNotification:content forUser:_fUserId type:0];
                 NSLog(@"Reg JSON: %@", userDict);
                 [[SWUtil sharedUtil] hideLoadingView];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -334,6 +339,9 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(didAcceptOrRejectUser)]) {
             [self.delegate didAcceptOrRejectUser];
         }
+        NSString *content = @" đã chấp nhận lời mời kết bạn";
+        [SWUtil postNotification:content forUser:_fUserId type:0];
+        
         NSLog(@"Reg JSON: %@", userDict);
         [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

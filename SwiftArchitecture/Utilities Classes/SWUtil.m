@@ -211,5 +211,24 @@
     return text;
 }
 
++ (void)postNotification:(NSString*)content forUser:(NSString*)userReceive type:(int)type {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *notiurl = [NSString stringWithFormat:@"%@%@", URL_BASE, notiSendNotification];
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:kName];
+    name = [name stringByAppendingString:content];
 
+    NSDictionary *notiparameters = @{@"content"             : name,
+                                     @"user_send_id"        : userId,
+                                     @"user_receive_id"     : userReceive,
+                                     @"type"                : [NSNumber numberWithInt:type]};
+    
+    [manager POST:notiurl parameters:notiparameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
 @end
