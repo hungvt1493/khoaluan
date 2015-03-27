@@ -20,6 +20,7 @@
 @interface KLEventContentTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIView *rateContentView;
+@property (weak, nonatomic) IBOutlet UIImageView *imgAdmin;
 @property (weak, nonatomic) id<KLEventContentTableViewCellDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UIView *ratebgView;
 @property (weak, nonatomic) IBOutlet UILabel *lblEventTitle;
@@ -36,8 +37,10 @@
 @property (weak, nonatomic) IBOutlet UIView *newsContentView;
 @property (weak, nonatomic) IBOutlet UILabel *lblContent;
 @property (assign, nonatomic) NSInteger newsId;
+@property (strong, nonatomic) NSString *newsUserId;
 @property (assign, nonatomic) NSInteger numberOfLikeInNews;
 @property (assign, nonatomic) NSInteger numberOfCommentInNews;
+@property (assign, nonatomic) NSInteger numberOfFollowInNews;
 @property (weak, nonatomic) IBOutlet UIButton *btnShowTool;
 @property (weak, nonatomic) IBOutlet UIView *toolView;
 @property (strong, nonatomic) NSIndexPath *indexPath;
@@ -49,6 +52,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnRateBad;
 @property (weak, nonatomic) IBOutlet UIButton *btnRateGood;
 @property (weak, nonatomic) IBOutlet UIImageView *imgRateChecked;
+@property (weak, nonatomic) IBOutlet UILabel *lblNumberOfFollowers;
 
 - (void)setData:(NSDictionary*)dict;
 - (IBAction)btnLikeTapped:(id)sender;

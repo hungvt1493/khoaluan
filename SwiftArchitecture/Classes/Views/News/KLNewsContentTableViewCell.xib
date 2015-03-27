@@ -155,6 +155,10 @@
                             </subviews>
                             <color key="backgroundColor" red="0.97723327019999995" green="0.97723327019999995" blue="0.97723327019999995" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="admin-icon.png" id="y8f-9f-6WE">
+                            <rect key="frame" x="4" y="44" width="46" height="14"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -168,6 +172,7 @@
                 <outlet property="btnMessage" destination="Tez-qy-huW" id="Yur-6H-yz6"/>
                 <outlet property="btnShowMore" destination="thS-zc-4NW" id="6ou-6A-Zy9"/>
                 <outlet property="btnShowTool" destination="GCT-91-hdX" id="gmm-av-dYj"/>
+                <outlet property="imgAdmin" destination="y8f-9f-6WE" id="70T-gv-CgI"/>
                 <outlet property="imgAvatar" destination="8ns-3N-5ou" id="KVL-gB-pAp"/>
                 <outlet property="lblContent" destination="5cV-po-0Ma" id="e7I-t1-gka"/>
                 <outlet property="lblName" destination="eH4-91-dlg" id="Ihj-gI-72w"/>
@@ -186,6 +191,7 @@
         <image name="More-black.png" width="26" height="26"/>
         <image name="SpeechBubble.png" width="25" height="25"/>
         <image name="User.png" width="24" height="24"/>
+        <image name="admin-icon.png" width="92" height="28"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

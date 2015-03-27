@@ -28,12 +28,14 @@
     BOOL _endOfRespond;
     int _checkNewsPost;
     int _count;
+    BOOL _isRefresh;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    _isRefresh = NO;
     _oldOffset = 0;
     _limit = 5;
     _fullNewsArr = [[NSMutableArray alloc] initWithCapacity:10];
@@ -73,6 +75,7 @@
          //...Do Something.
      }];
 
+    _newsTableView.frame = CGRectMake(0, 0, _newsTableView.bounds.size.width, SCREEN_HEIGHT_PORTRAIT - HEIGHT_NAVBAR - HEIGHT_TABBAR - HEIGHT_STATUSBAR);
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
@@ -101,7 +104,7 @@
         _checkNewsPost++;
         _limit = (int)_fullNewsArr.count;
         [_fullNewsArr removeAllObjects];
-        [self initData];
+        [self getNewsHaveMaxFollow];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kDidPostNews];
     } else {
         if (_count > 0) {
@@ -109,7 +112,7 @@
             _limit = 10;
             _oldOffset = 0;
             [_fullNewsArr removeAllObjects];
-            [self initData];
+            [self getNewsHaveMaxFollow];
         }
     }
 }
@@ -126,9 +129,61 @@
     [self.pull setState:PullToRefreshViewStateLoading];
     _oldOffset = 0;
     _limit = 5;
-    [_fullNewsArr removeAllObjects];
+    _endOfRespond = YES;
     _checkNewsPost++;
-    [self initData];
+    _isRefresh = YES;
+    [self getNewsHaveMaxFollow];
+}
+
+- (void)getNewsHaveMaxFollow {
+    [[SWUtil sharedUtil] showLoadingView];
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNewsWithMaxFollow];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (_isRefresh) {
+            [_fullNewsArr removeAllObjects];
+            _isRefresh = NO;
+        }
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dict = (NSDictionary*)responseObject;
+            if (![_fullNewsArr containsObject:dict]) {
+                [_fullNewsArr addObject:dict];
+            }
+        }
+        [self getNewsHaveMaxGoodRate];
+        [[SWUtil sharedUtil] hideLoadingView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
+}
+
+- (void)getNewsHaveMaxGoodRate {
+    [[SWUtil sharedUtil] showLoadingView];
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNewsWithMaxGoodRate];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dict = (NSDictionary*)responseObject;
+            if (![_fullNewsArr containsObject:dict]) {
+                [_fullNewsArr addObject:dict];
+            }
+        }
+        [self initData];
+        [[SWUtil sharedUtil] hideLoadingView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
 }
 
 - (void)initData {
@@ -211,7 +266,6 @@
         return cell;
     }
 
-    
     NSString *cellIdentifier = [NSString stringWithFormat:@"KLEventContentTableViewCell-%d-%ld", _checkNewsPost, (long)indexPath.row];
     KLEventContentTableViewCell *cell = (KLEventContentTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
@@ -234,7 +288,8 @@
         // This is the last cell
         if (!_endOfRespond) {
             [[SWUtil sharedUtil] showLoadingView];
-            [self initData];
+            [self getNewsHaveMaxFollow];
+            _newsTableView.frame = CGRectMake(0, 0, _newsTableView.bounds.size.width, SCREEN_HEIGHT_PORTRAIT - HEIGHT_TABBAR - HEIGHT_STATUSBAR);
         }
     }
 }
@@ -274,11 +329,11 @@
                           lineBreakMode:NSLineBreakByWordWrapping];
     height = size.height < 30 ? 30 : 77;
     
-    CGSize eventTitleSize = [str sizeWithFont:[UIFont systemFontOfSize:14]
+    CGSize eventTitleSize = [eventTitle sizeWithFont:[UIFont systemFontOfSize:14]
                   constrainedToSize:textSize
                       lineBreakMode:NSLineBreakByWordWrapping];
 
-    CGSize eventTimeSize = [str sizeWithFont:[UIFont systemFontOfSize:14]
+    CGSize eventTimeSize = [eventTime sizeWithFont:[UIFont systemFontOfSize:14]
                             constrainedToSize:textSize
                                 lineBreakMode:NSLineBreakByWordWrapping];
     
@@ -299,6 +354,7 @@
 
 - (void)didChooseEditCellAtIndexPath:(NSIndexPath *)indexPath withData:(NSDictionary *)dict withType:(PostType)type withImage:(NSArray *)imageArr withImageName:(NSArray *)imageNameArr {
     KLPostNewsViewController *postNewsVC = [[KLPostNewsViewController alloc] init];
+    [postNewsVC removeNavigationBarAnimation];
     postNewsVC.pageType = edit;
     PostType postType = type;
     postNewsVC.postType = postType;
@@ -328,17 +384,37 @@
     KLNewsDetailViewController *detailVC = [[KLNewsDetailViewController alloc] init];
     detailVC.newsId = newsId;
     detailVC.postType = type;
+    detailVC.title = [[_fullNewsArr objectAtIndex:indexPath.row] objectForKey:@"news_event_title"];
     [self.navigationController pushViewController:detailVC animated:YES];
     [detailVC removeNavigationBarAnimation];
 }
 
 - (void)pushToUserPageViewControllerUserDelegateForCellAtIndexPath:(NSIndexPath*)indexPath {
-    NSString *newsUserId = [[_fullNewsArr objectAtIndex:indexPath.row] objectForKey:@"user_id"];
-    MyPageViewController *userPageVC = [[MyPageViewController alloc] init];
-    userPageVC.myPageType = UserPage;
-    userPageVC.userId = newsUserId;
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kHideBackButtonInUserPage];
-    [self.navigationController pushViewController:userPageVC animated:YES];
+    NSString *newsUserId = [[_fullNewsArr objectAtIndex:indexPath.row] objectForKey:kUserId];
+    
+    [[SWUtil sharedUtil] showLoadingView];
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uGetUserByUserId];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    
+    NSDictionary *parameters = @{kUserId: newsUserId};
+    
+    [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        MyPageViewController *userPageVC = [[MyPageViewController alloc] init];
+        userPageVC.myPageType = UserPage;
+        userPageVC.userId = newsUserId;
+        userPageVC.userDict = (NSDictionary*)responseObject;
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kHideBackButtonInUserPage];
+        [self.navigationController pushViewController:userPageVC animated:YES];
+        
+        [[SWUtil sharedUtil] hideLoadingView];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        [[SWUtil sharedUtil] hideLoadingView];
+    }];
 }
 
 - (void)didChooseImage:(NSArray *)imagesArr AtIndex:(NSInteger)index {

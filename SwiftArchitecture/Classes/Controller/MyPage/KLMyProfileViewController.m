@@ -134,7 +134,11 @@
                                        toDate:now
                                        options:0];
     NSInteger age = [ageComponents year];
-    _lblAge.text = [NSString stringWithFormat:@"%d", (int)age];
+    if (birthday == 0) {
+        _lblAge.text = @"";
+    } else {
+        _lblAge.text = [NSString stringWithFormat:@"%d", (int)age];
+    }
     
     NSString *aboutMe = [[NSUserDefaults standardUserDefaults] objectForKey:kAboutMe];
     _tvAboutMe.text = aboutMe;

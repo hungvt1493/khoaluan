@@ -15,13 +15,16 @@
 
 #define kKeyChain @"KhoaLuan2015AppLogin"
 
-//#define URL_BASE @"http://localhost/restserver/index.php/api/"
+#define URL_BASE @"http://localhost/restserver/index.php/api/"
 
-//#define URL_IMG_BASE @"http://localhost/restserver/"
+#define URL_IMG_BASE @"http://localhost/restserver/"
 
-#define URL_BASE @"http://khoaluan615105028.esy.es/index.php/api/"
+//#define URL_BASE @"http://khoaluan615105028.esy.es/index.php/api/"
 
-#define URL_IMG_BASE @"http://khoaluan615105028.esy.es/"
+//#define URL_IMG_BASE @"http://khoaluan615105028.esy.es/"
+
+//#define RequireInternet @"YES"
+#define RequireInternet @"NO"
 
 #define kDeviceToken @"DeviceToken"
 
@@ -29,12 +32,15 @@
 #define uLogout @"users/api_logout"
 #define uReg @"users/api_register"
 #define uUpdate @"users/api_updateUser"
+#define uGetUserByUserId @"users/api_getUserInfoByUserId"
 
 #define uGetFriend @"users/api_getFriend"
 #define uAddFriend @"users/api_addFriend"
 #define uFriendState @"users/api_getFriendState"
 #define uAcceptFriend @"users/api_acceptFriend"
 #define uDeleteFriend @"users/api_deleteFriend"
+#define uUpdateIsAdmin @"users/api_updateUserIsAdmin"
+#define uGetAllUser @"users/api_getAllUsersInfo"
 
 #define uUpdateTimelineImage @"users/api_updateTimelineImage"
 #define uUpdatePassword @"users/api_updateUserPassword"
@@ -42,6 +48,8 @@
 #define nGetNews @"news/api_getNewsWithOffset"
 #define nGetNewsWithUserId @"news/api_getNewsByUserIdWithOffset"
 #define nGetNewsWithNewsId @"news/api_getNewsWithNewsId"
+#define nGetNewsWithMaxGoodRate @"news/api_getNewsWithMaxGoodRate"
+#define nGetNewsWithMaxFollow @"news/api_getNewsWithMaxFollow"
 
 #define nLikeNews @"news/api_insertLikeNews"
 #define nLikeComment @"news/api_insertLikeComment"
@@ -53,6 +61,8 @@
 #define nCountCommentInNews @"news/api_getNumberOfComments"
 #define nInsertRate @"news/api_insertRate"
 #define nGetRate @"news/api_getEventRate"
+#define nInsertFollow @"news/api_insertFollowNews"
+#define nDeleteFollow @"news/api_deleteFollowNews"
 
 #define cmGetComment @"comments/api_getComments"
 #define cmAddComment @"comments/api_insertComment"
@@ -60,6 +70,11 @@
 #define cmDeleteComment @"comments/api_deleteComment"
 #define cmLikeComment @"comments/api_insertLike"
 #define cmDeleteLikeComment @"comments/api_deleteLike"
+
+#define notiGetNotification @"users/api_getNotification"
+#define notiSendNotification @"users/api_sendNotification"
+#define notiReadNotification @"users/api_readNotification"
+
 //Key
 #define kCode @"code"
 #define kMessage @"message"
@@ -100,7 +115,8 @@ typedef enum {
 
 typedef enum {
     status = 0,
-    event
+    event,
+    notifi
 }PostType;
 
 typedef enum {
@@ -135,6 +151,7 @@ typedef enum {
 #define Change_Password_Title @"Đổi mật khẩu"
 #define Update_Status_Title @"Cập nhật trạng thái"
 #define Create_Event_Title @"Tạo sự kiện"
+#define Create_Noti_Title @"Tạo thông báo"
 #define The_Last_Cell_Have_No_Data_Title @"Không có bài viết"
 #define The_Last_Cell_Have_Data_Title @"Đang tải"
 #define Post_News_Title @"Đăng"
@@ -152,6 +169,8 @@ typedef enum {
 #define Re_Password_Message @"Mật khẩu và Nhắc lại mật khẩu cần giống nhau"
 #define Post_Event_No_Title_Error @"Bạn chưa nhập tên sự kiện"
 #define Post_Event_No_Time_Error @"Bạn chưa chọn thời gian cho sự kiện"
+#define Post_Noti_No_Title_Error @"Bạn chưa nhập tên thông báo"
+#define Post_Noti_No_Time_Error @"Bạn chưa chọn thời gian diễn ra thông báo"
 #define Post_Status_No_Content_Error @"Bạn chưa nhập trạng thái"
 #define Post_Status_Are_You_Sure_Warning_Title @"Bạn chưa đăng trạng thái"
 #define Post_Status_Are_You_Sure_Warning_Message @"Bạn có chắc không?"

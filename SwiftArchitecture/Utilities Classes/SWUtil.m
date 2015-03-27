@@ -164,4 +164,71 @@
     return dateTimeString;
 }
 
++ (NSString*)changeToUnsign:(NSString*)text {
+    text = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *aStr = @"à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ";
+    NSArray *aStrArray = [aStr componentsSeparatedByString:@"|"];
+    for (int i = 0; i < aStrArray.count; i++) {
+        text = [text stringByReplacingOccurrencesOfString:[aStrArray objectAtIndex:i] withString:@"a"];
+    }
+    
+    NSString *eStr = @"è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ";
+    NSArray *eStrArray = [eStr componentsSeparatedByString:@"|"];
+    for (int i = 0; i < eStrArray.count; i++) {
+        text = [text stringByReplacingOccurrencesOfString:[eStrArray objectAtIndex:i] withString:@"e"];
+    }
+    
+    NSString *iStr = @"ì|í|ị|ỉ|ĩ";
+    NSArray *iStrArray = [iStr componentsSeparatedByString:@"|"];
+    for (int i = 0; i < iStrArray.count; i++) {
+        text = [text stringByReplacingOccurrencesOfString:[iStrArray objectAtIndex:i] withString:@"i"];
+    }
+    
+    NSString *oStr = @"ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ";
+    NSArray *oStrArray = [oStr componentsSeparatedByString:@"|"];
+    for (int i = 0; i < oStrArray.count; i++) {
+        text = [text stringByReplacingOccurrencesOfString:[oStrArray objectAtIndex:i] withString:@"o"];
+    }
+    
+    NSString *uStr = @"ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ";
+    NSArray *uStrArray = [uStr componentsSeparatedByString:@"|"];
+    for (int i = 0; i < uStrArray.count; i++) {
+        text = [text stringByReplacingOccurrencesOfString:[uStrArray objectAtIndex:i] withString:@"u"];
+    }
+    
+    NSString *yStr = @"ỳ|ý|ỵ|ỷ|ỹ";
+    NSArray *yStrArray = [yStr componentsSeparatedByString:@"|"];
+    for (int i = 0; i < yStrArray.count; i++) {
+        text = [text stringByReplacingOccurrencesOfString:[yStrArray objectAtIndex:i] withString:@"y"];
+    }
+    
+    NSString *dStr = @"đ";
+    NSArray *dStrArray = [dStr componentsSeparatedByString:@"|"];
+    for (int i = 0; i < dStrArray.count; i++) {
+        text = [text stringByReplacingOccurrencesOfString:[dStrArray objectAtIndex:i] withString:@"d"];
+    }
+    
+    return text;
+}
+
++ (void)postNotification:(NSString*)content forUser:(NSString*)userReceive type:(int)type {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *notiurl = [NSString stringWithFormat:@"%@%@", URL_BASE, notiSendNotification];
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    NSString *name = [[NSUserDefaults standardUserDefaults] objectForKey:kName];
+    name = [name stringByAppendingString:content];
+
+    NSDictionary *notiparameters = @{@"content"             : name,
+                                     @"user_send_id"        : userId,
+                                     @"user_receive_id"     : userReceive,
+                                     @"type"                : [NSNumber numberWithInt:type]};
+    
+    [manager POST:notiurl parameters:notiparameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
 @end

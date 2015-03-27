@@ -15,6 +15,7 @@ NSMutableArray *_imgContentArr;
 NSMutableArray *_imgArr;
 
 @interface KLNewsDetailViewController () <UITableViewDataSource, UITableViewDelegate, IBActionSheetDelegate, KRImageViewerDelegate>
+@property (weak, nonatomic) IBOutlet UIImageView *imgAdmin;
 @property (nonatomic, strong) KRImageViewer *krImageViewer;
 @end
 
@@ -31,6 +32,8 @@ NSMutableArray *_imgArr;
     int _bad;
     int _fine;
     int _good;
+    BOOL _didFollow;
+    NSString *_newsUserId;
 }
 
 - (void)viewDidLoad {
@@ -41,6 +44,7 @@ NSMutableArray *_imgArr;
     _imgContentArr = [[NSMutableArray alloc] initWithCapacity:10];
     [self setBackButtonWithImage:back_bar_button highlightedImage:nil target:self action:@selector(backButtonTapped:)];
     _willEdit = NO;
+    _didFollow = NO;
     _toolView.hidden = YES;
     self.krImageViewer = [[KRImageViewer alloc] initWithDragMode:krImageViewerModeOfBoth];
     self.krImageViewer.delegate                    = self;
@@ -67,6 +71,10 @@ NSMutableArray *_imgArr;
          //Current Scrolling Page.
          //...Do Something.
      }];
+    
+    if (_postType == status) {
+        _ratebgView.hidden = YES;
+    }
 }
 
 - (void)backButtonTapped:(id)sender{
@@ -120,6 +128,7 @@ NSMutableArray *_imgArr;
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dict = (NSDictionary*)responseObject;
             _dict = dict;
+            _newsUserId = [dict objectForKey:kUserId];
             [self initDataForContentView];
             [self getComment];
         }
@@ -130,7 +139,6 @@ NSMutableArray *_imgArr;
         [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
         [[SWUtil sharedUtil] hideLoadingView];
     }];
-
 }
 
 - (void)getComment {
@@ -218,9 +226,9 @@ NSMutableArray *_imgArr;
     _btnMessage.layer.borderWidth = 1;
     _btnMessage.layer.borderColor = [UIColor blackColor].CGColor;
     
-    _btnShowMore.layer.cornerRadius = 5;
-    _btnShowMore.layer.borderWidth = 1;
-    _btnShowMore.layer.borderColor = [UIColor blackColor].CGColor;
+    _btnFollow.layer.cornerRadius = 5;
+    _btnFollow.layer.borderWidth = 1;
+    _btnFollow.layer.borderColor = [UIColor blackColor].CGColor;
     
     _toolView.layer.cornerRadius = 5;
     _toolView.clipsToBounds = YES;
@@ -230,10 +238,33 @@ NSMutableArray *_imgArr;
 }
 
 - (void)initDataForContentView {
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    NSString *newsUserId = [_dict objectForKey:@"user_id"];
     
-    if (_postType == event) {
+    int isAdmin = [[_dict objectForKey:kIsAdmin] intValue];
+    if (isAdmin == 0) {
+        _imgAdmin.hidden = YES;
+    } else {
+        _imgAdmin.hidden = NO;
+    }
+    
+    int type = [[_dict objectForKey:@"type"] intValue];
+    if (type == 2) {
+        _ratebgView.hidden = YES;
+    }
+    
+    if (_postType == event || _postType == notifi) {
         _lblEventLabel.hidden = NO;
         _lblEventTime.hidden = NO;
+        
+        if (_postType == event) {
+            _btnFollow.hidden = NO;
+            _lblNumberOfFollowers.hidden = NO;
+        } else {
+            _btnFollow.hidden = YES;
+            _lblNumberOfFollowers.hidden = YES;
+        }
+        
         
         NSString *eventTitle = [_dict objectForKey:@"news_event_title"];
         _lblEventLabel.text = eventTitle;
@@ -251,7 +282,12 @@ NSMutableArray *_imgArr;
             int now = [[SWUtil convertDateToNumber:currentDate] intValue];
             
             if (now > eventTime) {
-                _ratebgView.hidden = NO;
+                int type = [[_dict objectForKey:@"type"] intValue];
+                if (type == 2) {
+                    _ratebgView.hidden = YES;
+                } else {
+                    _ratebgView.hidden = NO;
+                }
             } else {
                 _ratebgView.hidden = YES;
             }
@@ -260,13 +296,32 @@ NSMutableArray *_imgArr;
         CGRect lblEventTimeFrame = _lblEventTime.frame;
         lblEventTimeFrame.origin.y = lblEventTitleFrame.origin.y + lblEventTitleFrame.size.height;
         _lblEventTime.frame = lblEventTimeFrame;
+        
+        self.numberOfFollowInNews = [[_dict objectForKey:@"follow"] integerValue];
+        _lblNumberOfFollowers.text = [NSString stringWithFormat:@"%d", (int)self.numberOfFollowInNews];
+        
+        NSArray *didFollowArr = [_dict objectForKey:@"did_follow"];
+        if (didFollowArr.count > 0) {
+            for (int i =0; i < didFollowArr.count; i++) {
+                NSDictionary *uDict = [didFollowArr objectAtIndex:i];
+                NSString *idStr = [uDict objectForKey:@"user_id"];
+                if ([idStr isEqualToString:userId]) {
+                    _didFollow = YES;
+                    [self didFollow:YES];
+                }
+            }
+        } else {
+            _didFollow = NO;
+            [self didFollow:NO];
+        }
+
     } else {
         _lblEventLabel.hidden = YES;
         _lblEventTime.hidden = YES;
+        _btnFollow.hidden = YES;
+        _lblNumberOfFollowers.hidden = YES;
     }
     
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-    NSString *newsUserId = [_dict objectForKey:@"user_id"];
     if ([userId isEqualToString:newsUserId]) {
         _btnShowTool.hidden = NO;
     } else {
@@ -472,6 +527,37 @@ NSMutableArray *_imgArr;
                                      @"news_id": [NSNumber numberWithInteger:_newsId]};
         
         [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            if (![userId isEqualToString:_newsUserId]) {
+                NSArray *contentArr;
+                
+                if (_postType == status) {
+                    contentArr = [_lblContent.text componentsSeparatedByString:@" "];
+                } else {
+                    contentArr = [_lblEventLabel.text componentsSeparatedByString:@" "];
+                }
+                
+                NSMutableArray *shortContentArr = [[NSMutableArray alloc] initWithCapacity:10];
+                int count = 10;
+                if (contentArr.count < count) {
+                    count = (int)contentArr.count;
+                }
+                for (int i = 0; i < count; i++) {
+                    [shortContentArr addObject:[contentArr objectAtIndex:i]];
+                }
+                
+                NSString *shortContent;
+                if (_postType == status) {
+                    shortContent = @" đã thích bài viết: ";
+                } else {
+                    shortContent = @" đã thích sự kiện: ";
+                }
+                
+                NSString *str = [shortContentArr componentsJoinedByString:@" "];
+                shortContent = [shortContent stringByAppendingString:str];
+                [SWUtil postNotification:shortContent forUser:_newsUserId type:0];
+            }
+            
             NSLog(@"like sucess - user: %@ - like news_id: %d", userId, (int)_newsId);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
@@ -542,8 +628,10 @@ NSMutableArray *_imgArr;
 - (IBAction)btnShowToolViewTapped:(id)sender {
     if (_toolView.hidden) {
         [self showView:_toolView];
-        _isShow = NO;
-        [self showRateView:NO];
+        if (_isShow) {
+            _isShow = NO;
+            [self showRateView:NO];
+        }
     } else {
         [self hiddenView:_toolView];
     }
@@ -692,12 +780,30 @@ NSMutableArray *_imgArr;
         [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [self getComment];
             
+            if (![userId isEqualToString:_newsUserId]) {
+                NSArray *contentArr = [_lblContent.text componentsSeparatedByString:@" "];
+                NSMutableArray *shortContentArr = [[NSMutableArray alloc] initWithCapacity:10];
+                int count = 10;
+                if (contentArr.count < count) {
+                    count = (int)contentArr.count;
+                }
+                for (int i = 0; i < count; i++) {
+                    [shortContentArr addObject:[contentArr objectAtIndex:i]];
+                }
+                
+                NSString *shortContent = @" đã bình luận bài viết: ";
+                NSString *str = [shortContentArr componentsJoinedByString:@" "];
+                shortContent = [shortContent stringByAppendingString:str];
+                [SWUtil postNotification:shortContent forUser:_newsUserId type:0];
+            }
+            
             NSLog(@"POST MESSAGE SUCCESS");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
             [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
             [[SWUtil sharedUtil] hideLoadingView];
         }];
+        
     } else {
         if (![message isEqualToString:_stringBeforeEdit] && message.length > 0) {
             
@@ -799,8 +905,9 @@ NSMutableArray *_imgArr;
     _isShow = !_isShow;
     if (_isShow) {
         [self getRateInfo];
+    } else {
+        [self showRateView:_isShow];
     }
-    [self showRateView:_isShow];
 }
 
 - (void)showRateView:(BOOL)show {
@@ -860,7 +967,7 @@ NSMutableArray *_imgArr;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSInteger userId = [[NSUserDefaults standardUserDefaults] integerForKey:kUserId];
-    NSDictionary *parameters = @{kNewsId    : [NSNumber numberWithInt:_newsId],
+    NSDictionary *parameters = @{kNewsId    : [NSNumber numberWithInteger:_newsId],
                                  kUserId    : [NSNumber numberWithInteger:userId]};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -905,6 +1012,7 @@ NSMutableArray *_imgArr;
                 _btnRateGood.enabled = YES;
             }
         }
+        [self showRateView:_isShow];
         [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get Rate Error: %@", error);
@@ -951,6 +1059,90 @@ NSMutableArray *_imgArr;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"rate post success error: %@", error);
     }];
+}
+
+- (IBAction)btnFollowTapped:(id)sender {
+    _didFollow = !_didFollow;
+    [self didFollow:_didFollow];
+    
+    if (_didFollow) {
+        self.numberOfFollowInNews++;
+        
+        NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nInsertFollow];
+        NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+        
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        
+        NSDictionary *parameters = @{@"user_id": userId,
+                                     @"news_id": [NSNumber numberWithInteger:_newsId]};
+        
+        [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if (![userId isEqualToString:_newsUserId]) {
+                NSArray *contentArr;
+                
+                if (_postType == status) {
+                    contentArr = [_lblContent.text componentsSeparatedByString:@" "];
+                } else {
+                    contentArr = [_lblEventLabel.text componentsSeparatedByString:@" "];
+                }
+                
+                NSMutableArray *shortContentArr = [[NSMutableArray alloc] initWithCapacity:10];
+                int count = 10;
+                if (contentArr.count < count) {
+                    count = (int)contentArr.count;
+                }
+                for (int i = 0; i < count; i++) {
+                    [shortContentArr addObject:[contentArr objectAtIndex:i]];
+                }
+                
+                NSString *shortContent;
+                if (_postType == status) {
+                    shortContent = @" đã thích bài viết: ";
+                } else {
+                    shortContent = @" đã thích sự kiện: ";
+                }
+                NSString *str = [shortContentArr componentsJoinedByString:@" "];
+                shortContent = [shortContent stringByAppendingString:str];
+                [SWUtil postNotification:shortContent forUser:_newsUserId type:0];
+            }
+            NSLog(@"like sucess - user: %@ - like news_id: %d", userId, (int)_newsId);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+            NSLog(@"like faild - user: %@ - like news_id: %d", userId, (int)_newsId);
+        }];
+        
+        _lblNumberOfFollowers.text = [NSString stringWithFormat:@"%d", (int)self.numberOfFollowInNews];
+    } else {
+        if (self.numberOfFollowInNews > 0) {
+            self.numberOfFollowInNews--;
+            NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nDeleteFollow];
+            NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+            
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            
+            NSDictionary *parameters = @{@"user_id": userId,
+                                         @"news_id": [NSNumber numberWithInteger:_newsId]};
+            
+            [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSLog(@"delete like sucess - user: %@ - like news_id: %d", userId, (int)_newsId);
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+                NSLog(@"delete like faild - user: %@ - like news_id: %d", userId, (int)_newsId);
+            }];
+            _lblNumberOfFollowers.text = [NSString stringWithFormat:@"%d", (int)self.numberOfFollowInNews];
+        }
+        
+    }
+}
+
+- (void)didFollow:(BOOL)flag {
+    if (flag) {
+        _lblNumberOfFollowers.textColor = [UIColor colorWithHex:Blue_Color alpha:1];
+    } else {
+        _lblNumberOfFollowers.textColor = [UIColor blackColor];
+    }
 }
 
 @end

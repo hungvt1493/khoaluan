@@ -100,7 +100,7 @@
     && !(flags & kSCNetworkReachabilityFlagsConnectionRequired)
     && (flags & kSCNetworkReachabilityFlagsReachable);
     
-    if( canReachOnExistingConnection ) {
+    if( canReachOnExistingConnection || [RequireInternet isEqualToString:@"NO"]) {
         NSLog(@"Network available");
         
         NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uLogin];

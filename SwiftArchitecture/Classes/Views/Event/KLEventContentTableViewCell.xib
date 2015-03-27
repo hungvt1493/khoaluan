@@ -19,6 +19,10 @@
                             <rect key="frame" x="3" y="3" width="50" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="admin-icon.png" id="qIB-nE-KUU">
+                            <rect key="frame" x="4" y="44" width="46" height="14"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tên" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eH4-91-dlg">
                             <rect key="frame" x="61" y="8" width="169" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -68,6 +72,27 @@
                                 <view contentMode="scaleToFill" id="CCK-IM-PvI">
                                     <rect key="frame" x="0.0" y="83" width="304" height="41"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bCJ-PX-B95">
+                                            <rect key="frame" x="249" y="0.0" width="55" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="thS-zc-4NW">
+                                            <rect key="frame" x="206" y="1" width="38" height="38"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal" title="Theo dõi" image="mUTOWrCr.jpeg">
+                                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="btnMoreTapped:" destination="4ld-Nt-a7e" eventType="touchUpInside" id="aOZ-eq-yWs"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
                                     <color key="backgroundColor" red="0.96385732319999995" green="0.96385732319999995" blue="0.96385732319999995" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" id="hX6-sN-4ik">
@@ -93,17 +118,6 @@
                                     </state>
                                     <connections>
                                         <action selector="btnMessageTapped:" destination="4ld-Nt-a7e" eventType="touchUpInside" id="fzR-5d-p4X"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="thS-zc-4NW">
-                                    <rect key="frame" x="224" y="88" width="70" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <state key="normal" image="More-black.png">
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="btnMoreTapped:" destination="4ld-Nt-a7e" eventType="touchUpInside" id="aOZ-eq-yWs"/>
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sMf-9A-Iy4">
@@ -170,8 +184,8 @@
                             </subviews>
                             <color key="backgroundColor" red="0.97723327019999995" green="0.97723327019999995" blue="0.97723327019999995" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
-                        <view contentMode="scaleToFill" id="9mq-8p-jh2">
-                            <rect key="frame" x="31" y="0.0" width="242" height="120"/>
+                        <view autoresizesSubviews="NO" contentMode="scaleToFill" id="9mq-8p-jh2">
+                            <rect key="frame" x="31" y="0.0" width="242" height="112"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="GXQ-Ur-kT7">
@@ -257,7 +271,7 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checked 2.png" id="a9D-aJ-SFc">
-                                    <rect key="frame" x="18" y="-2" width="38" height="38"/>
+                                    <rect key="frame" x="18" y="-2" width="38" height="29"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ymK-0i-upe">
@@ -290,12 +304,14 @@
                 <outlet property="btnShowMore" destination="thS-zc-4NW" id="6ou-6A-Zy9"/>
                 <outlet property="btnShowRateView" destination="ymK-0i-upe" id="BJv-TI-WUl"/>
                 <outlet property="btnShowTool" destination="GCT-91-hdX" id="Yaq-uQ-bu7"/>
+                <outlet property="imgAdmin" destination="qIB-nE-KUU" id="zgu-dQ-Cvq"/>
                 <outlet property="imgAvatar" destination="8ns-3N-5ou" id="KVL-gB-pAp"/>
                 <outlet property="imgRateChecked" destination="a9D-aJ-SFc" id="PCu-vr-2CT"/>
                 <outlet property="lblContent" destination="5cV-po-0Ma" id="e7I-t1-gka"/>
                 <outlet property="lblEventTime" destination="RaM-SX-B2L" id="4Qg-pA-xl0"/>
                 <outlet property="lblEventTitle" destination="sMf-9A-Iy4" id="bp7-yK-bzL"/>
                 <outlet property="lblName" destination="eH4-91-dlg" id="Ihj-gI-72w"/>
+                <outlet property="lblNumberOfFollowers" destination="bCJ-PX-B95" id="H4y-jf-pN0"/>
                 <outlet property="lblRateBad" destination="UuE-Tw-W6n" id="451-RE-iBO"/>
                 <outlet property="lblRateFine" destination="725-IB-GtN" id="jbc-rd-EVv"/>
                 <outlet property="lblRateGood" destination="aH8-Ip-YeJ" id="e6l-Cb-g6e"/>
@@ -314,13 +330,14 @@
         <image name="Checked 2.png" width="24" height="24"/>
         <image name="Clock.png" width="24" height="24"/>
         <image name="LikeOutline.png" width="26" height="26"/>
-        <image name="More-black.png" width="26" height="26"/>
         <image name="So-So.png" width="24" height="24"/>
         <image name="SpeechBubble.png" width="25" height="25"/>
         <image name="Thumbs Down.png" width="26" height="26"/>
         <image name="Thumbs Up.png" width="26" height="26"/>
         <image name="Up Circular.png" width="26" height="26"/>
         <image name="User.png" width="24" height="24"/>
+        <image name="admin-icon.png" width="92" height="28"/>
+        <image name="mUTOWrCr.jpeg" width="512" height="512"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

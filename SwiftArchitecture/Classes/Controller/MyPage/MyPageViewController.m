@@ -217,7 +217,9 @@
             cell.delegate = self;
             cell.myPageType = _myPageType;
         }
+
         cell.fUserId = _userId;
+        cell.userDict = _userDict;
         [cell initUI];
         int code = [[_friendState objectForKey:kCode] intValue];
         if (code == 3) {

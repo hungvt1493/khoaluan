@@ -17,7 +17,9 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) SWTabbarController *tabbarController;
+@property (nonatomic, strong) NSTimer *getFileTimer;
 
+- (void)setBadgeValue:(NSInteger)value;
 - (void)initTabbar;
 - (void)hideTabbar:(BOOL)hide;
 - (void)logoutFunction;

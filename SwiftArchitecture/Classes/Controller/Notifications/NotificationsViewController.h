@@ -9,5 +9,5 @@
 #import "SWBaseViewController.h"
 
 @interface NotificationsViewController : SWBaseViewController
-
+- (void)initData;
 @end

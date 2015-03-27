@@ -7,7 +7,6 @@
 //
 
 #import "MyPageHeaderView.h"
-#import "FriendsViewController.h"
 #import "KLPostNewsViewController.h"
 #import "KLMyProfileViewController.h"
 
@@ -26,11 +25,135 @@
 
 - (void)initUI {
     if (_myPageType == MyPage) {
-        _btnAddFriend.hidden = YES;
-        
         CGPoint point = _btnImage.center;
         point.x = self.center.x;
         _btnImage.center = point;
+        
+        NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];
+        if (imgAvatarPath.length > 0) {
+            NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgAvatarPath];
+            [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
+                              placeholderImage:[UIImage imageNamed:@"default-avatar"]
+                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                         if (image) {
+                                             
+                                         } else {
+                                             
+                                         }
+                                     }];
+        }
+        
+        NSString *imgTimelinePath = EMPTY_IF_NULL_OR_NIL([[NSUserDefaults standardUserDefaults] objectForKey:kTimelineImage]);
+        if (imgTimelinePath.length > 0) {
+            NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgTimelinePath];
+            [self.imgBackground sd_setImageWithURL:[NSURL URLWithString:imageLink]
+                                  placeholderImage:[UIImage imageNamed:@"images.jpeg"]
+                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                             if (image) {
+                                                 
+                                             } else {
+                                                 
+                                             }
+                                         }];
+        }
+        
+        _lblName.text = EMPTY_IF_NULL_OR_NIL([[NSUserDefaults standardUserDefaults] objectForKey:kName]);
+        [_lblName sizeToFit];
+        
+        CGRect lblNameFrame = _lblName.frame;
+        lblNameFrame.origin.x = (SCREEN_WIDTH_PORTRAIT - lblNameFrame.size.width)/2;
+        _lblName.frame = lblNameFrame;
+        
+        CGRect imgGenderFrame = _imgGender.frame;
+        imgGenderFrame.origin.x = lblNameFrame.origin.x + lblNameFrame.size.width + 5;
+        _imgGender.frame = imgGenderFrame;
+        _imgGender.hidden = NO;
+        [self bringSubviewToFront:_imgGender];
+        
+        int gender = [[[NSUserDefaults standardUserDefaults] objectForKey:kGender] intValue];
+        if (gender == 0) {
+            _imgGender.image = [UIImage imageNamed:female];
+        } else {
+            _imgGender.image = [UIImage imageNamed:male];
+        }
+        
+        int birthdayInt = [[[NSUserDefaults standardUserDefaults] objectForKey:kBirthDay] intValue];
+        
+        NSDate* birthday = [SWUtil convertNumberToDate:birthdayInt];
+        
+        NSDate* now = [NSDate date];
+        NSDateComponents* ageComponents = [[NSCalendar currentCalendar]
+                                           components:NSYearCalendarUnit
+                                           fromDate:birthday
+                                           toDate:now
+                                           options:0];
+        NSInteger age = [ageComponents year];
+        _lblAge.text = [NSString stringWithFormat:@"%d", (int)age];
+    } else {
+        NSString *imgAvatarPath = EMPTY_IF_NULL_OR_NIL([_userDict objectForKey:kAvatar]);
+        if (imgAvatarPath.length > 0) {
+            NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgAvatarPath];
+            [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
+                              placeholderImage:[UIImage imageNamed:@"default-avatar"]
+                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                         if (image) {
+                                             
+                                         } else {
+                                             
+                                         }
+                                     }];
+        }
+        
+        NSString *imgTimelinePath = EMPTY_IF_NULL_OR_NIL([_userDict objectForKey:kTimelineImage]);
+        if (imgTimelinePath.length > 0) {
+            NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgTimelinePath];
+            [self.imgBackground sd_setImageWithURL:[NSURL URLWithString:imageLink]
+                                  placeholderImage:[UIImage imageNamed:@"images.jpeg"]
+                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                             if (image) {
+                                                 
+                                             } else {
+                                                 
+                                             }
+                                         }];
+        }
+        
+        _lblName.text = EMPTY_IF_NULL_OR_NIL([_userDict objectForKey:kName]);
+        [_lblName sizeToFit];
+        
+        CGRect lblNameFrame = _lblName.frame;
+        lblNameFrame.origin.x = (SCREEN_WIDTH_PORTRAIT - lblNameFrame.size.width)/2;
+        _lblName.frame = lblNameFrame;
+        
+        CGRect imgGenderFrame = _imgGender.frame;
+        imgGenderFrame.origin.x = lblNameFrame.origin.x + lblNameFrame.size.width + 5;
+        _imgGender.frame = imgGenderFrame;
+        _imgGender.hidden = NO;
+        [self bringSubviewToFront:_imgGender];
+        
+        int gender = [[_userDict objectForKey:kGender] intValue];
+        if (gender == 0) {
+            _imgGender.image = [UIImage imageNamed:female];
+        } else {
+            _imgGender.image = [UIImage imageNamed:male];
+        }
+        
+        int birthdayInt = [[_userDict objectForKey:kBirthDay] intValue];
+        
+        NSDate* birthday = [SWUtil convertNumberToDate:birthdayInt];
+        
+        NSDate* now = [NSDate date];
+        NSDateComponents* ageComponents = [[NSCalendar currentCalendar]
+                                           components:NSYearCalendarUnit
+                                           fromDate:birthday
+                                           toDate:now
+                                           options:0];
+        NSInteger age = [ageComponents year];
+        if (birthday == 0) {
+            _lblAge.text = @"";
+        } else {
+            _lblAge.text = [NSString stringWithFormat:@"%d", (int)age];
+        }
     }
     
     BOOL hideBackButton = [[NSUserDefaults standardUserDefaults] boolForKey:kHideBackButtonInUserPage];
@@ -55,68 +178,6 @@
     _avatarBgView.layer.borderColor = [UIColor whiteColor].CGColor;
     _avatarBgView.layer.borderWidth = 1;
     _avatarBgView.layer.cornerRadius = _avatarBgView.bounds.size.width / 2.0;
-    
-    NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];
-    if (imgAvatarPath.length > 0) {
-        NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgAvatarPath];
-        [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
-                          placeholderImage:[UIImage imageNamed:@"default-avatar"]
-                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                     if (image) {
-                                         
-                                     } else {
-                                         
-                                     }
-                                 }];
-    }
-    
-    NSString *imgTimelinePath = [[NSUserDefaults standardUserDefaults] objectForKey:kTimelineImage];
-    if (imgTimelinePath.length > 0) {
-        NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgTimelinePath];
-        [self.imgBackground sd_setImageWithURL:[NSURL URLWithString:imageLink]
-                          placeholderImage:[UIImage imageNamed:@"images.jpeg"]
-                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                     if (image) {
-                                         
-                                     } else {
-                                         
-                                     }
-                                 }];
-    }
-    
-    NSString *nameStr = [[NSUserDefaults standardUserDefaults] objectForKey:kName];
-    _lblName.text = nameStr;
-    [_lblName sizeToFit];
-    
-    CGRect lblNameFrame = _lblName.frame;
-    lblNameFrame.origin.x = (SCREEN_WIDTH_PORTRAIT - lblNameFrame.size.width)/2;
-    _lblName.frame = lblNameFrame;
-    
-    CGRect imgGenderFrame = _imgGender.frame;
-    imgGenderFrame.origin.x = lblNameFrame.origin.x + lblNameFrame.size.width + 5;
-    _imgGender.frame = imgGenderFrame;
-    _imgGender.hidden = NO;
-    [self bringSubviewToFront:_imgGender];
-    
-    int gender = [[[NSUserDefaults standardUserDefaults] objectForKey:kGender] intValue];
-    if (gender == 0) {
-        _imgGender.image = [UIImage imageNamed:female];
-    } else {
-        _imgGender.image = [UIImage imageNamed:male];
-    }
-    
-    int birthdayInt = [[[NSUserDefaults standardUserDefaults] objectForKey:kBirthDay] intValue];
-    
-    NSDate* birthday = [SWUtil convertNumberToDate:birthdayInt];
-    
-    NSDate* now = [NSDate date];
-    NSDateComponents* ageComponents = [[NSCalendar currentCalendar]
-                                       components:NSYearCalendarUnit
-                                       fromDate:birthday
-                                       toDate:now
-                                       options:0];
-    NSInteger age = [ageComponents year];
-    _lblAge.text = [NSString stringWithFormat:@"%d", (int)age];
 }
 
 - (void)configureAddFriendButton:(int)status {
@@ -212,6 +273,9 @@
                 NSDictionary *userDict = (NSDictionary*)responseObject;
                 [self configureAddFriendButton:1];
                 
+                NSString *content = @" đã gửi lời mời kết bạn";
+                [SWUtil postNotification:content forUser:_fUserId type:1];
+
                 NSLog(@"Reg JSON: %@", userDict);
                 [[SWUtil sharedUtil] hideLoadingView];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -236,6 +300,8 @@
             [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSDictionary *userDict = (NSDictionary*)responseObject;
                 [self configureAddFriendButton:0];
+                NSString *content = @" đã từ chối lời mời kết bạn";
+                [SWUtil postNotification:content forUser:_fUserId type:0];
                 NSLog(@"Reg JSON: %@", userDict);
                 [[SWUtil sharedUtil] hideLoadingView];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -273,6 +339,9 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(didAcceptOrRejectUser)]) {
             [self.delegate didAcceptOrRejectUser];
         }
+        NSString *content = @" đã chấp nhận lời mời kết bạn";
+        [SWUtil postNotification:content forUser:_fUserId type:0];
+        
         NSLog(@"Reg JSON: %@", userDict);
         [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -311,9 +380,15 @@
 - (IBAction)btnFriendTapped:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(pushToViewControllerUseDelegete:withAnimation:)]) {
         FriendsViewController *friendVC = [[FriendsViewController alloc] init];
+        friendVC.delegate = self;
         friendVC.userId = _fUserId;
         [self.delegate pushToViewControllerUseDelegete:friendVC withAnimation:YES];
     }
+}
+
+- (void)didBackToUserPage {
+//    self.btnBack.hidden = YES;
+    [_btnBack removeFromSuperview];
 }
 
 - (IBAction)btnPostNewsTapped:(id)sender {

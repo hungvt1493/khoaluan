@@ -60,6 +60,21 @@
             [self.view addSubview:cellTab];
             x+= [UIScreen mainScreen].bounds.size.width / [normalImages count];
 			[cellTab addTarget:self action:@selector(tabItemSeleted:) forControlEvents:UIControlEventTouchUpInside];
+            
+            if (cellTab.tabIndex == 3) {
+                if (!self.badge) {
+                    self.badge = [[MKNumberBadgeView alloc] initWithFrame:CGRectMake(30, 0, 30, 17)];
+                }
+                self.badge.strokeColor = [UIColor redColor];
+                self.badge.strokeWidth = 0.0f;
+                [self.badge setShadow:NO];
+                [self.badge setShine:NO];
+                self.badge.font = [UIFont systemFontOfSize:14];
+                self.badge.hidden = YES;
+                [cellTab addSubview:self.badge];
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tabItemSeleted)];
+                [self.badge addGestureRecognizer:tap];
+            }
 		}
     }
     return self;
@@ -77,6 +92,20 @@
 			[subview setHidden:YES];
 		}
 	}
+}
+
+- (void)tabItemSeleted {
+    if (self.oldSelectedIndex == 0) {
+        
+        NSArray *controllers = [self viewControllers];
+        if ([controllers objectAtIndex:3] && [[controllers objectAtIndex:3] isKindOfClass:[UINavigationController class]]) {
+            
+            UINavigationController *nav = (UINavigationController *)[controllers objectAtIndex:3];
+            [nav popToRootViewControllerAnimated:NO];
+        }
+    }
+    self.oldSelectedIndex = 3;
+    [self hoverAtIndex:3];
 }
 
 #pragma IBAction && @Selector
@@ -150,4 +179,12 @@
     }
 }
 
+- (void)setValueForBadge:(NSInteger)value {
+    if (value == 0) {
+        self.badge.hidden = YES;
+    } else {
+        self.badge.hidden = NO;
+        self.badge.value = value;
+    }
+}
 @end

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041E6E221AC2576000123867 /* KLUserManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E6E201AC2576000123867 /* KLUserManagerViewController.m */; };
+		041E6E231AC2576000123867 /* KLUserManagerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E6E211AC2576000123867 /* KLUserManagerViewController.xib */; };
+		041E6E251AC2621500123867 /* admin-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 041E6E241AC2621500123867 /* admin-icon.png */; };
 		042846731AA848D70003CA26 /* SWBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042846501AA848D70003CA26 /* SWBaseViewController.m */; };
 		042846741AA848D70003CA26 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 042846541AA848D70003CA26 /* FriendsViewController.m */; };
 		042846751AA848D70003CA26 /* FriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 042846551AA848D70003CA26 /* FriendsViewController.xib */; };
@@ -64,6 +67,9 @@
 		04591A121ABB20A3007FC9A7 /* KLCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04591A101ABB20A3007FC9A7 /* KLCommentTableViewCell.m */; };
 		04591A131ABB20A3007FC9A7 /* KLCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04591A111ABB20A3007FC9A7 /* KLCommentTableViewCell.xib */; };
 		0473DC5E1ABC8D9F00751001 /* IBActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473DC5D1ABC8D9F00751001 /* IBActionSheet.m */; };
+		048B62411AC2F22400B27FB6 /* KLNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B623F1AC2F22400B27FB6 /* KLNotificationTableViewCell.m */; };
+		048B62421AC2F22400B27FB6 /* KLNotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048B62401AC2F22400B27FB6 /* KLNotificationTableViewCell.xib */; };
+		048B62441AC3199C00B27FB6 /* mUTOWrCr.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 048B62431AC3199C00B27FB6 /* mUTOWrCr.jpeg */; };
 		048DA09B1AB2E53A0003E585 /* KLPostNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 048DA0991AB2E53A0003E585 /* KLPostNewsViewController.m */; };
 		048DA09C1AB2E53A0003E585 /* KLPostNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048DA09A1AB2E53A0003E585 /* KLPostNewsViewController.xib */; };
 		049780CD1ABB424500A469F3 /* SOMessageInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 049780CC1ABB424500A469F3 /* SOMessageInputView.m */; };
@@ -353,6 +359,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041E6E1F1AC2576000123867 /* KLUserManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLUserManagerViewController.h; sourceTree = "<group>"; };
+		041E6E201AC2576000123867 /* KLUserManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLUserManagerViewController.m; sourceTree = "<group>"; };
+		041E6E211AC2576000123867 /* KLUserManagerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLUserManagerViewController.xib; sourceTree = "<group>"; };
+		041E6E241AC2621500123867 /* admin-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "admin-icon.png"; sourceTree = "<group>"; };
 		0428464F1AA848D70003CA26 /* SWBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWBaseViewController.h; sourceTree = "<group>"; };
 		042846501AA848D70003CA26 /* SWBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWBaseViewController.m; sourceTree = "<group>"; };
 		042846531AA848D70003CA26 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
@@ -438,6 +448,10 @@
 		04591A111ABB20A3007FC9A7 /* KLCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLCommentTableViewCell.xib; sourceTree = "<group>"; };
 		0473DC5C1ABC8D9F00751001 /* IBActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBActionSheet.h; sourceTree = "<group>"; };
 		0473DC5D1ABC8D9F00751001 /* IBActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBActionSheet.m; sourceTree = "<group>"; };
+		048B623E1AC2F22400B27FB6 /* KLNotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLNotificationTableViewCell.h; sourceTree = "<group>"; };
+		048B623F1AC2F22400B27FB6 /* KLNotificationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLNotificationTableViewCell.m; sourceTree = "<group>"; };
+		048B62401AC2F22400B27FB6 /* KLNotificationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLNotificationTableViewCell.xib; sourceTree = "<group>"; };
+		048B62431AC3199C00B27FB6 /* mUTOWrCr.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = mUTOWrCr.jpeg; sourceTree = "<group>"; };
 		048DA0981AB2E53A0003E585 /* KLPostNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLPostNewsViewController.h; sourceTree = "<group>"; };
 		048DA0991AB2E53A0003E585 /* KLPostNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLPostNewsViewController.m; sourceTree = "<group>"; };
 		048DA09A1AB2E53A0003E585 /* KLPostNewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLPostNewsViewController.xib; sourceTree = "<group>"; };
@@ -903,6 +917,9 @@
 				042846571AA848D70003CA26 /* MoreViewController.h */,
 				042846581AA848D70003CA26 /* MoreViewController.m */,
 				042846591AA848D70003CA26 /* MoreViewController.xib */,
+				041E6E1F1AC2576000123867 /* KLUserManagerViewController.h */,
+				041E6E201AC2576000123867 /* KLUserManagerViewController.m */,
+				041E6E211AC2576000123867 /* KLUserManagerViewController.xib */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -946,6 +963,7 @@
 		042846661AA848D70003CA26 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				048B623D1AC2F20F00B27FB6 /* Noti */,
 				04EEBC951AB727D30092A011 /* Event */,
 				042846671AA848D70003CA26 /* Friends */,
 				0428466B1AA848D70003CA26 /* MyPage */,
@@ -1150,6 +1168,16 @@
 			path = IBActionSheet;
 			sourceTree = "<group>";
 		};
+		048B623D1AC2F20F00B27FB6 /* Noti */ = {
+			isa = PBXGroup;
+			children = (
+				048B623E1AC2F22400B27FB6 /* KLNotificationTableViewCell.h */,
+				048B623F1AC2F22400B27FB6 /* KLNotificationTableViewCell.m */,
+				048B62401AC2F22400B27FB6 /* KLNotificationTableViewCell.xib */,
+			);
+			path = Noti;
+			sourceTree = "<group>";
+		};
 		049780CA1ABB424500A469F3 /* CustomInputView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1169,6 +1197,8 @@
 		04AFB7AC1AC084BC001EB71B /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				041E6E241AC2621500123867 /* admin-icon.png */,
+				048B62431AC3199C00B27FB6 /* mUTOWrCr.jpeg */,
 				04AFB7AD1AC084BC001EB71B /* Add User Filled-Blue.png */,
 				04AFB7AE1AC084BC001EB71B /* Add User Filled-Blue@2x.png */,
 				04AFB7AF1AC084BC001EB71B /* Add User Filled.png */,
@@ -2001,6 +2031,7 @@
 				04AFB8A21AC084BD001EB71B /* Undo@2x.png in Resources */,
 				04AFB8661AC084BD001EB71B /* Image File@2x.png in Resources */,
 				049780DB1ABB4A7D00A469F3 /* inputTextBG@2x.png in Resources */,
+				048B62441AC3199C00B27FB6 /* mUTOWrCr.jpeg in Resources */,
 				04AFB86B1AC084BD001EB71B /* Like.png in Resources */,
 				04AFB8301AC084BD001EB71B /* Add User Filled@2x.png in Resources */,
 				042847301AA849260003CA26 /* navbar_bg@2x.png in Resources */,
@@ -2045,7 +2076,9 @@
 				04AFB85D1AC084BD001EB71B /* Globe-grey.png in Resources */,
 				04AFB88C1AC084BD001EB71B /* Price Tag.png in Resources */,
 				04AFB82E1AC084BD001EB71B /* Add User Filled-Blue@2x.png in Resources */,
+				041E6E231AC2576000123867 /* KLUserManagerViewController.xib in Resources */,
 				04AFB8561AC084BD001EB71B /* Email@2x.png in Resources */,
+				041E6E251AC2621500123867 /* admin-icon.png in Resources */,
 				04AFB8361AC084BD001EB71B /* arrow_refresh_down@2x.png in Resources */,
 				04F2BDC11ABF0F8700749A04 /* loading.gif in Resources */,
 				04AFB86E1AC084BD001EB71B /* LikeOutline@2x.png in Resources */,
@@ -2128,6 +2161,7 @@
 				04AFB8441AC084BD001EB71B /* Camera.png in Resources */,
 				048DA09C1AB2E53A0003E585 /* KLPostNewsViewController.xib in Resources */,
 				04AFB8A61AC084BD001EB71B /* Up Circular@2x.png in Resources */,
+				048B62421AC2F22400B27FB6 /* KLNotificationTableViewCell.xib in Resources */,
 				04AFB8981AC084BD001EB71B /* So-So.png in Resources */,
 				04AFB8621AC084BD001EB71B /* HomeFilled-blue@2x.png in Resources */,
 				0428467B1AA848D70003CA26 /* NewsViewController.xib in Resources */,
@@ -2236,12 +2270,14 @@
 				04C38C231AB06FB000F9F54B /* AFURLConnectionOperation.m in Sources */,
 				04DC2BAD1AB0421C00565689 /* UIImage+WebP.m in Sources */,
 				91646C93196FA45000C3BBBE /* UILabel+Ext.m in Sources */,
+				048B62411AC2F22400B27FB6 /* KLNotificationTableViewCell.m in Sources */,
 				91B4C7051955304F008F0686 /* DataManager.m in Sources */,
 				9193C36819617E4B00ADD198 /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				049780D01ABB428500A469F3 /* SOPlaceholderedTextView.m in Sources */,
 				91B4C5E11955249C008F0686 /* NSMutableArray+Queue.m in Sources */,
 				0428471C1AA849260003CA26 /* SWAwesomeTableViewController.m in Sources */,
 				91B4C5E71955249C008F0686 /* NSUserDefaults+Convenience.m in Sources */,
+				041E6E221AC2576000123867 /* KLUserManagerViewController.m in Sources */,
 				91B4C5E31955249C008F0686 /* NSObject+Extension.m in Sources */,
 				0428471B1AA849260003CA26 /* NSString+FontAwesome.m in Sources */,
 				917AB633197068100012002A /* SWUtil.m in Sources */,

@@ -15,7 +15,9 @@
 #import "KLEventsViewController.h"
 #import "KeychainItemWrapper.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    NotificationsViewController *notiVC;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -95,6 +97,10 @@
     
 }
 
+- (void)getNotificationBadge {
+    [notiVC initData];
+}
+
 - (void)initTabbar {
     
     NSString *navBgName = @"";//(SYSTEM_VERSION >= 7) ? @"nav_ios7" : @"navbar_bg";
@@ -105,8 +111,20 @@
     NewsViewController *newsVC = [[NewsViewController alloc] init];
     MyPageViewController *myPageVC = [[MyPageViewController alloc] init];
     myPageVC.myPageType = MyPage;
-    NotificationsViewController *notiVC = [[NotificationsViewController alloc] init];
+    
+    notiVC = [[NotificationsViewController alloc] init];
+    
     MoreViewController *moreVC = [[MoreViewController alloc] init];
+    
+    if (!self.getFileTimer) {
+        
+        self.getFileTimer = [NSTimer scheduledTimerWithTimeInterval:60.f
+                                                             target:self
+                                                           selector:@selector(getNotificationBadge)
+                                                           userInfo:nil
+                                                            repeats:YES];
+        [self.getFileTimer fire];
+    }
     
     //Init Navigations
     
@@ -138,25 +156,18 @@
     [self.tabbarController hideTabbar:hide];
 }
 
+- (void)setBadgeValue:(NSInteger)value {
+    if (value) {
+        [self.tabbarController setValueForBadge:value];
+    } else {
+        [self.tabbarController setValueForBadge:0];
+        self.tabbarController.badge.hidden = YES;
+    }
+}
+
 - (void)logoutFunction {
     
-    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uLogout];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
-    NSDictionary *parameters = @{kUserId : userId};
-    
-    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        [[SWUtil sharedUtil] hideLoadingView];
-        
-        NSLog(@"LOGOUT SUCCESS");
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-       NSLog(@"LOGOUT FAILED");
-    }];
+    [self changeIsOnline];
     
     UIImage *ios7Bg = [UIImage resizableImage:[UIImage imageNamed:@"nav_ios7"]];
     UIImage *iosBg = [UIImage resizableImage:[UIImage imageNamed:@"navbar_bg"]];
@@ -181,6 +192,7 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [self changeIsOnline];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -202,6 +214,26 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self changeIsOnline];
 }
 
+- (void)changeIsOnline {
+    NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uLogout];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+    NSDictionary *parameters = @{kUserId : userId};
+    
+    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        [[SWUtil sharedUtil] hideLoadingView];
+        
+        NSLog(@"LOGOUT SUCCESS");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        NSLog(@"LOGOUT FAILED");
+    }];
+}
 @end

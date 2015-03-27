@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SWTabbarItem.h"
+#import "MKNumberBadgeView.h"
 
 @interface SWTabbarController : UITabBarController
 {
@@ -18,6 +19,7 @@
 - (void)hoverAtIndex:(NSInteger)tabIndex;
 //set background by color or image for tabbar
 @property (nonatomic,strong) UIImageView *backGround;
+@property (nonatomic,strong) MKNumberBadgeView *badge;
 
 - (id)initWithNomarlImages:(NSArray *)normalImages
               selectImages:(NSArray *)selectImages
@@ -25,5 +27,5 @@
                      title:(NSArray *)titleArray;
 
 - (void)hideTabbar:(BOOL)hiden;
-
+- (void)setValueForBadge:(NSInteger)value;
 @end
