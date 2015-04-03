@@ -78,6 +78,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
+    [[SWUtil appDelegate] hideTabbar:NO];
     _myPageTableView.delegate = self;
     _myPageTableView.dataSource = self;
     [self.krImageViewer useKeyWindow];
@@ -131,7 +132,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uFriendState];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSDictionary *parameters = @{kUserId: myId,
                                  @"friend_id": _userId};
     
@@ -154,7 +155,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNewsWithUserId];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSDictionary *parameters = @{@"offset": [NSNumber numberWithInt:_oldOffset],
                                  @"user_id": _userId,
                                  @"limit": [NSNumber numberWithInt:_limit],
@@ -190,7 +191,7 @@
         [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+        //[SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
         [[SWUtil sharedUtil] hideLoadingView];
     }];
 }

@@ -214,6 +214,7 @@
 + (void)postNotification:(NSString*)content forUser:(NSString*)userReceive type:(int)type {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     
     NSString *notiurl = [NSString stringWithFormat:@"%@%@", URL_BASE, notiSendNotification];
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
@@ -231,4 +232,42 @@
         
     }];
 }
+
++ (void)saveUserInfo:(NSDictionary*)userDict {
+    NSString *avatarUrl = EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAvatar]);
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault setObject:avatarUrl forKey:kAvatar];
+    [userDefault setObject:[userDict objectForKey:kUserId] forKey:kUserId];
+    [userDefault setObject:[userDict objectForKey:kIsAdmin] forKey:kIsAdmin];
+    [userDefault setObject:[userDict objectForKey:kUserName] forKey:kUserName];
+    [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kStudentId]) forKey:kStudentId];
+    [userDefault setInteger:[[userDict objectForKey:kBirthDay] integerValue] forKey:kBirthDay];
+    [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kFaculty]) forKey:kFaculty];
+    [userDefault setObject:[userDict objectForKey:kName] forKey:kName];
+    [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kTimelineImage]) forKey:kTimelineImage];
+    [userDefault setObject:[userDict objectForKey:kGender] forKey:kGender];
+    [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAboutMe]) forKey:kAboutMe];
+    [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kEmail]) forKey:kEmail];
+}
+
++ (NSDictionary*)getUserInfo {
+    NSMutableDictionary *userDict = [[NSMutableDictionary alloc] init];
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSString *avatarUrl = EMPTY_IF_NULL_OR_NIL([userDefault objectForKey:kAvatar]);
+    [userDict setObject:avatarUrl forKey:kAvatar];
+    [userDict setObject:EMPTY_IF_NULL_OR_NIL([userDefault objectForKey:kUserId]) forKey:kUserId];
+    [userDict setObject:EMPTY_IF_NULL_OR_NIL([userDefault objectForKey:kIsAdmin]) forKey:kIsAdmin];
+    [userDict setObject:EMPTY_IF_NULL_OR_NIL([userDefault objectForKey:kUserName]) forKey:kUserName];
+    [userDict setObject:EMPTY_IF_NULL_OR_NIL([userDefault objectForKey:kStudentId]) forKey:kStudentId];
+    [userDict setObject:[NSNumber numberWithInteger:[[userDefault objectForKey:kBirthDay] integerValue]] forKey:kBirthDay];
+    [userDict setObject:EMPTY_IF_NULL_OR_NIL([userDefault objectForKey:kFaculty]) forKey:kFaculty];
+    [userDict setObject:EMPTY_IF_NULL_OR_NIL([userDefault objectForKey:kName]) forKey:kName];
+    [userDict setObject:EMPTY_IF_NULL_OR_NIL([userDefault objectForKey:kTimelineImage]) forKey:kTimelineImage];
+    [userDict setObject:[userDefault objectForKey:kGender] forKey:kGender];
+    [userDict setObject:EMPTY_IF_NULL_OR_NIL([userDefault objectForKey:kAboutMe]) forKey:kAboutMe];
+    [userDict setObject:EMPTY_IF_NULL_OR_NIL([userDefault objectForKey:kEmail]) forKey:kEmail];
+    
+    return userDict;
+}
+
 @end

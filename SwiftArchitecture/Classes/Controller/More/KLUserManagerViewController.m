@@ -82,6 +82,7 @@
 }
 
 - (void)editUserMode {
+    
     if (_selectedUser.count > 0) {
         IBActionSheet *actionSheet = [[IBActionSheet alloc] initWithTitle:nil
                                                                  delegate:self
@@ -89,13 +90,18 @@
                                                    destructiveButtonTitle:nil
                                                    otherButtonTitlesArray:@[@"Chuyển thành tài khoản Admin", @"Chuyển thành tài khoản thường"]];
         [actionSheet showInView:self.view];
+        [[SWUtil appDelegate] hideTabbar:YES];
     } else {
-        [SWUtil showConfirmAlert:@"Bạn chưa chọn tài khoản nào" message:nil delegate:nil];
+//        [SWUtil showConfirmAlert:@"Bạn chưa chọn tài khoản nào" message:nil delegate:nil];
+        [self setRightBarButtonType:Choose];
     }
 }
 
 -(void)actionSheet:(IBActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     [[SWUtil appDelegate] hideTabbar:NO];
+    if (buttonIndex == 2) {
+        return;
+    }
     int isAdmin = 0;
     switch (buttonIndex) {
         case 0: // Admin
@@ -117,6 +123,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     
     NSString *usersIdStr = @"";
     for (int i = 0; i< _selectedUser.count; i++) {
@@ -159,6 +166,8 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uGetAllUser];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
+    
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{kUserId: userId};
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -239,10 +248,10 @@
         NSString *fUserId = @"";
         NSDictionary *fDict;
         if (_isSearch) {
-            fUserId = [[_searchArr objectAtIndex:indexPath.row] objectForKey:@"friend_id"];
+            fUserId = [[_searchArr objectAtIndex:indexPath.row] objectForKey:kUserId];
             fDict = [_searchArr objectAtIndex:indexPath.row];
         } else {
-            fUserId = [[_userArr objectAtIndex:indexPath.row] objectForKey:@"friend_id"];
+            fUserId = [[_userArr objectAtIndex:indexPath.row] objectForKey:kUserId];
             fDict = [_userArr objectAtIndex:indexPath.row];
         }
         

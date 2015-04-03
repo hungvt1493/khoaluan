@@ -107,7 +107,7 @@
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
         NSDictionary *parameters = @{@"username": self.emailTextField.text,
                                      @"password": self.passWordTextField.text};
 
@@ -133,24 +133,8 @@
             
             NSDictionary *userDict = (NSDictionary*)responseObject;
             
-            NSString *avatarUrl = EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAvatar]);
-            NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-            if (avatarUrl.length > 0) {
-                [userDefault setObject:avatarUrl forKey:kAvatar];
-            }
+            [SWUtil saveUserInfo:userDict];
             
-            [userDefault setObject:[userDict objectForKey:kUserId] forKey:kUserId];
-            [userDefault setObject:[userDict objectForKey:kIsAdmin] forKey:kIsAdmin];
-            [userDefault setObject:[userDict objectForKey:kUserName] forKey:kUserName];
-            [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kStudentId]) forKey:kStudentId];
-            [userDefault setInteger:[[userDict objectForKey:kBirthDay] integerValue] forKey:kBirthDay];
-            [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kFaculty]) forKey:kFaculty];
-            [userDefault setObject:[userDict objectForKey:kName] forKey:kName];
-            [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kTimelineImage]) forKey:kTimelineImage];
-            [userDefault setObject:[userDict objectForKey:kGender] forKey:kGender];
-            [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kAboutMe]) forKey:kAboutMe];
-            [userDefault setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kEmail]) forKey:kEmail];
-
             [[SWUtil appDelegate] initTabbar];
 
             NSLog(@"LOGIN JSON: %@", responseObject);

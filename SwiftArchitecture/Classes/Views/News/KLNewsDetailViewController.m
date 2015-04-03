@@ -10,6 +10,7 @@
 #import "KLCommentTableViewCell.h"
 #import "IBActionSheet.h"
 #import "KRImageViewer.h"
+#import "KLPostNewsViewController.h"
 
 NSMutableArray *_imgContentArr;
 NSMutableArray *_imgArr;
@@ -28,6 +29,7 @@ NSMutableArray *_imgArr;
     NSString *_stringBeforeEdit;
     BOOL _willEdit;
     NSMutableArray *_imgArr;
+    NSMutableArray *_imgNameArr;
     BOOL _isShow;
     int _bad;
     int _fine;
@@ -42,6 +44,7 @@ NSMutableArray *_imgArr;
     self.navigationController.navigationBarHidden = NO;
     _imgArr = [[NSMutableArray alloc] initWithCapacity:10];
     _imgContentArr = [[NSMutableArray alloc] initWithCapacity:10];
+    _imgNameArr = [[NSMutableArray alloc] initWithCapacity:10];
     [self setBackButtonWithImage:back_bar_button highlightedImage:nil target:self action:@selector(backButtonTapped:)];
     _willEdit = NO;
     _didFollow = NO;
@@ -119,7 +122,8 @@ NSMutableArray *_imgArr;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
+
     NSDictionary *parameters = @{@"news_id": [NSNumber numberWithInteger:_newsId],
                                  @"type": [NSNumber numberWithInt:_postType]};
     
@@ -146,7 +150,7 @@ NSMutableArray *_imgArr;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSDictionary *parameters = @{@"news_id": [NSNumber numberWithInteger:_newsId]};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -173,7 +177,7 @@ NSMutableArray *_imgArr;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSDictionary *parameters = @{@"news_id": [NSNumber numberWithInteger:_newsId]};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -395,7 +399,7 @@ NSMutableArray *_imgArr;
     _footerNewsView.frame = lblFooterNewsViewFrame;
     
     
-    NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];
+    NSString *imgAvatarPath = EMPTY_IF_NULL_OR_NIL([_dict objectForKey:kAvatar]);
     if (imgAvatarPath.length > 0) {
         NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgAvatarPath];
         [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
@@ -432,6 +436,21 @@ NSMutableArray *_imgArr;
     btnLikeFrame.size.width += 12;
     btnLikeFrame.size.height = 30;
     _btnLike.frame = btnLikeFrame;
+    
+    CGRect commentTableFrame = _commentTableView.frame;
+    commentTableFrame.origin.y = _newsContentView.frame.origin.y + _newsContentView.bounds.size.height;
+    commentTableFrame.size.height = 0;
+    _commentTableView.frame = commentTableFrame;
+    
+    CGRect scrollViewFrame = _scrollView.frame;
+    scrollViewFrame.origin.y = 0;
+    scrollViewFrame.size.height = self.view.bounds.size.height- self.inputView.bounds.size.height;
+    _scrollView.frame = scrollViewFrame;
+    
+    CGSize scrollContentSize = _scrollView.contentSize;
+    scrollContentSize.height = _commentTableView.frame.origin.y + _commentTableView.bounds.size.height + 50;
+    _scrollView.contentSize = scrollContentSize;
+
 }
 
 - (void)setUIScroll {
@@ -458,6 +477,7 @@ NSMutableArray *_imgArr;
                                   imgView.contentMode = UIViewContentModeScaleAspectFill;
                                   if (![_imgContentArr containsObject:image]) {
                                       [_imgContentArr addObject:image];
+                                      [_imgNameArr addObject:imageLink];
                                   }
                               } else {
                                   
@@ -522,7 +542,7 @@ NSMutableArray *_imgArr;
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
         NSDictionary *parameters = @{@"user_id": userId,
                                      @"news_id": [NSNumber numberWithInteger:_newsId]};
         
@@ -573,8 +593,7 @@ NSMutableArray *_imgArr;
             
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
-            //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-            
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
             NSDictionary *parameters = @{@"user_id": userId,
                                          @"news_id": [NSNumber numberWithInteger:_newsId]};
             
@@ -600,7 +619,30 @@ NSMutableArray *_imgArr;
 }
 
 - (IBAction)btnEditTapped:(id)sender {
+    [self hiddenView:_toolView];
+    
+    KLPostNewsViewController *postNewsVC = [[KLPostNewsViewController alloc] init];
+    [postNewsVC removeNavigationBarAnimation];
+    postNewsVC.pageType = edit;
 
+    postNewsVC.postType = _postType;
+    postNewsVC.newsId = [[_dict objectForKey:kNewsId] integerValue];
+    postNewsVC.imgArr = [[NSMutableArray alloc] initWithArray:_imgContentArr];
+    postNewsVC.imgNameArr = [[NSMutableArray alloc] initWithArray:_imgNameArr];
+    
+    if (_postType == event) {
+        NSString *eventTitle = [_dict objectForKey:@"news_event_title"];
+        postNewsVC.eventTitleStr = eventTitle;
+        
+        int dateInt = [[_dict objectForKey:@"event_time"] intValue];
+        NSString *eventTime = [SWUtil convert:dateInt toDateStringWithFormat:FULL_DATE_FORMAT];
+        postNewsVC.timeStr = eventTime;
+    }
+    
+    NSString *content = [_dict objectForKey:@"content"];
+    postNewsVC.contentStr = content;
+    
+    [self.navigationController pushViewController:postNewsVC animated:YES];
 }
 
 - (IBAction)btnDeleteTapped:(id)sender {
@@ -609,7 +651,7 @@ NSMutableArray *_imgArr;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     
     NSDictionary *parameters = @{@"news_id"  :  [NSNumber numberWithInteger:_newsId]};
     
@@ -771,7 +813,7 @@ NSMutableArray *_imgArr;
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
         NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
         NSDictionary *parameters = @{@"content"        : NULL_IF_NIL(message),
                                      @"news_id"        : [NSNumber numberWithInteger:_newsId],
@@ -812,7 +854,7 @@ NSMutableArray *_imgArr;
             
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
-            //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
             
             NSInteger commentId = [[[_commentArr objectAtIndex:_selectedIndexPath.row] objectForKey:kCommentId] integerValue];
             NSDictionary *parameters = @{kCommentId             : [NSNumber numberWithInteger:commentId],
@@ -885,7 +927,7 @@ NSMutableArray *_imgArr;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     
     NSInteger commentId = [[[_commentArr objectAtIndex:_selectedIndexPath.row] objectForKey:kCommentId] integerValue];
     NSDictionary *parameters = @{kCommentId   : [NSNumber numberWithInteger:commentId]};
@@ -965,7 +1007,7 @@ NSMutableArray *_imgArr;
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetRate];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSInteger userId = [[NSUserDefaults standardUserDefaults] integerForKey:kUserId];
     NSDictionary *parameters = @{kNewsId    : [NSNumber numberWithInteger:_newsId],
                                  kUserId    : [NSNumber numberWithInteger:userId]};
@@ -1048,6 +1090,7 @@ NSMutableArray *_imgArr;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     
     NSDictionary *parameters = @{kUserId   : [NSNumber numberWithInteger:userId],
                                  kNewsId   : [NSNumber numberWithInteger:_newsId],
@@ -1073,6 +1116,7 @@ NSMutableArray *_imgArr;
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
         
         NSDictionary *parameters = @{@"user_id": userId,
                                      @"news_id": [NSNumber numberWithInteger:_newsId]};
@@ -1121,6 +1165,7 @@ NSMutableArray *_imgArr;
             
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
             
             NSDictionary *parameters = @{@"user_id": userId,
                                          @"news_id": [NSNumber numberWithInteger:_newsId]};

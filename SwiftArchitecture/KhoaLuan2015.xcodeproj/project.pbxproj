@@ -59,13 +59,16 @@
 		04422EAA1AA8853A008E4015 /* SWLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04422EA51AA8853A008E4015 /* SWLoginViewController.xib */; };
 		04422EAB1AA8853A008E4015 /* SWRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04422EA71AA8853A008E4015 /* SWRegisterViewController.m */; };
 		04422EAC1AA8853A008E4015 /* SWRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04422EA81AA8853A008E4015 /* SWRegisterViewController.xib */; };
-		04422ECA1AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 04422EC91AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png */; };
 		044575671AB88CAA00C7B6E4 /* KLMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 044575651AB88CAA00C7B6E4 /* KLMyProfileViewController.m */; };
 		044575681AB88CAA00C7B6E4 /* KLMyProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 044575661AB88CAA00C7B6E4 /* KLMyProfileViewController.xib */; };
 		04591A0D1ABB12C3007FC9A7 /* KLNewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04591A0B1ABB12C3007FC9A7 /* KLNewsDetailViewController.m */; };
 		04591A0E1ABB12C3007FC9A7 /* KLNewsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04591A0C1ABB12C3007FC9A7 /* KLNewsDetailViewController.xib */; };
 		04591A121ABB20A3007FC9A7 /* KLCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04591A101ABB20A3007FC9A7 /* KLCommentTableViewCell.m */; };
 		04591A131ABB20A3007FC9A7 /* KLCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04591A111ABB20A3007FC9A7 /* KLCommentTableViewCell.xib */; };
+		045A67751AC55B2C007A1BA0 /* LOGO DHSP HANOI-2 copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 045A67741AC55B2C007A1BA0 /* LOGO DHSP HANOI-2 copy.png */; };
+		045A677A1AC55B50007A1BA0 /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 045A67771AC55B50007A1BA0 /* AppIcon.png */; };
+		045A677B1AC55B50007A1BA0 /* AppIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045A67781AC55B50007A1BA0 /* AppIcon@2x.png */; };
+		045A677C1AC55B50007A1BA0 /* AppIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 045A67791AC55B50007A1BA0 /* AppIcon@3x.png */; };
 		0473DC5E1ABC8D9F00751001 /* IBActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0473DC5D1ABC8D9F00751001 /* IBActionSheet.m */; };
 		048B62411AC2F22400B27FB6 /* KLNotificationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 048B623F1AC2F22400B27FB6 /* KLNotificationTableViewCell.m */; };
 		048B62421AC2F22400B27FB6 /* KLNotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 048B62401AC2F22400B27FB6 /* KLNotificationTableViewCell.xib */; };
@@ -436,7 +439,6 @@
 		04422EA61AA8853A008E4015 /* SWRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRegisterViewController.h; sourceTree = "<group>"; };
 		04422EA71AA8853A008E4015 /* SWRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRegisterViewController.m; sourceTree = "<group>"; };
 		04422EA81AA8853A008E4015 /* SWRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SWRegisterViewController.xib; sourceTree = "<group>"; };
-		04422EC91AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LOGO DHSP HANOI-2 copy.png"; path = "2x/LOGO DHSP HANOI-2 copy.png"; sourceTree = "<group>"; };
 		044575641AB88CAA00C7B6E4 /* KLMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLMyProfileViewController.h; sourceTree = "<group>"; };
 		044575651AB88CAA00C7B6E4 /* KLMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLMyProfileViewController.m; sourceTree = "<group>"; };
 		044575661AB88CAA00C7B6E4 /* KLMyProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLMyProfileViewController.xib; sourceTree = "<group>"; };
@@ -446,6 +448,10 @@
 		04591A0F1ABB20A3007FC9A7 /* KLCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCommentTableViewCell.h; sourceTree = "<group>"; };
 		04591A101ABB20A3007FC9A7 /* KLCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLCommentTableViewCell.m; sourceTree = "<group>"; };
 		04591A111ABB20A3007FC9A7 /* KLCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KLCommentTableViewCell.xib; sourceTree = "<group>"; };
+		045A67741AC55B2C007A1BA0 /* LOGO DHSP HANOI-2 copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LOGO DHSP HANOI-2 copy.png"; sourceTree = "<group>"; };
+		045A67771AC55B50007A1BA0 /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
+		045A67781AC55B50007A1BA0 /* AppIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon@2x.png"; sourceTree = "<group>"; };
+		045A67791AC55B50007A1BA0 /* AppIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon@3x.png"; sourceTree = "<group>"; };
 		0473DC5C1ABC8D9F00751001 /* IBActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBActionSheet.h; sourceTree = "<group>"; };
 		0473DC5D1ABC8D9F00751001 /* IBActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBActionSheet.m; sourceTree = "<group>"; };
 		048B623E1AC2F22400B27FB6 /* KLNotificationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLNotificationTableViewCell.h; sourceTree = "<group>"; };
@@ -1026,27 +1032,11 @@
 		042846E51AA848FC0003CA26 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				045A67741AC55B2C007A1BA0 /* LOGO DHSP HANOI-2 copy.png */,
 				04DC2B601AB039AF00565689 /* default-avatar.png */,
-				04422EC91AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png */,
-				042846E61AA848FC0003CA26 /* 1x */,
-				042846E71AA848FC0003CA26 /* 2x */,
 				042846E81AA848FC0003CA26 /* images.jpeg */,
 			);
 			name = Images;
-			sourceTree = "<group>";
-		};
-		042846E61AA848FC0003CA26 /* 1x */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = 1x;
-			sourceTree = "<group>";
-		};
-		042846E71AA848FC0003CA26 /* 2x */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = 2x;
 			sourceTree = "<group>";
 		};
 		042846EA1AA849260003CA26 /* AwesomeButton */ = {
@@ -1158,6 +1148,17 @@
 			);
 			path = "Login&Register";
 			sourceTree = "<group>";
+		};
+		045A67761AC55B50007A1BA0 /* AppIcon */ = {
+			isa = PBXGroup;
+			children = (
+				045A67771AC55B50007A1BA0 /* AppIcon.png */,
+				045A67781AC55B50007A1BA0 /* AppIcon@2x.png */,
+				045A67791AC55B50007A1BA0 /* AppIcon@3x.png */,
+			);
+			name = AppIcon;
+			path = Resource/AppIcon;
+			sourceTree = SOURCE_ROOT;
 		};
 		0473DC5B1ABC8D9F00751001 /* IBActionSheet */ = {
 			isa = PBXGroup;
@@ -1607,7 +1608,6 @@
 			children = (
 				04F2BDC01ABF0F8700749A04 /* loading.gif */,
 				915C4B6C1952AF9300A592AD /* Images */,
-				915C4B6D1952AF9300A592AD /* MediaFiles */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -1623,17 +1623,11 @@
 		915C4B6C1952AF9300A592AD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				045A67761AC55B50007A1BA0 /* AppIcon */,
 				042846E51AA848FC0003CA26 /* Images */,
 				042846841AA848F30003CA26 /* Icon */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		915C4B6D1952AF9300A592AD /* MediaFiles */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MediaFiles;
 			sourceTree = "<group>";
 		};
 		915C4B7F1952B18F00A592AD /* CustomControls */ = {
@@ -1957,6 +1951,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Hung Vuong";
 				TargetAttributes = {
+					915C4B351952A58200A592AD = {
+						DevelopmentTeam = 9BRJVPJ2W4;
+					};
 					915C4B501952A58200A592AD = {
 						DevelopmentTeam = 9BRJVPJ2W4;
 						TestTargetID = 915C4B351952A58200A592AD;
@@ -1990,7 +1987,6 @@
 				04AFB8881AC084BD001EB71B /* News-hnue-grey@2x.png in Resources */,
 				04BF6C4C1AB168D600F0F42D /* KLNewsContentTableViewCell.xib in Resources */,
 				04AFB85E1AC084BD001EB71B /* Globe-grey@2x.png in Resources */,
-				04422ECA1AA88556008E4015 /* LOGO DHSP HANOI-2 copy.png in Resources */,
 				04C38C3C1AB0A04300F9F54B /* NSDate+TimeAgo.podspec in Resources */,
 				04AFB8601AC084BD001EB71B /* Group@2x.png in Resources */,
 				04AFB84B1AC084BD001EB71B /* Checked User Filled@2x.png in Resources */,
@@ -2015,6 +2011,7 @@
 				04AFB8AC1AC084BD001EB71B /* User@2x.png in Resources */,
 				04DED9881ABDF3AC006431C0 /* KLImageViewInPostContent.xib in Resources */,
 				04AFB84C1AC084BD001EB71B /* checked-login.png in Resources */,
+				045A67751AC55B2C007A1BA0 /* LOGO DHSP HANOI-2 copy.png in Resources */,
 				042846E91AA848FC0003CA26 /* images.jpeg in Resources */,
 				044575681AB88CAA00C7B6E4 /* KLMyProfileViewController.xib in Resources */,
 				04AFB8811AC084BD001EB71B /* News-blue.png in Resources */,
@@ -2053,6 +2050,7 @@
 				04AFB8691AC084BD001EB71B /* InfoFilled.png in Resources */,
 				04AFB88A1AC084BD001EB71B /* Pencil.png in Resources */,
 				04AFB8511AC084BD001EB71B /* Down Circular.png in Resources */,
+				045A677C1AC55B50007A1BA0 /* AppIcon@3x.png in Resources */,
 				042847251AA849260003CA26 /* icon_selected.png in Resources */,
 				04AFB8891AC084BD001EB71B /* Online.png in Resources */,
 				04AFB86F1AC084BD001EB71B /* Lock.png in Resources */,
@@ -2094,6 +2092,7 @@
 				04AFB8571AC084BD001EB71B /* Female-Blue.png in Resources */,
 				042846791AA848D70003CA26 /* MyPageViewController.xib in Resources */,
 				04AFB8791AC084BD001EB71B /* More-black.png in Resources */,
+				045A677B1AC55B50007A1BA0 /* AppIcon@2x.png in Resources */,
 				04AFB89A1AC084BD001EB71B /* SpeechBubble.png in Resources */,
 				042847261AA849260003CA26 /* icon_selected@2x.png in Resources */,
 				04DC2BBB1AB0421C00565689 /* LICENSE.txt in Resources */,
@@ -2133,6 +2132,7 @@
 				04AFB8761AC084BD001EB71B /* Male@2x.png in Resources */,
 				04DC2BB11AB0421C00565689 /* check.png in Resources */,
 				04AFB8821AC084BD001EB71B /* News-blue@2x.png in Resources */,
+				045A677A1AC55B50007A1BA0 /* AppIcon.png in Resources */,
 				04AFB8631AC084BD001EB71B /* HomeFilled-grey.png in Resources */,
 				04AFB8AA1AC084BD001EB71B /* User Male@2x.png in Resources */,
 				04AFB86C1AC084BD001EB71B /* Like@2x.png in Resources */,
@@ -2463,7 +2463,7 @@
 				INFOPLIST_FILE = "SwiftArchitecture/KhoaLuan2015-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = KhoaLuan2015;
-				PROVISIONING_PROFILE = "33422aed-b3a8-4ccb-9a6d-e9d9ebb6e9bc";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

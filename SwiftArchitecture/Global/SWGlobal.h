@@ -15,13 +15,13 @@
 
 #define kKeyChain @"KhoaLuan2015AppLogin"
 
-#define URL_BASE @"http://localhost/restserver/index.php/api/"
+//#define URL_BASE @"http://localhost/restserver/index.php/api/"
 
-#define URL_IMG_BASE @"http://localhost/restserver/"
+//#define URL_IMG_BASE @"http://localhost/restserver/"
 
-//#define URL_BASE @"http://khoaluan615105028.esy.es/index.php/api/"
+#define URL_BASE @"http://khoaluan615105028.esy.es/index.php/api/"
 
-//#define URL_IMG_BASE @"http://khoaluan615105028.esy.es/"
+#define URL_IMG_BASE @"http://khoaluan615105028.esy.es/"
 
 //#define RequireInternet @"YES"
 #define RequireInternet @"NO"
@@ -76,6 +76,7 @@
 #define notiReadNotification @"users/api_readNotification"
 
 //Key
+#define kUserDict @"kUserDict"
 #define kCode @"code"
 #define kMessage @"message"
 #define kUserId @"user_id"

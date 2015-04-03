@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgFine;
 @property (weak, nonatomic) IBOutlet UIImageView *imgGood;
 @property (weak, nonatomic) IBOutlet UIImageView *imgRateChecked;
+@property (weak, nonatomic) IBOutlet UILabel *lblTotal;
 
 - (void)setData:(NSDictionary*)dict;
 @end

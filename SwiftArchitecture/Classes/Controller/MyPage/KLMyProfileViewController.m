@@ -32,6 +32,7 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     [[SWUtil sharedUtil] hideLoadingView];
+    [[SWUtil appDelegate] hideTabbar:NO];
     [self initUI];
 }
 
@@ -74,7 +75,7 @@
     _avatarBgView.layer.borderWidth = 1;
     _avatarBgView.layer.cornerRadius = _avatarBgView.bounds.size.width / 2.0;
     
-    NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];
+    NSString *imgAvatarPath = EMPTY_IF_NULL_OR_NIL([_userDict objectForKey:kAvatar]);
     if (imgAvatarPath.length > 0) {
         NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgAvatarPath];
         [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
@@ -88,7 +89,7 @@
                                  }];
     }
     
-    NSString *imgTimelinePath = [[NSUserDefaults standardUserDefaults] objectForKey:kTimelineImage];
+    NSString *imgTimelinePath = EMPTY_IF_NULL_OR_NIL([_userDict objectForKey:kTimelineImage]);
     if (imgTimelinePath.length > 0) {
         NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgTimelinePath];
         [self.imgBackground sd_setImageWithURL:[NSURL URLWithString:imageLink]
@@ -102,7 +103,7 @@
                                      }];
     }
     
-    NSString *nameStr = [[NSUserDefaults standardUserDefaults] objectForKey:kName];
+    NSString *nameStr = EMPTY_IF_NULL_OR_NIL([_userDict objectForKey:kName]);
     _lblName.text = nameStr;
     [_lblName sizeToFit];
     
@@ -116,14 +117,14 @@
     _imgGender.hidden = NO;
     [self.view bringSubviewToFront:_imgGender];
     
-    int gender = [[[NSUserDefaults standardUserDefaults] objectForKey:kGender] intValue];
+    int gender = [[_userDict objectForKey:kGender] intValue];
     if (gender == 0) {
         _imgGender.image = [UIImage imageNamed:female];
     } else {
         _imgGender.image = [UIImage imageNamed:male];
     }
     
-    int birthdayInt = (int)[[NSUserDefaults standardUserDefaults] integerForKey:kBirthDay];
+    int birthdayInt = [[_userDict objectForKey:kBirthDay] intValue];
     
     NSDate* birthday = [SWUtil convertNumberToDate:birthdayInt];
     
@@ -140,18 +141,18 @@
         _lblAge.text = [NSString stringWithFormat:@"%d", (int)age];
     }
     
-    NSString *aboutMe = [[NSUserDefaults standardUserDefaults] objectForKey:kAboutMe];
+    NSString *aboutMe = EMPTY_IF_NULL_OR_NIL([_userDict objectForKey:kAboutMe]);
     _tvAboutMe.text = aboutMe;
     
     NSString *birthdayStr = [SWUtil convert:birthdayInt toDateStringWithFormat:DATE_FORMAT];
     _lblBirthday.text = birthdayStr;
     
-    NSString *studentCode = [[NSUserDefaults standardUserDefaults] objectForKey:kStudentId];
+    NSString *studentCode = EMPTY_IF_NULL_OR_NIL([_userDict objectForKey:kStudentId]);
     if (studentCode) {
         _lblStudentCode.text = studentCode;
     }
     
-    NSString *faculty = [[NSUserDefaults standardUserDefaults] objectForKey:kFaculty];
+    NSString *faculty = EMPTY_IF_NULL_OR_NIL([_userDict objectForKey:kFaculty]);
     if (faculty) {
         _lblFaculty.text = faculty;
     }
@@ -187,16 +188,16 @@
     registerVC.typeUser = edit_info;
     
     registerVC.birthdayString = _lblBirthday.text;
-    NSNumber *birthdayInt = [[NSUserDefaults standardUserDefaults] objectForKey:kBirthDay];
+    NSNumber *birthdayInt = [_userDict objectForKey:kBirthDay];
     registerVC.birthday = birthdayInt;
     registerVC.avatarImage = _imgAvatar.image;
     registerVC.didPickImage = YES;
-    int gender = [[[NSUserDefaults standardUserDefaults] objectForKey:kGender] intValue];
+    int gender = [[_userDict objectForKey:kGender] intValue];
     registerVC.gender = gender;
     registerVC.faculty = _lblFaculty.text;
     registerVC.studentId = _lblStudentCode.text;
     
-    NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:kEmail];
+    NSString *email = EMPTY_IF_NULL_OR_NIL([_userDict objectForKey:kEmail]);
     registerVC.email = email;
     registerVC.userName = email;
     registerVC.aboutMe = _tvAboutMe.text;
@@ -230,10 +231,11 @@
         [[SWUtil sharedUtil] showLoadingView];
         NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uUpdateTimelineImage];
         
-        NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
+        NSString *userId = [_userDict objectForKey:kUserId];
         NSDictionary *parameters = @{@"user_id"  : userId};
         
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:url]];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
         NSData *imageData = UIImageJPEGRepresentation([info objectForKey:UIImagePickerControllerEditedImage], 1);
         
         AFHTTPRequestOperation *op = [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -254,8 +256,14 @@
         [op setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.imgBackground.image = [info objectForKey:UIImagePickerControllerEditedImage];
             
-            NSDictionary *userDict = (NSDictionary*)responseObject;
-            [[NSUserDefaults standardUserDefaults] setObject:EMPTY_IF_NULL_OR_NIL([userDict objectForKey:kTimelineImage]) forKey:kTimelineImage];
+            NSDictionary *dict = (NSDictionary*)responseObject;
+            NSInteger userId = [[dict objectForKey:kUserId] integerValue];
+            
+            NSInteger myUserId = [[NSUserDefaults standardUserDefaults] integerForKey:kUserId];
+            if (myUserId == userId) {
+                [[NSUserDefaults standardUserDefaults] setObject:EMPTY_IF_NULL_OR_NIL([dict objectForKey:kTimelineImage]) forKey:kTimelineImage];
+            }
+            
             [[SWUtil sharedUtil] hideLoadingView];
             NSLog(@"upload succes");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -264,6 +264,7 @@
             NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uAddFriend];
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
             
             NSString *myId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
             NSDictionary *parameters = @{@"user_id": myId,
@@ -276,7 +277,7 @@
                 NSString *content = @" đã gửi lời mời kết bạn";
                 [SWUtil postNotification:content forUser:_fUserId type:1];
 
-                NSLog(@"Reg JSON: %@", userDict);
+                NSLog(@"Add friend JSON: %@", userDict);
                 [[SWUtil sharedUtil] hideLoadingView];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error: %@", error);
@@ -292,6 +293,7 @@
             NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uDeleteFriend];
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
             
             NSString *myId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
             NSDictionary *parameters = @{@"user_id": myId,
@@ -328,7 +330,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uAcceptFriend];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSString *myId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
        NSDictionary *parameters = @{@"user_id": myId,
                                     @"friend_id": _fUserId};
@@ -357,7 +359,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uDeleteFriend];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSString *myId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{@"user_id": myId,
                                  @"friend_id": _fUserId};
@@ -403,7 +405,11 @@
 - (IBAction)btnShowInfoTapped:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(pushToViewControllerUseDelegete:withAnimation:)]) {
         KLMyProfileViewController *myProfileVC = [[KLMyProfileViewController alloc] init];
-
+        
+        if (!_userDict) {
+            _userDict = [SWUtil getUserInfo];
+        }
+        myProfileVC.userDict =_userDict;
         [self.delegate pushToViewControllerUseDelegete:myProfileVC withAnimation:YES];
     }
 }

@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.title = @"Sự kiện";
     _isRefresh = NO;
     _oldOffset = 0;
     _limit = 5;
@@ -93,7 +93,7 @@
         [self.navigationController.navigationBar setTranslucent:NO];
     }
     [self.krImageViewer useKeyWindow];
-
+    [[SWUtil appDelegate] hideTabbar:NO];
     _newsTableView.delegate = self;
     _newsTableView.dataSource = self;
 
@@ -141,6 +141,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (_isRefresh) {
@@ -154,11 +155,11 @@
             }
         }
         [self getNewsHaveMaxGoodRate];
-        [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+//        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
         [[SWUtil sharedUtil] hideLoadingView];
+        [self getNewsHaveMaxGoodRate];
     }];
 }
 
@@ -168,6 +169,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -178,11 +180,11 @@
             }
         }
         [self initData];
-        [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
+//        [SWUtil showConfirmAlert:@"Lỗi!" message:[error localizedDescription] delegate:nil];
         [[SWUtil sharedUtil] hideLoadingView];
+        [self initData];
     }];
 }
 
@@ -191,6 +193,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNews];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{@"offset": [NSNumber numberWithInt:_oldOffset],
                                  @"limit": [NSNumber numberWithInt:_limit],
@@ -207,7 +210,15 @@
             
             for (int i = 0; i < _newsArr.count; i++) {
                 NSDictionary *newDict = [_newsArr objectAtIndex:i];
-                if (![_fullNewsArr containsObject:newDict]) {
+                NSInteger newsIdFromSV = [[newDict objectForKey:kNewsId] integerValue];
+                BOOL haveId = NO;
+                for (int j = 0; j<_fullNewsArr.count; j++) {
+                    NSInteger newsId = [[[_fullNewsArr objectAtIndex:j] objectForKey:kNewsId] integerValue];
+                    if (newsId == newsIdFromSV) {
+                        haveId = YES;
+                    }
+                }
+                if (!haveId) {
                     [_fullNewsArr addObject:newDict];
                 }
             }
@@ -397,7 +408,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSDictionary *parameters = @{kUserId: newsUserId};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

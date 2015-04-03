@@ -44,6 +44,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, notiGetNotification];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{kUserId: userId};
     
@@ -151,6 +152,7 @@
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
         NSDictionary *parameters = @{@"noti_id": cell.notiId};
         
         [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

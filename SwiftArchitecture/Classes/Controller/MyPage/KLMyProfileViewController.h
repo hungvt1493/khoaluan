@@ -24,6 +24,7 @@
 @property (strong, nonatomic) IBOutletCollection(UIImageView) NSArray *imgIcons;
 @property (weak, nonatomic) IBOutlet UIButton *btnBack;
 @property (weak, nonatomic) IBOutlet UIButton *btnSetting;
+@property (strong, nonatomic) NSDictionary *userDict;
 
 - (IBAction)btnBackTapped:(id)sender;
 - (IBAction)btnSettingTapped:(id)sender;

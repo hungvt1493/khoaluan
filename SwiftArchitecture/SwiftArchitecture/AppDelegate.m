@@ -222,6 +222,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{kUserId : userId};

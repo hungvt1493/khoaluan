@@ -241,7 +241,7 @@
     newsFrame.size.height = height + 41 + lblEventTitleFrame.size.height + lblEventTimeFrame.size.height;
     _newsContentView.frame = newsFrame;
         
-    NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];
+    NSString *imgAvatarPath = EMPTY_IF_NULL_OR_NIL([dict objectForKey:kAvatar]);
     if (imgAvatarPath.length > 0) {
         NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgAvatarPath];
         [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]
@@ -376,7 +376,7 @@
         
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
         NSDictionary *parameters = @{@"user_id": userId,
                                      @"news_id": [NSNumber numberWithInteger:_newsId]};
         
@@ -413,7 +413,7 @@
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
             //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-            
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
             NSDictionary *parameters = @{@"user_id": userId,
                                          @"news_id": [NSNumber numberWithInteger:_newsId]};
             
@@ -477,7 +477,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSDictionary *parameters = @{@"news_id"  :  [NSNumber numberWithInteger:_newsId]};
     
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -526,7 +526,7 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
         NSDictionary *parameters = @{@"user_id": userId,
                                      @"news_id": [NSNumber numberWithInteger:_newsId]};
         
@@ -562,7 +562,7 @@
             
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
-            
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
             NSDictionary *parameters = @{@"user_id": userId,
                                          @"news_id": [NSNumber numberWithInteger:_newsId]};
             
@@ -649,7 +649,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetRate];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSInteger userId = [[NSUserDefaults standardUserDefaults] integerForKey:kUserId];
     NSDictionary *parameters = @{kNewsId    : [NSNumber numberWithInteger:_newsId],
                                  kUserId    : [NSNumber numberWithInteger:userId]};
@@ -732,7 +732,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSDictionary *parameters = @{kUserId   : [NSNumber numberWithInteger:userId],
                                  kNewsId   : [NSNumber numberWithInteger:_newsId],
                                  @"status" : [NSNumber numberWithInteger:rate]};

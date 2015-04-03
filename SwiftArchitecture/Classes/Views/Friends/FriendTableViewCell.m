@@ -54,7 +54,7 @@
     
     _lblName.text = EMPTY_IF_NULL_OR_NIL([dict objectForKey:kName]);
     
-    int birthdayInt = [[[NSUserDefaults standardUserDefaults] objectForKey:kBirthDay] intValue];
+    int birthdayInt = [[dict objectForKey:kBirthDay] intValue];
     
     NSDate* birthday = [SWUtil convertNumberToDate:birthdayInt];
     
@@ -73,7 +73,7 @@
 
     _lblAboutMe.text = EMPTY_IF_NULL_OR_NIL([dict objectForKey:kAboutMe]);
     
-    NSString *imgAvatarPath = [[NSUserDefaults standardUserDefaults] objectForKey:kAvatar];
+    NSString *imgAvatarPath = EMPTY_IF_NULL_OR_NIL([dict objectForKey:kAvatar]);
     if (imgAvatarPath.length > 0) {
         NSString *imageLink = [NSString stringWithFormat:@"%@%@", URL_IMG_BASE, imgAvatarPath];
         [self.imgAvatar sd_setImageWithURL:[NSURL URLWithString:imageLink]

@@ -48,16 +48,13 @@
 }
 
 - (void)initData {
-    /*
-     state = 1; Dang cho accpet cho nguoi gui loi moi ket ban
-     state = 2; Dang cho accpet cho nguoi nhan loi moi ket ban
-     state = 3; Da la ban be
-     */
+
     [[SWUtil sharedUtil] showLoadingView];
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, uGetFriend];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
+    
     NSDictionary *parameters = @{kUserId: _userId};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

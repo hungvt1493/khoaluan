@@ -61,4 +61,8 @@
 + (NSString*)changeToUnsign:(NSString*)text;
 
 + (void)postNotification:(NSString*)content forUser:(NSString*)userReceive type:(int)type;
+
++ (void)saveUserInfo:(NSDictionary*)dict;
+
++ (NSDictionary*)getUserInfo;
 @end

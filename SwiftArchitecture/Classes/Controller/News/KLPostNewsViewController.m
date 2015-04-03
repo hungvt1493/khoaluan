@@ -294,7 +294,8 @@
                                  @"type"                : [NSNumber numberWithInteger:_postType],
                                  @"event_time"          : ((_postType == event) ? [SWUtil convertDateToNumber:_selectedDate] : [NSNumber numberWithInteger:0])};
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:url]];
-
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
+    
     AFHTTPRequestOperation *op = [manager POST:url parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         for (int i = 0; i<_imgArr.count; i++) {
             NSData *imageData = UIImageJPEGRepresentation([_imgArr objectAtIndex:i], 1);
@@ -354,7 +355,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{kNewsId                : [NSNumber numberWithInteger:_newsId],

@@ -56,6 +56,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNews];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{@"offset": [NSNumber numberWithInt:_oldOffset],
                                  @"limit": [NSNumber numberWithInt:_limit],
@@ -173,7 +174,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return 110;
 }
 
 @end

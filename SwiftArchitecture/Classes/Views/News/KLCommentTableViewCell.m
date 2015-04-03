@@ -38,7 +38,7 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
         NSDictionary *parameters = @{@"user_id": userId,
                                      @"comment_id": [NSNumber numberWithInteger:_commentId]};
         
@@ -77,7 +77,7 @@
             AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
             manager.requestSerializer = [AFJSONRequestSerializer serializer];
             //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-            
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
             NSDictionary *parameters = @{@"user_id": userId,
                                          @"comment_id": [NSNumber numberWithInteger:_commentId]};
             

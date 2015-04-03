@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.title = @"Tin mới";
     _oldOffset = 0;
     _limit = 5;
     _fullNewsArr = [[NSMutableArray alloc] initWithCapacity:10];
@@ -88,7 +88,7 @@
     [self.krImageViewer useKeyWindow];
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.scrollNavigationBar.scrollView = self.newsTableView;
-    
+    [[SWUtil appDelegate] hideTabbar:NO];
     if ([[UIDevice currentDevice].systemVersion floatValue]>=8) {
         [[UINavigationBar appearance] setTranslucent:NO];
         
@@ -141,6 +141,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", URL_BASE, nGetNews];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:kUserId];
     NSDictionary *parameters = @{@"offset": [NSNumber numberWithInt:_oldOffset],
                                  @"limit": [NSNumber numberWithInt:_limit],
@@ -343,7 +344,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
     NSDictionary *parameters = @{kUserId: newsUserId};
     
     [manager GET:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {

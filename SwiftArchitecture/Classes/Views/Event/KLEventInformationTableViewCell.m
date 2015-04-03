@@ -40,6 +40,9 @@
     int good = [[[dict objectForKey:@"rate"] objectForKey:@"status 3"] intValue];
     _lblNumberRateGood.text = [NSString stringWithFormat:@"%d", good];
     
+    int total = bad+fine+good;
+    _lblTotal.text = [NSString stringWithFormat:@"%d", total];
+    
     NSArray *didRate = [[dict objectForKey:@"rate"] objectForKey:@"did_rate"];
     if (didRate.count > 0) {
         NSDictionary *didRateDict = [didRate objectAtIndex:0];
