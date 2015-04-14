@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"Quản lý tài khoản";
     // Do any additional setup after loading the view from its nib.
     _tbUserManager.delegate = self;
     _tbUserManager.dataSource = self;

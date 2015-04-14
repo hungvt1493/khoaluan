@@ -700,7 +700,7 @@
         [[SWUtil sharedUtil] hideLoadingView];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get Rate Error: %@", error);
-        [SWUtil showConfirmAlert:[error localizedDescription] message:[error localizedDescription] delegate:nil];
+        [SWUtil showConfirmAlertWithMessage:[error localizedDescription] delegate:nil];
         [[SWUtil sharedUtil] hideLoadingView];
     }];
 }

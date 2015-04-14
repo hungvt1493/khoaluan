@@ -388,14 +388,14 @@
 
 - (void)maleButtonTapped:(id)sender{
     [self setButton:femaleButton andBackground:Button_bg andTitleColor:Black_Color];
-    [self setButton:maleButton andBackground:Button_bg_Selected andTitleColor:White_Color];
+    [self setButton:maleButton andBackground:Blue_Color andTitleColor:White_Color];
     
     _gender = 1;
 }
 
 - (void)femaleButtonTapped:(id)sender{
     [self setButton:maleButton andBackground:Button_bg andTitleColor:Black_Color];
-    [self setButton:femaleButton andBackground:Button_bg_Selected andTitleColor:White_Color];
+    [self setButton:femaleButton andBackground:Blue_Color andTitleColor:White_Color];
     _gender = 0;
 }
 
